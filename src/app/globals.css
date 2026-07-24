@@ -25,20 +25,16 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Tek sayfa (one-page) kaydırma deneyimi:
-   - yumuşak kaydırma ve sabit navbar için üst boşluk
-   - bölümlerin "sayfa değişiyormuş" gibi hafifçe oturması (proximity: uzun
-     bölümler yine serbestçe kaydırılabilir). */
+/* Tek sayfa (one-page) kaydırma deneyimi: menü çapaları için yumuşak kaydırma
+   ve sabit navbar için üst boşluk. Kaydırma tamamen serbesttir (snap yok). */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 4rem;
-  scroll-snap-type: y proximity;
 }
 
-/* Hareket azaltma tercihi olan kullanıcılar için animasyonları ve snap'i kapat. */
+/* Hareket azaltma tercihi olan kullanıcılar için yumuşak kaydırmayı kapat. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-    scroll-snap-type: none;
   }
 }
