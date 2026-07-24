@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Container from "./Container";
+import SocialLinks from "./SocialLinks";
 import { navItems, siteConfig } from "@/lib/site";
 
 export default function Footer() {
@@ -36,6 +37,11 @@ export default function Footer() {
           <p>{siteConfig.phone}</p>
           <p>{siteConfig.email}</p>
           <p>{siteConfig.workingHours}</p>
+
+          <h4 className="mt-4 text-sm font-semibold uppercase tracking-wide text-foreground/60">
+            Bizi Takip Edin
+          </h4>
+          <SocialLinks />
         </div>
       </Container>
 

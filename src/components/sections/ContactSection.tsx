@@ -1,4 +1,5 @@
 import Section from "./Section";
+import SocialLinks from "@/components/SocialLinks";
 import { siteConfig } from "@/lib/site";
 
 const contactDetails = [
@@ -30,6 +31,13 @@ export default function ContactSection() {
               </div>
             ))}
           </dl>
+
+          <div className="mt-8">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground/60">
+              Bizi Takip Edin
+            </h3>
+            <SocialLinks className="mt-3" />
+          </div>
         </div>
 
         {/* İletişim formu (iskelet) */}

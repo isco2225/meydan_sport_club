@@ -4,13 +4,12 @@ export const siteConfig = {
   description:
     "Meydan Sport Club — modern ekipman, uzman antrenörler ve herkese uygun üyelik paketleriyle spor salonunuz.",
   phone: "+90 (212) 000 00 00",
-  email: "info@meydansporkulubu.com",
+  email: "info@meydansportclub.com",
   address: "Meydan Mah. Spor Cad. No: 1, İstanbul",
   workingHours: "Hafta içi 06:00 – 23:00 · Hafta sonu 08:00 – 22:00",
   social: {
-    instagram: "https://instagram.com/",
-    facebook: "https://facebook.com/",
-    youtube: "https://youtube.com/",
+    instagram: "https://www.instagram.com/meydansportclub/",
+    youtube: "https://www.youtube.com/channel/UCN2zmBXM_rdVnDJCZFOVXiw",
   },
 };
 
