@@ -29,7 +29,7 @@ export default function AboutPage() {
     <>
       <PageHeader
         title="Hakkımızda"
-        description="Meydan Spor Kulübü olarak sağlıklı yaşamı herkes için erişilebilir kılmayı hedefliyoruz."
+        description="Meydan Sport Club olarak sağlıklı yaşamı herkes için erişilebilir kılmayı hedefliyoruz."
       />
 
       <section className="py-16">

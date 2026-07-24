@@ -22,8 +22,7 @@ export default function SchedulePage() {
               Kadınlar Salonu
             </strong>{" "}
             — Aşağıdaki grup ders programı yalnızca kadınlar salonu için
-            geçerlidir. Erkek veya karma salon için ders programı
-            bulunmamaktadır.
+            geçerlidir.
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
