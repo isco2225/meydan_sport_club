@@ -20,11 +20,8 @@ describe("Navbar", () => {
     }
   });
 
-  it("'Üye Ol' butonu üyelik bölümüne bağlanır", () => {
+  it("çevrimiçi üye olma / 'Üye Ol' butonu göstermez", () => {
     render(<Navbar />);
-    expect(screen.getByRole("link", { name: "Üye Ol" })).toHaveAttribute(
-      "href",
-      "/#uyelik",
-    );
+    expect(screen.queryByRole("link", { name: /üye ol/i })).toBeNull();
   });
 });

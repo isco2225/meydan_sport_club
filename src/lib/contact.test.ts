@@ -4,7 +4,7 @@ import { contactSchema } from "./contact";
 const validInput = {
   name: "Ayşe Yılmaz",
   email: "ayse@example.com",
-  message: "Merhaba, üyelik paketleri hakkında bilgi almak istiyorum.",
+  message: "Merhaba, üyelik ücretleri hakkında bilgi almak istiyorum.",
 };
 
 describe("contactSchema", () => {

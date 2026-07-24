@@ -37,13 +37,6 @@ export default function Navbar() {
             );
           })}
         </nav>
-
-        <Link
-          href="/#uyelik"
-          className="rounded-full bg-foreground px-4 py-2 text-sm font-semibold text-background transition-opacity hover:opacity-90"
-        >
-          Üye Ol
-        </Link>
       </Container>
     </header>
   );

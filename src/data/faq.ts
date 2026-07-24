@@ -17,13 +17,13 @@ export const faqItems: FaqItem[] = [
     id: "deneme-antrenmani",
     question: "Üye olmadan önce deneme antrenmanı yapabilir miyim?",
     answer:
-      "Evet. Ücretsiz bir günlük deneme antrenmanı için resepsiyondan veya telefonla randevu alabilirsiniz. Deneme gününde antrenörlerimiz salonu gezdirir ve hedeflerinize uygun paketi önerir.",
+      "Evet. Ücretsiz bir günlük deneme antrenmanı için resepsiyondan veya telefonla randevu alabilirsiniz. Deneme gününde antrenörlerimiz salonu gezdirir ve hedeflerinize uygun üyelik seçeneğini önerir.",
   },
   {
     id: "uyelik-dondurma",
     question: "Üyeliğimi dondurabilir miyim?",
     answer:
-      "Evet. Tüm üyelik paketlerinde yılda toplam 30 güne kadar dondurma hakkı bulunur. Dondurma talebinizi resepsiyona iletmeniz yeterlidir; süre üyeliğinizin bitişine eklenir.",
+      "Evet. Tüm üyeliklerde yılda toplam 30 güne kadar dondurma hakkı bulunur. Dondurma talebinizi resepsiyona iletmeniz yeterlidir; süre üyeliğinizin bitişine eklenir.",
   },
   {
     id: "kadinlar-salonu",
