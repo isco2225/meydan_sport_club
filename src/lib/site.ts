@@ -32,5 +32,6 @@ export const navItems: NavItem[] = [
   { label: "Antrenörler", sectionId: "antrenorler", href: "/#antrenorler" },
   { label: "Üyelik Paketleri", sectionId: "uyelik", href: "/#uyelik" },
   { label: "Ders Programı", sectionId: "ders-programi", href: "/#ders-programi" },
+  { label: "SSS", sectionId: "sss", href: "/#sss" },
   { label: "İletişim", sectionId: "iletisim", href: "/#iletisim" },
 ];

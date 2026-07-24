@@ -9,6 +9,7 @@ describe("navItems", () => {
       "antrenorler",
       "uyelik",
       "ders-programi",
+      "sss",
       "iletisim",
     ]);
   });

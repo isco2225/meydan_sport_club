@@ -3,6 +3,7 @@ import AboutSection from "@/components/sections/AboutSection";
 import TrainersSection from "@/components/sections/TrainersSection";
 import MembershipSection from "@/components/sections/MembershipSection";
 import ScheduleSection from "@/components/sections/ScheduleSection";
+import FaqSection from "@/components/sections/FaqSection";
 import ContactSection from "@/components/sections/ContactSection";
 
 /**
@@ -18,6 +19,7 @@ export default function HomePage() {
       <TrainersSection />
       <MembershipSection />
       <ScheduleSection />
+      <FaqSection />
       <ContactSection />
     </>
   );
