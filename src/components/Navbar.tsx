@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -14,8 +15,23 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-black/50">
       <Container className="flex h-16 items-center justify-between">
-        <Link href="/#ust" className="text-lg font-bold tracking-tight">
-          {siteConfig.name}
+        <Link href="/#ust" className="flex items-center gap-2.5">
+          <Image
+            src="/images/logo/meydansport_logo.png"
+            alt={siteConfig.name}
+            width={40}
+            height={40}
+            priority
+            className="h-9 w-9 rounded-full sm:h-10 sm:w-10"
+          />
+          {/* Logo zaten markayı adlandırır; kelime işareti görsel için, bağlantı
+              erişilebilir adı yalnızca logonun alt metninden gelir. */}
+          <span
+            aria-hidden="true"
+            className="text-lg font-bold tracking-tight"
+          >
+            {siteConfig.name}
+          </span>
         </Link>
 
         <nav className="hidden gap-6 md:flex">

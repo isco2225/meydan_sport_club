@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Container from "./Container";
 import SocialLinks from "./SocialLinks";
@@ -8,8 +9,17 @@ export default function Footer() {
     <footer className="mt-auto border-t border-black/10 dark:border-white/10">
       <Container className="grid gap-8 py-12 sm:grid-cols-2 lg:grid-cols-3">
         <div>
-          <h3 className="text-base font-bold">{siteConfig.name}</h3>
-          <p className="mt-2 max-w-xs text-sm text-foreground/70">
+          <h3 className="flex items-center gap-3 text-base font-bold">
+            <Image
+              src="/images/logo/meydansport_logo.png"
+              alt={siteConfig.name}
+              width={48}
+              height={48}
+              className="h-12 w-12 rounded-full"
+            />
+            <span aria-hidden="true">{siteConfig.name}</span>
+          </h3>
+          <p className="mt-3 max-w-xs text-sm text-foreground/70">
             {siteConfig.description}
           </p>
         </div>

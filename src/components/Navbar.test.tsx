@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Navbar from "./Navbar";
-import { navItems } from "@/lib/site";
+import { navItems, siteConfig } from "@/lib/site";
 
 // next/navigation'ı test ortamında kullanılabilir kılmak için mock'la.
 const mockPathname = vi.fn(() => "/");
@@ -18,6 +18,18 @@ describe("Navbar", () => {
       const link = screen.getByRole("link", { name: item.label });
       expect(link).toHaveAttribute("href", item.href);
     }
+  });
+
+  it("marka logosunu ana sayfaya bağlayan çapa olarak gösterir", () => {
+    mockPathname.mockReturnValue("/");
+    render(<Navbar />);
+
+    // Logo hem markayı adlandırır (alt) hem de ana sayfa çapasına bağlar.
+    const logo = screen.getByRole("img", { name: siteConfig.name });
+    expect(logo).toBeInTheDocument();
+
+    const brandLink = screen.getByRole("link", { name: siteConfig.name });
+    expect(brandLink).toHaveAttribute("href", "/#ust");
   });
 
   it("çevrimiçi üye olma / 'Üye Ol' butonu göstermez", () => {
