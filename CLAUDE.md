@@ -13,6 +13,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Çevrimiçi üye olma YOK; site yalnızca fiyat/ücret GÖSTERİR. "Paket" kavramı yok.
 
 ## Teknoloji (kesin kararlar — tartışma açma)
+- Kurulu sürümler: Next.js 16, React 19, Zod 4, Tailwind 4, Vitest 4 (major'lar
+  eğitim verinden yeni olabilir — AGENTS.md gereği önce `node_modules/next/dist/docs/`).
 - Framework: Next.js App Router + TypeScript (strict).
 - Stil: Tailwind. İçerik: Sanity. Deploy: Vercel.
 - Form: React Hook Form + Zod. E-posta: Resend.
@@ -48,7 +50,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Her sayfada Metadata API ile özgün title/description.
 - Ana sayfada JSON-LD (ExerciseGym) yapılandırılmış verisi.
 - Semantik HTML: sayfa başına tek `h1`, hiyerarşik başlıklar, alt metni zorunlu.
-- Renk ve boşluk değerleri Tailwind config'ten gelir; keyfî hex yazma.
+- Tailwind v4: ayrı `tailwind.config.js` YOK. Tema `src/app/globals.css` içinde
+  `@import "tailwindcss"` + `@theme inline` ile CSS değişkenlerinden tanımlanır.
+  Renkleri oradan al; keyfî hex yazma.
+- Zod v4 API'si: e-posta gibi doğrulamalar üst düzey (`z.email()`), eski
+  `z.string().email()` değil. Bkz. `src/lib/contact.ts`.
 
 ## Güvenlik
 - Sırlar yalnızca `.env.local` içinde yaşar. Koda gömme, commit'leme.
@@ -62,8 +68,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Lint: `npm run lint` · Tip kontrolü: `npm run typecheck` (`tsc --noEmit`).
 - Birim test (Vitest): `npm run test` · İzleme: `npm run test:watch`.
 - Tek dosya/test: `npx vitest run src/lib/contact.test.ts` veya `-t "desen"`.
-- E2E (Playwright): `npm run test:e2e` (dev sunucusunu kendi başlatır).
-- Tam kapı: `npm run verify` = lint → typecheck → test → build.
+- E2E (Playwright): `npm run test:e2e` (dev sunucusunu kendi başlatır; `e2e/` altında).
+- Tam kapı: `npm run verify` = lint → typecheck → test. Build ayrı çalıştırılır
+  (`npm run build`); verify'a dahil DEĞİLDİR. E2E de verify'a dahil değildir.
 
 ## Çalışma şekli
 - Anlamlı her değişiklikten sonra lint + build çalıştır; temizse küçük, açıklayıcı commit at.
