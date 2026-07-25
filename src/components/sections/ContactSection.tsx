@@ -1,12 +1,12 @@
 import Section from "./Section";
 import SocialLinks from "@/components/SocialLinks";
+import WorkingHours from "@/components/WorkingHours";
 import { siteConfig } from "@/lib/site";
 
 const contactDetails = [
   { label: "Adres", value: siteConfig.address },
   { label: "Telefon", value: siteConfig.phone },
   { label: "E-posta", value: siteConfig.email },
-  { label: "Çalışma Saatleri", value: siteConfig.workingHours },
 ];
 
 export default function ContactSection() {
@@ -31,6 +31,13 @@ export default function ContactSection() {
               </div>
             ))}
           </dl>
+
+          <div className="mt-8">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground/60">
+              Çalışma Saatleri
+            </h3>
+            <WorkingHours className="mt-3" />
+          </div>
 
           <div className="mt-8">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground/60">

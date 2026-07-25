@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
+import WorkingHours from "@/components/WorkingHours";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -11,7 +12,6 @@ const contactDetails = [
   { label: "Adres", value: siteConfig.address },
   { label: "Telefon", value: siteConfig.phone },
   { label: "E-posta", value: siteConfig.email },
-  { label: "Çalışma Saatleri", value: siteConfig.workingHours },
 ];
 
 export default function ContactPage() {
@@ -37,6 +37,13 @@ export default function ContactPage() {
                 </div>
               ))}
             </dl>
+
+            <div className="mt-8">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground/60">
+                Çalışma Saatleri
+              </h3>
+              <WorkingHours className="mt-3" />
+            </div>
           </div>
 
           {/* İletişim formu (iskelet) */}

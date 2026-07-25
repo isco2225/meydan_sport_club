@@ -1,4 +1,4 @@
-import { siteConfig } from "@/lib/site";
+import { summarizeHours, workingHours } from "@/data/hours";
 
 export type FaqItem = {
   id: string;
@@ -11,7 +11,9 @@ export const faqItems: FaqItem[] = [
   {
     id: "calisma-saatleri",
     question: "Çalışma saatleriniz nedir?",
-    answer: `Salonumuz ${siteConfig.workingHours} arasında hizmet vermektedir. Resmî tatillerdeki özel saatler sosyal medya hesaplarımızdan duyurulur.`,
+    answer: `Salonumuz karma ve kadınlara özel iki ayrı program uygular. ${workingHours
+      .map(summarizeHours)
+      .join(". ")}. Resmî tatillerdeki özel saatler sosyal medya hesaplarımızdan duyurulur.`,
   },
   {
     id: "deneme-antrenmani",

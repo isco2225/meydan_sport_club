@@ -6,7 +6,6 @@ export const siteConfig = {
   phone: "+90 532 228 26 22",
   email: "info@meydansportclub.com",
   address: "Meydan Mah. Spor Cad. No: 1, İstanbul",
-  workingHours: "Hafta içi 06:00 – 23:00 · Hafta sonu 08:00 – 22:00",
   social: {
     instagram: "https://www.instagram.com/meydansportclub/",
     youtube: "https://www.youtube.com/channel/UCN2zmBXM_rdVnDJCZFOVXiw",
