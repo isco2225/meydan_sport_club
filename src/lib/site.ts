@@ -5,7 +5,7 @@ export const siteConfig = {
     "Meydan Sport Club — modern ekipman, uzman antrenörler ve uygun üyelik ücretleriyle spor salonunuz.",
   phone: "+90 532 228 26 22",
   email: "info@meydansportclub.com",
-  address: "Meydan Mah. Spor Cad. No: 1, İstanbul",
+  address: "Meydan Sport Club, Ortaçeşme, Çayır Cd. No:224/2, 34825 Beykoz/İstanbul",
   social: {
     instagram: "https://www.instagram.com/meydansportclub/",
     youtube: "https://www.youtube.com/channel/UCN2zmBXM_rdVnDJCZFOVXiw",
