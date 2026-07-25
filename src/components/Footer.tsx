@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Container from "./Container";
 import SocialLinks from "./SocialLinks";
-import WorkingHours from "./WorkingHours";
 import { navItems, siteConfig } from "@/lib/site";
 
 export default function Footer() {
@@ -42,18 +41,6 @@ export default function Footer() {
 
         <div className="flex flex-col gap-2 text-sm text-foreground/70">
           <h4 className="text-sm font-semibold uppercase tracking-wide text-foreground/60">
-            İletişim
-          </h4>
-          <p>{siteConfig.address}</p>
-          <p>{siteConfig.phone}</p>
-          <p>{siteConfig.email}</p>
-
-          <h4 className="mt-4 text-sm font-semibold uppercase tracking-wide text-foreground/60">
-            Çalışma Saatleri
-          </h4>
-          <WorkingHours compact className="mt-1" />
-
-          <h4 className="mt-4 text-sm font-semibold uppercase tracking-wide text-foreground/60">
             Bizi Takip Edin
           </h4>
           <SocialLinks />
