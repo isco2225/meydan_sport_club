@@ -10,11 +10,12 @@ describe("HeroSection", () => {
     ).toBeInTheDocument();
   });
 
-  it("alt metinli bir arka plan görseli render eder", () => {
-    render(<HeroSection />);
-    const image = screen.getByRole("img");
-    expect(image).toHaveAccessibleName(/salon/i);
-    expect(image.getAttribute("src")).toContain("salon_foto_4");
+  it("arka planda hero slideshow görsellerini render eder", () => {
+    const { container } = render(<HeroSection />);
+    const images = container.querySelectorAll("img");
+    // Slideshow birden fazla arka plan görseli serer; ilki hero klasöründendir.
+    expect(images.length).toBeGreaterThan(1);
+    expect(images[0].getAttribute("src")).toContain("hero-1");
   });
 
   it("üyelik ücretleri ve ders programı bölümlerine bağlantı verir", () => {

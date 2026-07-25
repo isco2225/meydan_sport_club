@@ -1,28 +1,30 @@
-import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/Container";
+import HeroSlideshow from "./HeroSlideshow";
 import { siteConfig } from "@/lib/site";
 
 /**
- * Ana sayfanın ilk ekranı. Arka planda salon fotoğrafı `next/image` ile
- * full-bleed serilir; üzerine koyu degrade katman konarak beyaz metnin
- * okunabilirliği güvence altına alınır. Görsel sayfanın LCP öğesi olduğu için
- * `priority` ile öncelikli yüklenir.
+ * Ana sayfanın ilk ekranı. Arka planda salon fotoğrafları crossfade slideshow
+ * ile sırayla döner (bkz. {@link HeroSlideshow}); üzerine koyu degrade katman
+ * konarak beyaz metnin okunabilirliği güvence altına alınır. İlk görsel
+ * sayfanın LCP öğesidir ve öncelikli yüklenir.
  */
+const heroImages = [
+  "/images/hero/hero-1.jpg",
+  "/images/hero/hero-2.jpg",
+  "/images/hero/hero-3.jpg",
+  "/images/hero/hero-4.jpg",
+  "/images/hero/hero-5.jpg",
+  "/images/hero/hero-6.jpg",
+];
+
 export default function HeroSection() {
   return (
     <section
       id="ust"
       className="relative flex min-h-[100svh] scroll-mt-16 items-center overflow-hidden border-b border-white/10 py-20 text-center"
     >
-      <Image
-        src="/images/galeri/salon_foto_4.jpg"
-        alt="Meydan Sport Club salonundan ekipmanların yer aldığı bir görünüm"
-        fill
-        priority
-        sizes="100vw"
-        className="-z-10 object-cover"
-      />
+      <HeroSlideshow images={heroImages} />
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-gradient-to-b from-black/70 via-black/55 to-black/75"

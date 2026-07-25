@@ -16,3 +16,16 @@ class IntersectionObserverStub {
 }
 
 vi.stubGlobal("IntersectionObserver", IntersectionObserverStub);
+
+// jsdom matchMedia'yı desteklemez; varsayılan olarak "hareket azaltma kapalı"
+// döndüren no-op stub (HeroSlideshow gibi tercih okuyan bileşenler için).
+vi.stubGlobal("matchMedia", (query: string) => ({
+  matches: false,
+  media: query,
+  onchange: null,
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
+  addListener: vi.fn(),
+  removeListener: vi.fn(),
+  dispatchEvent: vi.fn(),
+}));
