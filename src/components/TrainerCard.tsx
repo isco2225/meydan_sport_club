@@ -12,12 +12,12 @@ type TrainerCardProps = {
 };
 
 /**
- * Tek bir antrenörü gösteren kart. Ana sayfadaki `TrainersSection` ile
+ * Tek bir antrenörü gösteren kompakt kart. Ana sayfadaki `TrainersSection` ile
  * `/antrenorler` sayfası aynı kartı kullanır; kart düzeni tek yerde durur.
  *
- * Fotoğrafı olan antrenörde portre görsel kartın üstünü kaplar, olmayanda aynı
- * kutuda adın baş harfi gösterilir — böylece grid'deki kart yüksekliği
- * fotoğrafın varlığına göre değişmez.
+ * Fotoğraf, profil fotoğrafı gibi yuvarlak bir çerçevede gösterilir; fotoğrafı
+ * olmayan antrenörde aynı çerçevede adın baş harfi durur — böylece grid'deki
+ * kart yüksekliği fotoğrafın varlığına göre değişmez.
  */
 export default function TrainerCard({
   trainer,
@@ -26,31 +26,29 @@ export default function TrainerCard({
   const Heading = `h${headingLevel}` as "h2" | "h3";
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-background dark:border-white/10">
-      <div className="relative aspect-4/5 w-full bg-foreground/10">
+    <article className="flex flex-col items-center rounded-2xl border border-black/10 bg-background p-6 text-center dark:border-white/10">
+      <div className="relative h-28 w-28 overflow-hidden rounded-full bg-foreground/10 ring-1 ring-black/10 dark:ring-white/10">
         {trainer.photo ? (
           <Image
             src={trainer.photo}
             alt={`${trainer.name} — ${trainer.title}`}
             fill
-            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+            sizes="112px"
             className="object-cover"
           />
         ) : (
           <span
             aria-hidden="true"
-            className="flex h-full items-center justify-center text-5xl font-bold text-foreground/40"
+            className="flex h-full items-center justify-center text-4xl font-bold text-foreground/40"
           >
             {trainer.name.charAt(0)}
           </span>
         )}
       </div>
 
-      <div className="flex flex-1 flex-col p-6">
-        <Heading className="text-lg font-semibold">{trainer.name}</Heading>
-        <p className="text-sm text-foreground/60">{trainer.title}</p>
-        <p className="mt-3 flex-1 text-sm text-foreground/70">{trainer.bio}</p>
-      </div>
+      <Heading className="mt-4 text-lg font-semibold">{trainer.name}</Heading>
+      <p className="text-sm text-foreground/60">{trainer.title}</p>
+      <p className="mt-3 text-sm text-foreground/70">{trainer.bio}</p>
     </article>
   );
 }

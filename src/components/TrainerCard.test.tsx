@@ -48,6 +48,16 @@ describe("TrainerCard", () => {
     ).toBeInTheDocument();
   });
 
+  it("fotoğrafı profil fotoğrafı gibi yuvarlak çerçevede gösterir", () => {
+    const { container } = render(
+      <TrainerCard trainer={withPhoto} headingLevel={3} />,
+    );
+
+    const frame = container.querySelector("img")!.parentElement!;
+    expect(frame.className).toContain("rounded-full");
+    expect(frame.className).toContain("overflow-hidden");
+  });
+
   it("kartta branş/uzmanlık etiketi listesi yoktur", () => {
     const { container } = render(
       <TrainerCard trainer={withPhoto} headingLevel={3} />,
