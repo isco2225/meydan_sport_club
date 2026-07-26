@@ -25,6 +25,14 @@ describe("HeroSection", () => {
     expect(images[0].getAttribute("src")).toContain("hero-1");
   });
 
+  it("keşfet butonu bir sonraki bölüme (hakkımızda) bağlanır", () => {
+    render(<HeroSection />);
+    expect(screen.getByRole("link", { name: "Keşfet" })).toHaveAttribute(
+      "href",
+      "/#hakkimizda",
+    );
+  });
+
   it("üyelik ücretleri ve ders programı bölümlerine bağlantı verir", () => {
     render(<HeroSection />);
     expect(

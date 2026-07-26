@@ -59,9 +59,16 @@ export default function HeroSection() {
             Ders Programı
           </Link>
         </div>
-        <p className="mt-14 text-sm text-white/60">
-          Keşfetmek için aşağı kaydır ↓
-        </p>
+        {/* Bir sonraki bölüme yumuşak kaydıran keşif butonu. */}
+        <Link
+          href="/#hakkimizda"
+          className="mt-14 inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+        >
+          Keşfet{" "}
+          <span aria-hidden="true" className="animate-bounce">
+            ↓
+          </span>
+        </Link>
       </Container>
     </section>
   );
