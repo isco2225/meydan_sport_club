@@ -28,13 +28,13 @@ export default function Navbar() {
               erişilebilir adı yalnızca logonun alt metninden gelir. */}
           <span
             aria-hidden="true"
-            className="text-lg font-bold tracking-tight text-brand max-[400px]:hidden"
+            className="text-lg font-bold tracking-tight text-brand"
           >
             {siteConfig.name}
           </span>
         </Link>
 
-        <nav className="hidden gap-6 lg:flex">
+        <nav className="hidden gap-6 md:flex">
           {navItems.map((item) => {
             const active = isHome && activeSection === item.sectionId;
             return (
@@ -51,15 +51,6 @@ export default function Navbar() {
             );
           })}
         </nav>
-
-        {/* İletişim sayfasındaki ücretsiz tanışma antrenmanına götüren CTA;
-            menünün gizlendiği mobil ekranlarda da görünür kalır. */}
-        <Link
-          href="/#iletisim"
-          className="shrink-0 rounded-full bg-brand px-4 py-2 text-sm font-semibold text-black transition-opacity hover:opacity-90 sm:px-5"
-        >
-          Ücretsiz Deneme
-        </Link>
       </Container>
     </header>
   );
