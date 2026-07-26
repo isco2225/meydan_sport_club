@@ -6,7 +6,7 @@ export default function TrainersSection() {
   return (
     <Section id="antrenorler" muted>
       <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-        Antrenörler
+        Antrenörlerimiz
       </h2>
       <p className="mt-3 max-w-2xl text-lg text-foreground/70">
         Alanında uzman, sertifikalı antrenör kadromuzla tanışın.

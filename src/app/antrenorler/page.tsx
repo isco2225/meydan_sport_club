@@ -5,14 +5,14 @@ import TrainerCard from "@/components/TrainerCard";
 import { trainers } from "@/data/trainers";
 
 export const metadata: Metadata = {
-  title: "Antrenörler",
+  title: "Antrenörlerimiz",
 };
 
 export default function TrainersPage() {
   return (
     <>
       <PageHeader
-        title="Antrenörler"
+        title="Antrenörlerimiz"
         description="Alanında uzman, sertifikalı antrenör kadromuzla tanışın."
       />
 

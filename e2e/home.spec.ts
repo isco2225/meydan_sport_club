@@ -13,11 +13,11 @@ test("ana sayfa açılır ve menüden bölümler arasında gezinilir", async ({
     page.getByRole("heading", { level: 1, name: /Hedeflerine/ }),
   ).toBeVisible();
 
-  // Menüden "Antrenörler" bölümüne git.
-  await navbar.getByRole("link", { name: "Antrenörler" }).click();
+  // Menüden "Antrenörlerimiz" bölümüne git.
+  await navbar.getByRole("link", { name: "Antrenörlerimiz" }).click();
   await expect(page).toHaveURL(/#antrenorler$/);
   await expect(
-    page.getByRole("heading", { level: 2, name: "Antrenörler" }),
+    page.getByRole("heading", { level: 2, name: "Antrenörlerimiz" }),
   ).toBeVisible();
 
   // Menüden "İletişim" bölümüne git.

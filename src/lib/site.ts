@@ -27,7 +27,7 @@ export type NavItem = {
 export const navItems: NavItem[] = [
   { label: "Ana Sayfa", sectionId: "ust", href: "/#ust" },
   { label: "Hakkımızda", sectionId: "hakkimizda", href: "/#hakkimizda" },
-  { label: "Antrenörler", sectionId: "antrenorler", href: "/#antrenorler" },
+  { label: "Antrenörlerimiz", sectionId: "antrenorler", href: "/#antrenorler" },
   { label: "Üyelik Ücretleri", sectionId: "uyelik", href: "/#uyelik" },
   { label: "Ders Programı", sectionId: "ders-programi", href: "/#ders-programi" },
   { label: "SSS", sectionId: "sss", href: "/#sss" },
