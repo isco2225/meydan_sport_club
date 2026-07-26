@@ -10,10 +10,10 @@ describe("HeroSection", () => {
     ).toBeInTheDocument();
   });
 
-  it("salon bilgisini taşıyan rozeti gösterir", () => {
+  it("iddialı alt metni gösterir", () => {
     render(<HeroSection />);
     expect(
-      screen.getByText("Karma ve Kadınlara Özel İki Salon"),
+      screen.getByText(/doğru adres Meydan Sport Club/),
     ).toBeInTheDocument();
   });
 

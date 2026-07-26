@@ -31,14 +31,9 @@ export default function HeroSection() {
       />
 
       <Container className="relative">
-        {/* Rozet: çalışma saatleri verisindeki gerçek bilgiye dayanır. */}
-        <p className="mx-auto inline-block rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur">
-          Karma ve Kadınlara Özel İki Salon
-        </p>
-
         {/* Salon adıyla kelime oyunu: "meydan okumak". CSS uppercase,
             lang="tr" sayesinde i → İ dönüşümünü doğru yapar. */}
-        <h1 className="mx-auto mt-6 max-w-5xl font-display text-[clamp(3rem,11vw,7rem)] uppercase leading-[0.95] tracking-tight text-white drop-shadow-sm">
+        <h1 className="mx-auto max-w-5xl font-display text-[clamp(3rem,11vw,7rem)] uppercase leading-[0.95] tracking-tight text-white drop-shadow-sm">
           <span className="block">Kendine</span>{" "}
           <span className="block text-brand">Meydan</span>{" "}
           <span className="block">Oku</span>
@@ -46,7 +41,7 @@ export default function HeroSection() {
 
         <p className="mx-auto mt-6 max-w-2xl text-base text-white/80 sm:text-lg">
           Modern ekipman, uzman antrenörler ve seni her antrenmanda ileri
-          taşıyan bir atmosfer. Hedefin ne olursa olsun, başlangıç noktası{" "}
+          taşıyan bir atmosfer. Hedefin ne olursa olsun, doğru adres{" "}
           {siteConfig.name}.
         </p>
 
