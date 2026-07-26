@@ -4,9 +4,23 @@ export type Trainer = {
   title: string;
   specialties: string[];
   bio: string;
+  /**
+   * `public/` altındaki portre fotoğrafın kök yolu. Dosya adı `id` ile eşleşir
+   * (bkz. `public/images/README.md`). Fotoğrafı olmayan antrenörde kart adın
+   * baş harfini gösterir, bu yüzden alan isteğe bağlıdır.
+   */
+  photo?: string;
 };
 
 export const trainers: Trainer[] = [
+  {
+    id: "ali-sirganci",
+    name: "Ali Sırgancı",
+    title: "Antrenör",
+    specialties: [],
+    bio: "Geçmişte beraber çalıştığımız antrenörümüz Ali hoca, tekrar bizimle çalışmaya başlamıştır.",
+    photo: "/images/antrenorler/ali-sirganci.jpg",
+  },
   {
     id: "ayse-yilmaz",
     name: "Ayşe Yılmaz",
