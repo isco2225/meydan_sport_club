@@ -26,10 +26,8 @@ yeterince büyük** bir görsel koyman yeterli.
 - Türkçe karakter ve boşluk kullanma (`ç, ş, ı, ö` → `c, s, i, o`).
 - **Antrenör fotoğrafları**, `src/data/trainers.ts` içindeki `id` ile aynı
   adlandırılır → eşleştirme kolay olur:
-  - `antrenorler/ayse-yilmaz.jpg`
-  - `antrenorler/mehmet-demir.jpg`
-  - `antrenorler/zeynep-kaya.jpg`
-  - `antrenorler/can-ozturk.jpg`
+  - `antrenorler/yunus-hoca.jpg`
+  - `antrenorler/ali-sirganci.jpg`
 
 ## Format
 
@@ -45,8 +43,8 @@ Bir görseli `next/image` ile göstermek:
 import Image from "next/image";
 
 <Image
-  src="/images/antrenorler/ayse-yilmaz.jpg"
-  alt="Ayşe Yılmaz — Baş Antrenör"
+  src="/images/antrenorler/ali-sirganci.jpg"
+  alt="Ali Sırgancı — Antrenör"
   width={800}
   height={800}
   className="rounded-2xl object-cover"
