@@ -3,6 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Sticky navbar'ın toplam yüksekliği (kenarlık dahil). Tek kaynak: navbar
+     kendi yüksekliğini, bölümler kalan ekran alanını ve çapa kaydırması üst
+     boşluğunu buradan alır. */
+  --nav-h: 4rem;
 }
 
 @theme inline {
@@ -26,10 +30,12 @@ body {
 }
 
 /* Tek sayfa (one-page) kaydırma deneyimi: menü çapaları için yumuşak kaydırma
-   ve sabit navbar için üst boşluk. Kaydırma tamamen serbesttir (snap yok). */
+   ve sabit navbar için üst boşluk. Kaydırma tamamen serbesttir (snap yok).
+   Navbar telafisi YALNIZCA burada yapılır; bölümlere ayrıca `scroll-mt-*`
+   eklenmez — ikisi toplanır ve çapa hedefi bir navbar boyu aşağı kayar. */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 4rem;
+  scroll-padding-top: var(--nav-h);
 }
 
 /* Hareket azaltma tercihi olan kullanıcılar için yumuşak kaydırmayı kapat. */

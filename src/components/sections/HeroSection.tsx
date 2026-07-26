@@ -22,7 +22,7 @@ export default function HeroSection() {
   return (
     <section
       id="ust"
-      className="relative flex min-h-[100svh] scroll-mt-16 items-center overflow-hidden border-b border-white/10 py-20 text-center"
+      className="relative flex min-h-[calc(100svh-var(--nav-h))] items-center overflow-hidden border-b border-white/10 py-20 text-center"
     >
       <HeroSlideshow images={heroImages} />
       <div

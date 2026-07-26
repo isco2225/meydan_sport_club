@@ -13,8 +13,8 @@ export default function Navbar() {
   const activeSection = useActiveSection(isHome);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-black/50">
-      <Container className="flex h-16 items-center justify-between">
+    <header className="sticky top-0 z-50 h-[var(--nav-h)] border-b border-black/10 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-black/50">
+      <Container className="flex h-full items-center justify-between">
         <Link href="/#ust" className="flex items-center gap-2.5">
           <Image
             src="/images/logo/meydansport_logo.png"

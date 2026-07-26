@@ -32,4 +32,14 @@ describe("HeroSection", () => {
     const { container } = render(<HeroSection />);
     expect(container.querySelector("#ust")).not.toBeNull();
   });
+
+  it("Section gibi navbar yüksekliğini düşer ve çapa telafisini tekrarlamaz", () => {
+    const { container } = render(<HeroSection />);
+    // Hero, Section bileşenini sarmaz; kendi <section>'ını kurduğu için aynı
+    // yükseklik ve çapa kurallarını burada da ayrıca korumak gerekir.
+    const section = container.querySelector("section#ust")!;
+
+    expect(section.className).toContain("min-h-[calc(100svh-var(--nav-h))]");
+    expect(section.className).not.toMatch(/\bscroll-mt-/);
+  });
 });

@@ -10,8 +10,13 @@ type SectionProps = {
 };
 
 /**
- * Ana sayfadaki tek sayfa (one-page) akışının yapı taşı. Her bölüm en az bir
- * ekran yüksekliğinde olur; kullanıcı serbestçe kaydırır (snap yok).
+ * Ana sayfadaki tek sayfa (one-page) akışının yapı taşı. Her bölüm, sticky
+ * navbar'ın altında kalan ekran alanını (`100svh - var(--nav-h)`) tam olarak
+ * doldurur; böylece bölüm ekrana taşmadan sığar ve içerik görünür alanın
+ * gerçek ortasına hizalanır. Kullanıcı serbestçe kaydırır (snap yok).
+ *
+ * Çapa telafisi burada YAPILMAZ; `globals.css` içindeki `scroll-padding-top`
+ * tüm çapa hedefleri için tek kaynaktır.
  */
 export default function Section({
   id,
@@ -22,7 +27,7 @@ export default function Section({
   return (
     <section
       id={id}
-      className={`flex min-h-[100svh] scroll-mt-16 items-center border-b border-black/10 py-20 dark:border-white/10 ${
+      className={`flex min-h-[calc(100svh-var(--nav-h))] items-center border-b border-black/10 py-20 dark:border-white/10 ${
         muted ? "bg-foreground/[0.02]" : ""
       } ${className}`}
     >
