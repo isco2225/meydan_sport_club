@@ -7,7 +7,6 @@ const withPhoto: Trainer = {
   id: "ali-sirganci",
   name: "Ali Sırgancı",
   title: "Antrenör",
-  specialties: ["Kuvvet"],
   bio: "Tekrar bizimle çalışmaya başlamıştır.",
   photo: "/images/antrenorler/ali-sirganci.jpg",
 };
@@ -16,7 +15,6 @@ const withoutPhoto: Trainer = {
   id: "zeynep-kaya",
   name: "Zeynep Kaya",
   title: "Yoga Eğitmeni",
-  specialties: ["Yoga", "Pilates"],
   bio: "Zihin ve beden dengesine odaklanır.",
 };
 
@@ -40,7 +38,7 @@ describe("TrainerCard", () => {
     expect(screen.getByText("Z")).toBeInTheDocument();
   });
 
-  it("ad, ünvan, biyografi ve uzmanlıkları render eder", () => {
+  it("ad, ünvan ve biyografiyi render eder", () => {
     render(<TrainerCard trainer={withoutPhoto} headingLevel={3} />);
 
     expect(screen.getByText("Zeynep Kaya")).toBeInTheDocument();
@@ -48,16 +46,11 @@ describe("TrainerCard", () => {
     expect(
       screen.getByText("Zihin ve beden dengesine odaklanır."),
     ).toBeInTheDocument();
-    expect(screen.getByText("Yoga")).toBeInTheDocument();
-    expect(screen.getByText("Pilates")).toBeInTheDocument();
   });
 
-  it("uzmanlık tanımlı değilse boş liste render etmez", () => {
+  it("kartta branş/uzmanlık etiketi listesi yoktur", () => {
     const { container } = render(
-      <TrainerCard
-        trainer={{ ...withPhoto, specialties: [] }}
-        headingLevel={3}
-      />,
+      <TrainerCard trainer={withPhoto} headingLevel={3} />,
     );
 
     expect(container.querySelector("ul")).toBeNull();

@@ -11,21 +11,11 @@ describe("trainers", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it("her antrenörün adı ve ünvanı var", () => {
-    // Uzmanlık listesi boş olabilir: gerçek antrenörün branşı bilinmiyorsa
-    // uydurulmaz, etiket hiç gösterilmez. Ad ve ünvan ise her zaman zorunlu.
+  it("her antrenörün adı, ünvanı ve biyografisi var", () => {
     for (const trainer of trainers) {
       expect(trainer.name.trim()).not.toBe("");
       expect(trainer.title.trim()).not.toBe("");
-      expect(Array.isArray(trainer.specialties)).toBe(true);
-    }
-  });
-
-  it("tanımlı uzmanlıklar boş metin içermez", () => {
-    for (const trainer of trainers) {
-      for (const specialty of trainer.specialties) {
-        expect(specialty.trim()).not.toBe("");
-      }
+      expect(trainer.bio.trim()).not.toBe("");
     }
   });
 

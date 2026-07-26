@@ -50,19 +50,6 @@ export default function TrainerCard({
         <Heading className="text-lg font-semibold">{trainer.name}</Heading>
         <p className="text-sm text-foreground/60">{trainer.title}</p>
         <p className="mt-3 flex-1 text-sm text-foreground/70">{trainer.bio}</p>
-        {/* Branşı bilinmeyen antrenörde boş liste render edilmez. */}
-        {trainer.specialties.length > 0 && (
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {trainer.specialties.map((specialty) => (
-              <li
-                key={specialty}
-                className="rounded-full bg-foreground/10 px-3 py-1 text-xs font-medium"
-              >
-                {specialty}
-              </li>
-            ))}
-          </ul>
-        )}
       </div>
     </article>
   );
