@@ -3,10 +3,17 @@ import { render, screen } from "@testing-library/react";
 import HeroSection from "./HeroSection";
 
 describe("HeroSection", () => {
-  it("tek bir h1 başlık gösterir", () => {
+  it("iddialı 'Kendine Meydan Oku' başlığını tek h1 olarak gösterir", () => {
     render(<HeroSection />);
     expect(
-      screen.getByRole("heading", { level: 1 }),
+      screen.getByRole("heading", { level: 1, name: /kendine meydan oku/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("salon bilgisini taşıyan rozeti gösterir", () => {
+    render(<HeroSection />);
+    expect(
+      screen.getByText("Karma ve Kadınlara Özel İki Salon"),
     ).toBeInTheDocument();
   });
 

@@ -5,7 +5,7 @@ import { trainers } from "@/data/trainers";
 export default function TrainersSection() {
   return (
     <Section id="antrenorler" muted>
-      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+      <h2 className="font-display text-3xl uppercase sm:text-4xl">
         Antrenörlerimiz
       </h2>
       <p className="mt-3 max-w-2xl text-lg text-foreground/70">

@@ -32,7 +32,7 @@ export default function FaqSection() {
         }}
       />
 
-      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+      <h2 className="font-display text-3xl uppercase sm:text-4xl">
         Sıkça Sorulan Sorular
       </h2>
       <p className="mt-3 max-w-2xl text-lg text-foreground/70">

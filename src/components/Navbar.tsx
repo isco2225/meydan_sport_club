@@ -13,8 +13,8 @@ export default function Navbar() {
   const activeSection = useActiveSection(isHome);
 
   return (
-    <header className="sticky top-0 z-50 h-[var(--nav-h)] border-b border-black/10 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-black/50">
-      <Container className="flex h-full items-center justify-between">
+    <header className="sticky top-0 z-50 h-[var(--nav-h)] border-b border-white/10 bg-black text-white">
+      <Container className="flex h-full items-center justify-between gap-4">
         <Link href="/#ust" className="flex items-center gap-2.5">
           <Image
             src="/images/logo/meydansport_logo.png"
@@ -28,13 +28,13 @@ export default function Navbar() {
               erişilebilir adı yalnızca logonun alt metninden gelir. */}
           <span
             aria-hidden="true"
-            className="text-lg font-bold tracking-tight"
+            className="text-lg font-bold tracking-tight text-brand max-[400px]:hidden"
           >
             {siteConfig.name}
           </span>
         </Link>
 
-        <nav className="hidden gap-6 md:flex">
+        <nav className="hidden gap-6 lg:flex">
           {navItems.map((item) => {
             const active = isHome && activeSection === item.sectionId;
             return (
@@ -43,9 +43,7 @@ export default function Navbar() {
                 href={item.href}
                 aria-current={active ? "true" : undefined}
                 className={`text-sm font-medium transition-colors ${
-                  active
-                    ? "text-foreground"
-                    : "text-foreground/60 hover:text-foreground"
+                  active ? "text-brand" : "text-white/70 hover:text-white"
                 }`}
               >
                 {item.label}
@@ -53,6 +51,15 @@ export default function Navbar() {
             );
           })}
         </nav>
+
+        {/* İletişim sayfasındaki ücretsiz tanışma antrenmanına götüren CTA;
+            menünün gizlendiği mobil ekranlarda da görünür kalır. */}
+        <Link
+          href="/#iletisim"
+          className="shrink-0 rounded-full bg-brand px-4 py-2 text-sm font-semibold text-black transition-opacity hover:opacity-90 sm:px-5"
+        >
+          Ücretsiz Deneme
+        </Link>
       </Container>
     </header>
   );

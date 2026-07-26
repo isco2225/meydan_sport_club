@@ -32,6 +32,14 @@ describe("Navbar", () => {
     expect(brandLink).toHaveAttribute("href", "/#ust");
   });
 
+  it("ücretsiz deneme CTA'sı iletişim bölümüne bağlanır", () => {
+    mockPathname.mockReturnValue("/");
+    render(<Navbar />);
+
+    const cta = screen.getByRole("link", { name: "Ücretsiz Deneme" });
+    expect(cta).toHaveAttribute("href", "/#iletisim");
+  });
+
   it("çevrimiçi üye olma / 'Üye Ol' butonu göstermez", () => {
     render(<Navbar />);
     expect(screen.queryByRole("link", { name: /üye ol/i })).toBeNull();

@@ -12,7 +12,7 @@ const contactDetails = [
 export default function ContactSection() {
   return (
     <Section id="iletisim">
-      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">İletişim</h2>
+      <h2 className="font-display text-3xl uppercase sm:text-4xl">İletişim</h2>
       <p className="mt-3 max-w-2xl text-lg text-foreground/70">
         Sorularınız için bize ulaşın veya ücretsiz tanışma antrenmanı için
         randevu alın.

@@ -16,7 +16,7 @@ export default function PageHeader({
   return (
     <section className="border-b border-black/10 bg-foreground/[0.02] py-16 dark:border-white/10">
       <Container>
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{title}</h1>
+        <h1 className="font-display text-3xl uppercase sm:text-4xl">{title}</h1>
         {description && (
           <p className="mt-3 max-w-2xl text-lg text-foreground/70">
             {description}

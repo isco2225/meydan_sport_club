@@ -31,27 +31,40 @@ export default function HeroSection() {
       />
 
       <Container className="relative">
-        <h1 className="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-white drop-shadow-sm sm:text-6xl">
-          Hedeflerine {siteConfig.shortName} ile Ulaş
-        </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
-          {siteConfig.description}
+        {/* Rozet: çalışma saatleri verisindeki gerçek bilgiye dayanır. */}
+        <p className="mx-auto inline-block rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur">
+          Karma ve Kadınlara Özel İki Salon
         </p>
+
+        {/* Salon adıyla kelime oyunu: "meydan okumak". CSS uppercase,
+            lang="tr" sayesinde i → İ dönüşümünü doğru yapar. */}
+        <h1 className="mx-auto mt-6 max-w-5xl font-display text-[clamp(3rem,11vw,7rem)] uppercase leading-[0.95] tracking-tight text-white drop-shadow-sm">
+          <span className="block">Kendine</span>{" "}
+          <span className="block text-brand">Meydan</span>{" "}
+          <span className="block">Oku</span>
+        </h1>
+
+        <p className="mx-auto mt-6 max-w-2xl text-base text-white/80 sm:text-lg">
+          Modern ekipman, uzman antrenörler ve seni her antrenmanda ileri
+          taşıyan bir atmosfer. Hedefin ne olursa olsun, başlangıç noktası{" "}
+          {siteConfig.name}.
+        </p>
+
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Link
             href="/#uyelik"
-            className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition-opacity hover:opacity-90"
+            className="rounded-full bg-brand px-7 py-3 text-sm font-semibold text-black transition-opacity hover:opacity-90"
           >
-            Üyelik Ücretleri
+            Üyelik Ücretleri <span aria-hidden="true">→</span>
           </Link>
           <Link
             href="/#ders-programi"
-            className="rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+            className="rounded-full border border-white/40 px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
           >
             Ders Programı
           </Link>
         </div>
-        <p className="mt-16 text-sm text-white/60">
+        <p className="mt-14 text-sm text-white/60">
           Keşfetmek için aşağı kaydır ↓
         </p>
       </Container>

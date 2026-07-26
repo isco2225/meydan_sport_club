@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Marka sarısı: logodaki sarıyla uyumlu, koyu zeminde parlayan vurgu rengi.
+     Üzerine her zaman koyu (siyah) metin konur. */
+  --brand: #f5d90a;
   /* Sticky navbar'ın toplam yüksekliği (kenarlık dahil). Tek kaynak: navbar
      kendi yüksekliğini, bölümler kalan ekran alanını ve çapa kaydırması üst
      boşluğunu buradan alır. */
@@ -12,8 +15,12 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand: var(--brand);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /* Dev, bloklu başlıklar için display fontu (Anton). Hero ve bölüm
+     başlıklarında uppercase ile kullanılır. */
+  --font-display: var(--font-anton);
 }
 
 @media (prefers-color-scheme: dark) {

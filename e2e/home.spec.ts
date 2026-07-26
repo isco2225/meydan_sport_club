@@ -10,7 +10,7 @@ test("ana sayfa açılır ve menüden bölümler arasında gezinilir", async ({
 
   // Hero (ana bölüm) görünür.
   await expect(
-    page.getByRole("heading", { level: 1, name: /Hedeflerine/ }),
+    page.getByRole("heading", { level: 1, name: /kendine meydan oku/i }),
   ).toBeVisible();
 
   // Menüden "Antrenörlerimiz" bölümüne git.
