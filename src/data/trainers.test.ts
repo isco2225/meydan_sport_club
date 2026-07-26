@@ -11,11 +11,10 @@ describe("trainers", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it("her antrenörün adı, ünvanı ve biyografisi var", () => {
+  it("her antrenörün adı ve ünvanı var", () => {
     for (const trainer of trainers) {
       expect(trainer.name.trim()).not.toBe("");
       expect(trainer.title.trim()).not.toBe("");
-      expect(trainer.bio.trim()).not.toBe("");
     }
   });
 

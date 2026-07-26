@@ -7,7 +7,6 @@ const withPhoto: Trainer = {
   id: "ali-sirganci",
   name: "Ali Sırgancı",
   title: "Antrenör",
-  bio: "Tekrar bizimle çalışmaya başlamıştır.",
   photo: "/images/antrenorler/ali-sirganci.jpg",
 };
 
@@ -15,7 +14,6 @@ const withoutPhoto: Trainer = {
   id: "zeynep-kaya",
   name: "Zeynep Kaya",
   title: "Yoga Eğitmeni",
-  bio: "Zihin ve beden dengesine odaklanır.",
 };
 
 describe("TrainerCard", () => {
@@ -38,14 +36,11 @@ describe("TrainerCard", () => {
     expect(screen.getByText("Z")).toBeInTheDocument();
   });
 
-  it("ad, ünvan ve biyografiyi render eder", () => {
+  it("ad ve ünvanı render eder", () => {
     render(<TrainerCard trainer={withoutPhoto} headingLevel={3} />);
 
     expect(screen.getByText("Zeynep Kaya")).toBeInTheDocument();
     expect(screen.getByText("Yoga Eğitmeni")).toBeInTheDocument();
-    expect(
-      screen.getByText("Zihin ve beden dengesine odaklanır."),
-    ).toBeInTheDocument();
   });
 
   it("fotoğrafı profil fotoğrafı gibi yuvarlak çerçevede gösterir", () => {

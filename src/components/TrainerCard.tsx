@@ -48,7 +48,6 @@ export default function TrainerCard({
 
       <Heading className="mt-4 text-lg font-semibold">{trainer.name}</Heading>
       <p className="text-sm text-foreground/60">{trainer.title}</p>
-      <p className="mt-3 text-sm text-foreground/70">{trainer.bio}</p>
     </article>
   );
 }
