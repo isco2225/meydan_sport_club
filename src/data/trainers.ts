@@ -13,6 +13,13 @@ export type Trainer = {
 
 export const trainers: Trainer[] = [
   {
+    id: "yunus-hoca",
+    name: "Yunus Hoca",
+    title: "Salon Sahibi & Antrenör",
+    bio: "Salonumuzun sahibi. Yılların deneyimiyle üyelerimize yol gösteren iyi bir hocadır.",
+    photo: "/images/antrenorler/yunus-hoca.jpg",
+  },
+  {
     id: "ali-sirganci",
     name: "Ali Sırgancı",
     title: "Antrenör",
