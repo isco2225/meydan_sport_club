@@ -50,7 +50,7 @@ export default function HeroSection() {
             href="/#uyelik"
             className="rounded-full bg-brand px-7 py-3 text-sm font-semibold text-black transition-opacity hover:opacity-90"
           >
-            Üyelik Ücretleri <span aria-hidden="true">→</span>
+            Üyelik Ücretleri
           </Link>
           <Link
             href="/#ders-programi"
