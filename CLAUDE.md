@@ -28,27 +28,39 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Kod yapısı (büyük resim)
 - Alias: `@/*` → `src/*` (tsconfig + vitest). Göreli `../../` yerine `@/` kullan.
-- İçerik veri odaklı: `src/data/*` (trainers, membership, schedule, faq) tipli dizilerdir;
-  bölüm bileşenleri bu diziyi map'ler. Metni burada değiştir, JSX'te değil.
+- İçerik veri odaklı: `src/data/*` (trainers, membership, schedule, faq, hours) tipli
+  dizilerdir; bölüm bileşenleri bu diziyi map'ler. Metni burada değiştir, JSX'te değil.
+  Sabitler de veri katmanında yaşar (ör. `hours.ts` → `CLOSED`, `summarizeHours()`).
 - `src/lib/site.ts` tek kaynak: `siteConfig` (adres/telefon/sosyal) + `navItems`.
 - Ana sayfa tek sayfa (one-page): `app/page.tsx`, `components/sections/*` bölümlerini
   sırayla dizer. Her `Section` ekran yüksekliğinde ve `navItems.sectionId` ile eşleşen
-  bir `id` taşır; menü `/#id` çapasına yumuşak kaydırır.
+  bir `id` taşır; menü `/#id` çapasına yumuşak kaydırır. İstisna: `HeroSection`
+  `Section`'ı sarmaz, `id="ust"` ile kendi `<section>`'ını kurar (tam ekran arka plan).
 - Ayrı rotalar (`hakkimizda`, `antrenorler`, `uyelik`, `ders-programi`, `iletisim`)
-  aynı içeriği kendi sayfası + kendi `Metadata`'sıyla sunar.
+  aynı içeriği kendi sayfası + kendi `Metadata`'sıyla sunar. Alt sayfalar
+  `PageHeader` (tek `h1`) + `Container` ile kurulur.
+- İki sunumun (one-page bölümü ve ayrı rota) ortak gövdesi paylaşılan bileşenlerdir:
+  `WorkingHours`, `MembershipPricing`, `SocialLinks`. Aynı bilgi iki yerde
+  görünüyorsa JSX'i kopyalama — bu bileşenlerden birini kullan ya da yenisini çıkar.
 - `app/layout.tsx`: Navbar + `main` + Footer, `lang="tr"`, Geist fontları, title şablonu.
-  Tek `"use client"` bileşeni `Navbar.tsx`'tir.
+  Tek `"use client"` bileşenleri `Navbar.tsx` ve `sections/HeroSlideshow.tsx`'tir;
+  bir üçüncüsünü eklemeden önce etkileşimin gerçekten JS gerektirdiğini doğrula
+  (ör. `FaqSection` yerleşik `<details>` ile server component kalıyor).
 - Form: `src/lib/contact.ts` → `contactSchema` (Zod) + `ContactFormValues = z.infer`.
+- Görseller `public/images/<alan>/` altında; klasör/ölçü/isimlendirme kuralları
+  `public/images/README.md`'de — yeni görsel eklemeden önce oraya bak.
 - Testler `src/` içinde eş konumlu `*.test.ts(x)` (Vitest, jsdom); E2E `e2e/` altında.
 - DURUM: Sanity/RHF/Resend/Upstash/Turnstile HENÜZ kurulmadı; içerik şu an `src/data`'da
-  statik, JSON-LD eklenmedi. Bunlar hedef kararlar — kurarken CLAUDE.md'ye uy.
+  statik. JSON-LD'den yalnızca `FaqSection`'daki FAQPage var; ExerciseGym eklenmedi.
+  Bunlar hedef kararlar — kurarken CLAUDE.md'ye uy.
 
 ## Kod standartları
 - `any` YASAK.
 - Zod şeması tek doğruluk kaynağıdır; tipler `z.infer` ile türetilir.
 - Görselde her zaman `next/image`, fontta `next/font`. `<img>` kullanma.
 - Her sayfada Metadata API ile özgün title/description.
-- Ana sayfada JSON-LD (ExerciseGym) yapılandırılmış verisi.
+- Ana sayfada JSON-LD (ExerciseGym) yapılandırılmış verisi. JSON-LD daima görünen
+  veriden türetilir (elle ikinci kopya yazma) ve `<` kaçışlanır — örnek: `FaqSection`.
 - Semantik HTML: sayfa başına tek `h1`, hiyerarşik başlıklar, alt metni zorunlu.
 - Tailwind v4: ayrı `tailwind.config.js` YOK. Tema `src/app/globals.css` içinde
   `@import "tailwindcss"` + `@theme inline` ile CSS değişkenlerinden tanımlanır.
