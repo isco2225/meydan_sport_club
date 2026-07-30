@@ -5,6 +5,8 @@ export type FaqItem = {
   question: string;
   /** Düz metin tutulur: hem <details> içeriği hem FAQPage JSON-LD'si buradan türetilir. */
   answer: string;
+  /** Cevabın altında gösterilen isteğe bağlı yönlendirme bağlantısı (JSON-LD'ye girmez). */
+  link?: { label: string; href: string };
 };
 
 export const faqItems: FaqItem[] = [
@@ -14,6 +16,7 @@ export const faqItems: FaqItem[] = [
     answer: `Salonumuz karma ve kadınlara özel iki ayrı program uygular. ${workingHours
       .map(summarizeHours)
       .join(". ")}. Resmî tatillerdeki özel saatler sosyal medya hesaplarımızdan duyurulur.`,
+    link: { label: "Detaylı görün", href: "/#iletisim" },
   },
   {
     id: "deneme-antrenmani",

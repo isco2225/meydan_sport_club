@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Section from "./Section";
 import { faqItems } from "@/data/faq";
 
@@ -64,6 +65,14 @@ export default function FaqSection() {
             <p className="mt-4 text-sm leading-relaxed text-foreground/70">
               {item.answer}
             </p>
+            {item.link && (
+              <Link
+                href={item.link.href}
+                className="mt-3 inline-block text-sm font-semibold underline decoration-brand decoration-2 underline-offset-4 transition-opacity hover:opacity-70"
+              >
+                {item.link.label}
+              </Link>
+            )}
           </details>
         ))}
       </div>

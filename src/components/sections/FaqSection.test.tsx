@@ -26,6 +26,14 @@ describe("FaqSection", () => {
     expect(icons).toHaveLength(faqItems.length);
   });
 
+  it("bağlantı tanımlı sorularda bağlantıyı render eder", () => {
+    render(<FaqSection />);
+    for (const item of faqItems.filter((f) => f.link)) {
+      const link = screen.getByRole("link", { name: item.link!.label });
+      expect(link).toHaveAttribute("href", item.link!.href);
+    }
+  });
+
   it("FAQPage JSON-LD'sini veriyle tutarlı üretir", () => {
     const { container } = render(<FaqSection />);
     const script = container.querySelector(
