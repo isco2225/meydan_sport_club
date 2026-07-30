@@ -33,7 +33,7 @@ export default function ContactSection() {
           </dl>
 
           <div className="mt-8">
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground/60">
+            <h3 className="inline-block bg-brand px-2 py-0.5 text-sm font-semibold uppercase tracking-wide text-black">
               Çalışma Saatleri
             </h3>
             <WorkingHours className="mt-3" />
