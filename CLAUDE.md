@@ -18,7 +18,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Framework: Next.js App Router + TypeScript (strict).
 - Stil: Tailwind. İçerik: Sanity. Deploy: Vercel.
 - Form: React Hook Form + Zod. E-posta: Resend.
-- Rate limit: Upstash. Bot koruması: Cloudflare Turnstile.
+- Bot koruması: yalnızca honeypot (karar, Tem 2026: Turnstile ve Upstash rate
+  limit İSTENMİYOR — site düşük trafikli; sahibi isterse ileride eklenir).
 
 ## Mimari
 - Render: varsayılan SSG; sık değişen sayfalarda ISR. SSR'a kaçma.
@@ -50,9 +51,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Görseller `public/images/<alan>/` altında; klasör/ölçü/isimlendirme kuralları
   `public/images/README.md`'de — yeni görsel eklemeden önce oraya bak.
 - Testler `src/` içinde eş konumlu `*.test.ts(x)` (Vitest, jsdom); E2E `e2e/` altında.
-- DURUM: Sanity/RHF/Resend/Upstash/Turnstile HENÜZ kurulmadı; içerik şu an `src/data`'da
-  statik. JSON-LD'den yalnızca `FaqSection`'daki FAQPage var; ExerciseGym eklenmedi.
-  Bunlar hedef kararlar — kurarken CLAUDE.md'ye uy.
+- DURUM: RHF kuruldu; form `ContactForm` + `src/lib/contact-action.ts` (server
+  action, Zod + honeypot) ile çalışıyor. Resend anahtar bekliyor (action'daki
+  TODO). Sanity henüz kurulmadı; içerik şu an `src/data`'da statik. JSON-LD'den
+  yalnızca `FaqSection`'daki FAQPage var; ExerciseGym eklenmedi.
 
 ## Kod standartları
 - `any` YASAK.
@@ -73,7 +75,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Gizli değeri asla `NEXT_PUBLIC_` önekiyle istemciye sızdırma.
 - `.env.local` içeriğini terminale veya sohbete asla yazdırma.
 - Form verisi sunucuda Zod ile doğrulanır.
-- Form endpoint'i; rate limit + honeypot + Turnstile üçlüsü olmadan bitmiş sayılmaz.
+- Form endpoint'i sunucu doğrulaması + honeypot olmadan bitmiş sayılmaz.
+  (Rate limit ve Turnstile bilinçli olarak kapsam dışı — bkz. Teknoloji.)
 
 ## Komutlar
 - Geliştirme: `npm run dev` · Prod derleme: `npm run build` · Sunum: `npm run start`.
