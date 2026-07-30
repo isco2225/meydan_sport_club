@@ -136,14 +136,14 @@ export default function ContactForm({ emailEnabled = false }: ContactFormProps) 
           role="status"
           className="rounded-lg bg-brand/15 px-4 py-3 text-sm font-medium"
         >
-          Bu özellik yakında aktifleşecektir. Bizimle{" "}
+          Bu özellik genüz aktif değil. Bizimle{" "}
           <a
             href={`tel:${siteConfig.phone.replaceAll(" ", "")}`}
             className="font-semibold underline underline-offset-2"
           >
             {siteConfig.phone}
           </a>{" "}
-          numarasından iletişime geçebilirsiniz.
+          üzerinden geçebilirsiniz.
         </p>
       )}
       {result?.status === "success" && (
