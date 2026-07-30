@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -9,11 +9,21 @@ import {
   type ContactFormValues,
 } from "@/lib/contact";
 import { sendContactMessage } from "@/lib/contact-action";
+import { siteConfig } from "@/lib/site";
 
 const fieldClass =
   "w-full rounded-lg border border-black/15 bg-transparent px-3 py-2 text-sm outline-none focus:border-foreground dark:border-white/15";
 
-export default function ContactForm() {
+type ContactFormProps = {
+  /**
+   * E-posta gönderimi alan adı doğrulaması bekliyor (bkz. contact-action.ts);
+   * o güne dek varsayılan kapalıdır ve gönderimde telefon notu gösterilir.
+   * Alan adı doğrulanınca ContactSection'da `emailEnabled` verilerek açılır.
+   */
+  emailEnabled?: boolean;
+};
+
+export default function ContactForm({ emailEnabled = false }: ContactFormProps) {
   const {
     register,
     handleSubmit,
@@ -21,9 +31,11 @@ export default function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<ContactFormValues>({ resolver: zodResolver(contactSchema) });
 
-  const [result, setResult] = useState<ContactActionResult | null>(null);
+  const [result, setResult] = useState<
+    ContactActionResult | { status: "disabled" } | null
+  >(null);
 
-  const onSubmit = handleSubmit(async (values, event) => {
+  const submitWithEmail = handleSubmit(async (values, event) => {
     setResult(null);
     // Honeypot RHF şemasının dışında kalır; değeri formun kendisinden okunur.
     const website =
@@ -34,6 +46,13 @@ export default function ContactForm() {
     setResult(response);
     if (response.status === "success") reset();
   });
+
+  const onSubmit = emailEnabled
+    ? submitWithEmail
+    : (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setResult({ status: "disabled" });
+      };
 
   return (
     <form
@@ -112,6 +131,21 @@ export default function ContactForm() {
         />
       </div>
 
+      {result?.status === "disabled" && (
+        <p
+          role="status"
+          className="rounded-lg bg-brand/15 px-4 py-3 text-sm font-medium"
+        >
+          Bu özellik yakında aktifleşecektir. Bizimle{" "}
+          <a
+            href={`tel:${siteConfig.phone.replaceAll(" ", "")}`}
+            className="font-semibold underline underline-offset-2"
+          >
+            {siteConfig.phone}
+          </a>{" "}
+          numarasından iletişime geçebilirsiniz.
+        </p>
+      )}
       {result?.status === "success" && (
         <p role="status" className="text-sm font-medium text-green-700 dark:text-green-400">
           Mesajınız alındı. En kısa sürede size dönüş yapacağız.

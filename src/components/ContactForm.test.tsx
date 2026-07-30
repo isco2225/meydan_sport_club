@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ContactForm from "./ContactForm";
 import { sendContactMessage } from "@/lib/contact-action";
+import { siteConfig } from "@/lib/site";
 
 vi.mock("@/lib/contact-action", () => ({
   sendContactMessage: vi.fn(),
@@ -23,10 +24,24 @@ async function fillValidForm(user: ReturnType<typeof userEvent.setup>) {
   );
 }
 
-describe("ContactForm", () => {
-  it("boş gönderimde doğrulama hataları gösterir ve action'ı çağırmaz", async () => {
+describe("ContactForm (varsayılan: e-posta kapalı)", () => {
+  it("gönderimde 'yakında' notunu telefonla gösterir ve action'ı çağırmaz", async () => {
     const user = userEvent.setup();
     render(<ContactForm />);
+
+    await user.click(screen.getByRole("button", { name: "Gönder" }));
+
+    const notice = await screen.findByRole("status");
+    expect(notice).toHaveTextContent("Bu özellik yakında aktifleşecektir");
+    expect(notice).toHaveTextContent(siteConfig.phone);
+    expect(mockSend).not.toHaveBeenCalled();
+  });
+});
+
+describe("ContactForm (emailEnabled)", () => {
+  it("boş gönderimde doğrulama hataları gösterir ve action'ı çağırmaz", async () => {
+    const user = userEvent.setup();
+    render(<ContactForm emailEnabled />);
 
     await user.click(screen.getByRole("button", { name: "Gönder" }));
 
@@ -42,7 +57,7 @@ describe("ContactForm", () => {
   it("geçerli veriyle action'ı honeypot alanıyla birlikte çağırır", async () => {
     mockSend.mockResolvedValue({ status: "success" });
     const user = userEvent.setup();
-    render(<ContactForm />);
+    render(<ContactForm emailEnabled />);
 
     await fillValidForm(user);
     await user.click(screen.getByRole("button", { name: "Gönder" }));
@@ -58,7 +73,7 @@ describe("ContactForm", () => {
   it("başarıda onay mesajı gösterir ve formu sıfırlar", async () => {
     mockSend.mockResolvedValue({ status: "success" });
     const user = userEvent.setup();
-    render(<ContactForm />);
+    render(<ContactForm emailEnabled />);
 
     await fillValidForm(user);
     await user.click(screen.getByRole("button", { name: "Gönder" }));
@@ -75,7 +90,7 @@ describe("ContactForm", () => {
       message: "Bir şeyler ters gitti.",
     });
     const user = userEvent.setup();
-    render(<ContactForm />);
+    render(<ContactForm emailEnabled />);
 
     await fillValidForm(user);
     await user.click(screen.getByRole("button", { name: "Gönder" }));
