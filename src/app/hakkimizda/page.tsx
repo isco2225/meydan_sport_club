@@ -1,40 +1,25 @@
 import type { Metadata } from "next";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
+import {
+  aboutHighlights,
+  aboutIntro,
+  aboutStory,
+  aboutValues,
+} from "@/data/about";
 
 export const metadata: Metadata = {
   title: "Hakkımızda",
 };
 
-const values = [
-  {
-    title: "Misyonumuz",
-    description:
-      "Her yaştan ve seviyeden üyeye sağlıklı bir yaşam tarzı kazandırmak.",
-  },
-  {
-    title: "Vizyonumuz",
-    description:
-      "Bölgenin en çok tercih edilen, topluluk odaklı spor kulübü olmak.",
-  },
-  {
-    title: "Değerlerimiz",
-    description:
-      "Disiplin, samimiyet ve sürekli gelişim ilkelerimizin temelini oluşturur.",
-  },
-];
-
 export default function AboutPage() {
   return (
     <>
-      <PageHeader
-        title="Hakkımızda"
-        description="Meydan Sport Club olarak sağlıklı yaşamı herkes için erişilebilir kılmayı hedefliyoruz."
-      />
+      <PageHeader title="Hakkımızda" description={aboutIntro} />
 
       <section className="py-16">
         <Container className="grid gap-8 sm:grid-cols-3">
-          {values.map((value) => (
+          {aboutValues.map((value) => (
             <div
               key={value.title}
               className="rounded-2xl border border-black/10 p-6 dark:border-white/10"
@@ -48,15 +33,37 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="pb-20">
+      <section className="pb-16">
         <Container className="max-w-3xl">
           <h2 className="text-2xl font-bold">Hikayemiz</h2>
-          <p className="mt-4 text-foreground/70">
-            Kapılarımızı açtığımız günden bu yana, üyelerimizin hedeflerine
-            ulaşmasına yardımcı olmayı önceliğimiz haline getirdik. Modern
-            ekipmanlarımız ve deneyimli antrenör kadromuzla, herkes için güvenli
-            ve motive edici bir antrenman ortamı sunuyoruz.
-          </p>
+          <div className="mt-4 space-y-4">
+            {aboutStory.map((paragraph) => (
+              <p key={paragraph} className="text-foreground/70">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="pb-20">
+        <Container>
+          <h2 className="text-2xl font-bold">Neden Meydan?</h2>
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {aboutHighlights.map((highlight) => (
+              <li
+                key={highlight.title}
+                className="rounded-2xl bg-foreground/[0.03] p-5"
+              >
+                <h3 className="text-sm font-semibold uppercase tracking-wide">
+                  {highlight.title}
+                </h3>
+                <p className="mt-1 text-sm text-foreground/70">
+                  {highlight.description}
+                </p>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
     </>
