@@ -32,7 +32,7 @@ describe("ContactForm (varsayılan: e-posta kapalı)", () => {
     await user.click(screen.getByRole("button", { name: "Gönder" }));
 
     const notice = await screen.findByRole("status");
-    expect(notice).toHaveTextContent("Bu özellik yakında aktifleşecektir");
+    expect(notice).toHaveTextContent("Bu özellik henüz aktif değil");
     expect(notice).toHaveTextContent(siteConfig.phone);
     expect(mockSend).not.toHaveBeenCalled();
   });

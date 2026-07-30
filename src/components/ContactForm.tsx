@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type SubmitEvent } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -49,7 +49,7 @@ export default function ContactForm({ emailEnabled = false }: ContactFormProps) 
 
   const onSubmit = emailEnabled
     ? submitWithEmail
-    : (event: FormEvent<HTMLFormElement>) => {
+    : (event: SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
         setResult({ status: "disabled" });
       };
@@ -136,14 +136,14 @@ export default function ContactForm({ emailEnabled = false }: ContactFormProps) 
           role="status"
           className="rounded-lg bg-brand/15 px-4 py-3 text-sm font-medium"
         >
-          Bu özellik genüz aktif değil. Bizimle{" "}
+          Bu özellik henüz aktif değil. Bizimle{" "}
           <a
             href={`tel:${siteConfig.phone.replaceAll(" ", "")}`}
             className="font-semibold underline underline-offset-2"
           >
             {siteConfig.phone}
           </a>{" "}
-          üzerinden geçebilirsiniz.
+          üzerinden iletişime geçebilirsiniz.
         </p>
       )}
       {result?.status === "success" && (
