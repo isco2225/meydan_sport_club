@@ -56,6 +56,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   TODO). Sanity henüz kurulmadı; içerik şu an `src/data`'da statik. JSON-LD'den
   yalnızca `FaqSection`'daki FAQPage var; ExerciseGym eklenmedi.
 
+## Yayın yol haritası (bekleyen işler — Tem 2026)
+- ⚠️ ACİL: `meydansportclub.com` süresi 8 Ağustos 2026'da doluyor — salon
+  sahibi İsimtescil'den YENİLEMELİ, yoksa alan adı düşer.
+- Alan adı: İsimtescil'de kayıtlı (isimtescil.net), DNS şu an Keyubu
+  (keyubu.net) isim sunucularında. Salon sahibinden İsimtescil ve/veya Keyubu
+  panel erişimi alınacak (alternatif: DNS kayıtlarını sahibi kendisi ekler).
+- Vercel: site test için `*.vercel.app` adresinde; `main`'e push otomatik
+  deploy tetikler. Alan adı erişimi gelince Settings → Domains'e
+  `meydansportclub.com` bağlanacak (isim sunucularını Vercel'e taşımak
+  DNS'i tek panelde toplar — önerilen yol).
+- Resend: hesap kişisel Gmail ile açık; alan adı doğrulanmadan yalnızca hesap
+  adresine gönderebiliyor. Domain doğrulaması (resend.com/domains, 2 TXT +
+  1 MX kaydı) sonrası: `contact-action.ts`'de `from` adresini
+  `info@meydansportclub.com` yap, `CONTACT_TO_EMAIL` salonun adresi olabilir.
+- Vercel ortam değişkenleri: `RESEND_API_KEY` + `CONTACT_TO_EMAIL`
+  (Settings → Environment Variables; değerler yerelde `.env.local`'de).
+- Formu açma: `ContactSection`'da `<ContactForm emailEnabled />` yap ve
+  `ContactForm.test.tsx`'teki kapalı-mod testini yeni davranışa göre düzelt.
+
 ## Kod standartları
 - `any` YASAK.
 - Zod şeması tek doğruluk kaynağıdır; tipler `z.infer` ile türetilir.
