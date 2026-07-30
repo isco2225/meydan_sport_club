@@ -1,5 +1,6 @@
 "use server";
 
+import { Resend } from "resend";
 import { z } from "zod";
 import { contactSchema, type ContactActionResult } from "@/lib/contact";
 
@@ -26,10 +27,38 @@ export async function sendContactMessage(
     };
   }
 
-  // TODO(resend): RESEND_API_KEY edinilince gönderim buraya bağlanacak; ardından
-  // Upstash rate limit + Turnstile eklenmeden form bitmiş sayılmaz (bkz. CLAUDE.md).
-  // O zamana dek mesaj yalnızca sunucu logunda görünür.
-  console.log("[iletisim] yeni mesaj:", parsed.data);
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.CONTACT_TO_EMAIL;
+  if (!apiKey || !to) {
+    console.error("[iletisim] RESEND_API_KEY veya CONTACT_TO_EMAIL tanımlı değil.");
+    return {
+      status: "error",
+      message:
+        "Mesajınız şu anda iletilemiyor. Lütfen bize telefonla veya sosyal medyadan ulaşın.",
+    };
+  }
+
+  const { name, email, message } = parsed.data;
+  const resend = new Resend(apiKey);
+  // Alan adı doğrulanana dek gönderici Resend'in test adresidir; yanıtla
+  // butonu replyTo sayesinde doğrudan ziyaretçiye gider. Gövde bilinçli olarak
+  // düz metindir (text): HTML enjeksiyonuna kapı açmaz.
+  const { error } = await resend.emails.send({
+    from: "Meydan Sport Club <onboarding@resend.dev>",
+    to,
+    replyTo: email,
+    subject: `İletişim formu: ${name}`,
+    text: `Ad Soyad: ${name}\nE-posta: ${email}\n\n${message}`,
+  });
+
+  if (error) {
+    console.error("[iletisim] Resend gönderim hatası:", error);
+    return {
+      status: "error",
+      message:
+        "Mesajınız gönderilemedi. Lütfen tekrar deneyin ya da bize telefonla ulaşın.",
+    };
+  }
 
   return { status: "success" };
 }
