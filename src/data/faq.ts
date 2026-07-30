@@ -25,13 +25,13 @@ export const faqItems: FaqItem[] = [
     id: "uyelik-dondurma",
     question: "Üyeliğimi dondurabilir miyim?",
     answer:
-      "Evet. Tüm üyeliklerde yılda toplam 30 güne kadar dondurma hakkı bulunur. Dondurma talebinizi resepsiyona iletmeniz yeterlidir; süre üyeliğinizin bitişine eklenir.",
+      "Evet, üyeliğinizi belli bir süre dondurabilirsiniz. Talebinizi resepsiyona iletmeniz yeterlidir; dondurulan süre üyeliğinizin bitişine eklenir.",
   },
   {
     id: "kadinlar-salonu",
     question: "Kadınlara özel bölümünüz var mı?",
     answer:
-      "Evet. Kadınlar salonumuz ayrı bir alanda hizmet verir ve grup ders programı (pilates, zumba, core board) yalnızca kadınlar salonunda düzenlenir.",
+      "Sadece kadınların girebildiği, ayrı bir alanda hizmet veren kadınlar salonumuz var. Grup ders programımız (pilates, zumba, core board) yalnızca bu salonda düzenlenir.",
   },
   {
     id: "ozel-ders",
@@ -43,6 +43,6 @@ export const faqItems: FaqItem[] = [
     id: "yas-siniri",
     question: "Üyelik için yaş sınırı var mı?",
     answer:
-      "16 yaşını doldurmuş herkes üye olabilir. 16-18 yaş arası üyelerimiz için veli onayı gereklidir.",
+      "Hayır, üyelik için yaş sınırımız yok. Sporun her yaşa iyi geldiğine inanıyoruz; hedefiniz ne olursa olsun antrenörlerimiz size uygun bir programla yanınızda.",
   },
 ];
