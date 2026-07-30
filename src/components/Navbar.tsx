@@ -11,9 +11,23 @@ export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const activeSection = useActiveSection(isHome);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Başka bir rotaya geçildiğinde açık kalan menüyü kapat. Effect yerine
+  // render sırasında state uyarlama kalıbı kullanılır (react-hooks kuralı).
+  const [lastPathname, setLastPathname] = useState(pathname);
+  if (lastPathname !== pathname) {
+    setLastPathname(pathname);
+    setMenuOpen(false);
+  }
 
   return (
-    <header className="sticky top-0 z-50 h-[var(--nav-h)] border-b border-white/10 bg-black text-white">
+    <header
+      className="sticky top-0 z-50 h-[var(--nav-h)] border-b border-white/10 bg-black text-white"
+      onKeyDown={(event) => {
+        if (event.key === "Escape") setMenuOpen(false);
+      }}
+    >
       <Container className="flex h-full items-center justify-between gap-4">
         <Link href="/#ust" className="flex items-center gap-2.5">
           <Image
@@ -51,7 +65,56 @@ export default function Navbar() {
             );
           })}
         </nav>
+
+        <button
+          type="button"
+          aria-label={menuOpen ? "Menüyü kapat" : "Menüyü aç"}
+          aria-expanded={menuOpen}
+          aria-controls="mobil-menu"
+          onClick={() => setMenuOpen((open) => !open)}
+          className="-mr-2 flex h-10 w-10 items-center justify-center rounded-lg text-white/80 transition-colors hover:text-brand md:hidden"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            className="size-6"
+          >
+            {menuOpen ? (
+              <path d="M6 6l12 12M18 6L6 18" />
+            ) : (
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            )}
+          </svg>
+        </button>
       </Container>
+
+      {menuOpen && (
+        <nav
+          id="mobil-menu"
+          className="absolute inset-x-0 top-full border-b border-white/10 bg-black py-2 md:hidden"
+        >
+          {navItems.map((item) => {
+            const active = isHome && activeSection === item.sectionId;
+            return (
+              <Link
+                key={item.sectionId}
+                href={item.href}
+                aria-current={active ? "true" : undefined}
+                onClick={() => setMenuOpen(false)}
+                className={`block px-6 py-3 text-sm font-medium transition-colors ${
+                  active ? "text-brand" : "text-white/70 hover:text-white"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
+      )}
     </header>
   );
 }
