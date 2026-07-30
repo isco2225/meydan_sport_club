@@ -19,3 +19,8 @@ export const contactSchema = z.object({
 });
 
 export type ContactFormValues = z.infer<typeof contactSchema>;
+
+/** Sunucu action'ının istemciye döndürdüğü sonuç. UI yalnızca bunu görür. */
+export type ContactActionResult =
+  | { status: "success" }
+  | { status: "error"; message: string };
