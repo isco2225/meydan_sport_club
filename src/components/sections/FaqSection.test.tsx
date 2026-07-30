@@ -20,6 +20,12 @@ describe("FaqSection", () => {
     expect(container.querySelector("#sss")).not.toBeNull();
   });
 
+  it("her soruda aşağı ok ikonu bulunur", () => {
+    const { container } = render(<FaqSection />);
+    const icons = container.querySelectorAll('summary svg[aria-hidden="true"]');
+    expect(icons).toHaveLength(faqItems.length);
+  });
+
   it("FAQPage JSON-LD'sini veriyle tutarlı üretir", () => {
     const { container } = render(<FaqSection />);
     const script = container.querySelector(

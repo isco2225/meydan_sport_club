@@ -48,12 +48,18 @@ export default function FaqSection() {
           >
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold [&::-webkit-details-marker]:hidden">
               {item.question}
-              <span
+              <svg
                 aria-hidden="true"
-                className="shrink-0 text-foreground/40 transition-transform group-open:rotate-45"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="size-4 shrink-0 text-foreground/40 transition-transform group-open:rotate-180"
               >
-                +
-              </span>
+                <path d="m3 6 5 5 5-5" />
+              </svg>
             </summary>
             <p className="mt-4 text-sm leading-relaxed text-foreground/70">
               {item.answer}
