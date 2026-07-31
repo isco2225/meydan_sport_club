@@ -44,17 +44,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   `WorkingHours`, `MembershipPricing`, `SocialLinks`. Aynı bilgi iki yerde
   görünüyorsa JSX'i kopyalama — bu bileşenlerden birini kullan ya da yenisini çıkar.
 - `app/layout.tsx`: Navbar + `main` + Footer, `lang="tr"`, Geist fontları, title şablonu.
-  Tek `"use client"` bileşenleri `Navbar.tsx` ve `sections/HeroSlideshow.tsx`'tir;
-  bir üçüncüsünü eklemeden önce etkileşimin gerçekten JS gerektirdiğini doğrula
-  (ör. `FaqSection` yerleşik `<details>` ile server component kalıyor).
+  `"use client"` bileşenleri yalnızca `Navbar.tsx`, `ContactForm.tsx` ve
+  `sections/HeroSlideshow.tsx`'tir; yenisini eklemeden önce etkileşimin gerçekten
+  JS gerektirdiğini doğrula (ör. `FaqSection` yerleşik `<details>` ile server
+  component kalıyor).
 - Form: `src/lib/contact.ts` → `contactSchema` (Zod) + `ContactFormValues = z.infer`.
 - Görseller `public/images/<alan>/` altında; klasör/ölçü/isimlendirme kuralları
   `public/images/README.md`'de — yeni görsel eklemeden önce oraya bak.
 - Testler `src/` içinde eş konumlu `*.test.ts(x)` (Vitest, jsdom); E2E `e2e/` altında.
-- DURUM: RHF kuruldu; form `ContactForm` + `src/lib/contact-action.ts` (server
-  action, Zod + honeypot) ile çalışıyor. Resend anahtar bekliyor (action'daki
-  TODO). Sanity henüz kurulmadı; içerik şu an `src/data`'da statik. JSON-LD'den
-  yalnızca `FaqSection`'daki FAQPage var; ExerciseGym eklenmedi.
+- DURUM: form `ContactForm` + `src/lib/contact-action.ts` (server action, Zod +
+  honeypot) ile Resend'e tam bağlı; env eksikse kibar hata döner, gönderici
+  geçici olarak `onboarding@resend.dev`. Form arayüzü kapalı modda —
+  `ContactSection` `emailEnabled` vermiyor, açılışı yol haritasında. Sanity
+  henüz kurulmadı; içerik şu an `src/data`'da statik. JSON-LD'den yalnızca
+  `FaqSection`'daki FAQPage var; ExerciseGym eklenmedi.
 
 ## Yayın yol haritası (bekleyen işler — Tem 2026)
 - ⚠️ ACİL: `meydansportclub.com` süresi 8 Ağustos 2026'da doluyor — salon
