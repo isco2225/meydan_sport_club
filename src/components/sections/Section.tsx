@@ -27,7 +27,7 @@ export default function Section({
   return (
     <section
       id={id}
-      className={`flex min-h-[calc(100svh-var(--nav-h))] items-center border-b border-black/10 py-20 dark:border-white/10 ${
+      className={`flex min-h-[calc(100svh-var(--nav-h))] items-center border-b border-line py-20 sm:py-24 ${
         muted ? "bg-foreground/[0.02]" : ""
       } ${className}`}
     >

@@ -1,18 +1,23 @@
 import Section from "./Section";
 import MembershipPricing from "@/components/MembershipPricing";
+import SectionHeader from "@/components/SectionHeader";
+import TrialCallout from "@/components/TrialCallout";
 
 export default function MembershipSection() {
   return (
     <Section id="uyelik">
-      <h2 className="font-display text-3xl uppercase sm:text-4xl">
-        Üyelik Ücretleri
-      </h2>
-      <p className="mt-3 max-w-2xl text-lg text-foreground/70">
-        Standart ve öğrenci fiyatlarımızı aşağıda görebilirsiniz.
-      </p>
+      <SectionHeader
+        eyebrow="Fiyatlar"
+        title="Üyelik Ücretleri"
+        description="Standart ve öğrenci fiyatlarımız. Üyelik süresi uzadıkça aylık maliyet düşer."
+      />
+
+      <div className="mt-12">
+        <MembershipPricing />
+      </div>
 
       <div className="mt-10">
-        <MembershipPricing />
+        <TrialCallout />
       </div>
     </Section>
   );

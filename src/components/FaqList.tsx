@@ -12,7 +12,7 @@ export default function FaqList() {
       {faqItems.map((item) => (
         <details
           key={item.id}
-          className="group rounded-2xl border border-line bg-background p-6 transition-colors open:border-brand/40"
+          className="group rounded-2xl border border-line bg-surface p-6 transition-colors open:border-brand/50"
         >
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold [&::-webkit-details-marker]:hidden">
             {item.question}

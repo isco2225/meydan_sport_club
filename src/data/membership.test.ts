@@ -4,6 +4,9 @@ import {
   extraFees,
   formatTRY,
   CURRENCY,
+  basePlan,
+  savingsPercent,
+  formatPercent,
 } from "./membership";
 
 describe("membershipPlans", () => {
@@ -61,5 +64,33 @@ describe("formatTRY", () => {
     expect(formatted).toContain("2.500");
     // Kuruş gösterilmez.
     expect(formatted).not.toContain(",00");
+  });
+});
+
+describe("savingsPercent", () => {
+  const byId = (id: string) => membershipPlans.find((p) => p.id === id)!;
+
+  it("taban (aylık) plan için 0 döner", () => {
+    expect(basePlan.id).toBe("aylik");
+    expect(savingsPercent(basePlan)).toBe(0);
+  });
+
+  it("aylık maliyeti tabana göre yüzde olarak hesaplar ve yuvarlar", () => {
+    // 12 ay: 18.000 / 12 = 1.500 ₺/ay; 2.500'e göre %40 düşük.
+    expect(savingsPercent(byId("12-aylik"))).toBe(40);
+    // 3 ay: 6.500 / 3 ≈ 2.166,67 ₺/ay → %13,3 → 13.
+    expect(savingsPercent(byId("3-aylik"))).toBe(13);
+  });
+
+  it("süre uzadıkça avantaj artar", () => {
+    const sorted = [...membershipPlans].sort((a, b) => a.months - b.months);
+    const savings = sorted.map((p) => savingsPercent(p));
+    expect([...savings].sort((a, b) => a - b)).toEqual(savings);
+  });
+});
+
+describe("formatPercent", () => {
+  it("Türkçe yüzde biçimini (%40) kullanır", () => {
+    expect(formatPercent(40)).toBe("%40");
   });
 });

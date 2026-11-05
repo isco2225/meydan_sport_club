@@ -13,7 +13,7 @@ import { telHref, whatsappHref } from "@/lib/links";
 import { siteConfig } from "@/lib/site";
 
 const fieldClass =
-  "w-full rounded-lg border border-black/15 bg-transparent px-3 py-2 text-sm outline-none focus:border-foreground dark:border-white/15";
+  "w-full rounded-xl border border-line bg-background px-4 py-3 text-sm outline-none transition-colors placeholder:text-foreground/35 focus:border-brand focus:ring-2 focus:ring-brand/25 aria-[invalid=true]:border-red-400";
 
 type ContactFormProps = {
   /**
@@ -59,10 +59,10 @@ export default function ContactForm({ emailEnabled = false }: ContactFormProps) 
     <form
       onSubmit={onSubmit}
       noValidate
-      className="space-y-4 rounded-2xl border border-black/10 p-6 dark:border-white/10"
+      className="space-y-5 rounded-3xl border border-line bg-surface p-6 sm:p-8"
     >
       <div>
-        <label htmlFor="name" className="mb-1 block text-sm font-medium">
+        <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-foreground/80">
           Ad Soyad
         </label>
         <input
@@ -75,14 +75,14 @@ export default function ContactForm({ emailEnabled = false }: ContactFormProps) 
           {...register("name")}
         />
         {errors.name && (
-          <p id="name-error" className="mt-1 text-xs text-red-600 dark:text-red-400">
+          <p id="name-error" className="mt-1 text-xs text-red-400">
             {errors.name.message}
           </p>
         )}
       </div>
 
       <div>
-        <label htmlFor="email" className="mb-1 block text-sm font-medium">
+        <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-foreground/80">
           E-posta
         </label>
         <input
@@ -95,26 +95,26 @@ export default function ContactForm({ emailEnabled = false }: ContactFormProps) 
           {...register("email")}
         />
         {errors.email && (
-          <p id="email-error" className="mt-1 text-xs text-red-600 dark:text-red-400">
+          <p id="email-error" className="mt-1 text-xs text-red-400">
             {errors.email.message}
           </p>
         )}
       </div>
 
       <div>
-        <label htmlFor="message" className="mb-1 block text-sm font-medium">
+        <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-foreground/80">
           Mesajınız
         </label>
         <textarea
           id="message"
-          rows={4}
+          rows={5}
           aria-invalid={errors.message ? true : undefined}
           aria-describedby={errors.message ? "message-error" : undefined}
           className={fieldClass}
           {...register("message")}
         />
         {errors.message && (
-          <p id="message-error" className="mt-1 text-xs text-red-600 dark:text-red-400">
+          <p id="message-error" className="mt-1 text-xs text-red-400">
             {errors.message.message}
           </p>
         )}
@@ -135,7 +135,7 @@ export default function ContactForm({ emailEnabled = false }: ContactFormProps) 
       {result?.status === "disabled" && (
         <p
           role="status"
-          className="rounded-lg bg-brand/15 px-4 py-3 text-sm font-medium"
+          className="rounded-xl border border-brand/40 bg-brand/10 px-4 py-3 text-sm font-medium"
         >
           Bu özellik henüz aktif değil. Bizimle{" "}
           <a
@@ -157,12 +157,12 @@ export default function ContactForm({ emailEnabled = false }: ContactFormProps) 
         </p>
       )}
       {result?.status === "success" && (
-        <p role="status" className="text-sm font-medium text-green-700 dark:text-green-400">
+        <p role="status" className="text-sm font-medium text-green-400">
           Mesajınız alındı. En kısa sürede size dönüş yapacağız.
         </p>
       )}
       {result?.status === "error" && (
-        <p role="alert" className="text-sm font-medium text-red-600 dark:text-red-400">
+        <p role="alert" className="text-sm font-medium text-red-400">
           {result.message}
         </p>
       )}
@@ -170,7 +170,7 @@ export default function ContactForm({ emailEnabled = false }: ContactFormProps) 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background transition-opacity hover:opacity-90 disabled:opacity-60"
+        className="w-full rounded-full bg-brand px-5 py-3.5 text-sm font-semibold text-black transition-opacity hover:opacity-90 disabled:opacity-60"
       >
         {isSubmitting ? "Gönderiliyor…" : "Gönder"}
       </button>

@@ -31,9 +31,14 @@ export function whatsappHref(
   return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
 }
 
+/** Mahalle + cadde/kapı, ör. "Ortaçeşme, Çayır Cd. No:224/2" (JSON-LD streetAddress). */
+export function streetAddress(address: PostalAddress = siteConfig.address): string {
+  return `${address.neighborhood}, ${address.street}`;
+}
+
 /** Görünen tek satırlık adres, ör. "Ortaçeşme, Çayır Cd. No:224/2, 34825 Beykoz/İstanbul". */
 export function formatAddress(address: PostalAddress = siteConfig.address): string {
-  return `${address.street}, ${address.postalCode} ${address.district}/${address.city}`;
+  return `${streetAddress(address)}, ${address.postalCode} ${address.district}/${address.city}`;
 }
 
 /**

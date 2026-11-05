@@ -43,3 +43,19 @@ describe("MembershipPricing", () => {
     expect(screen.queryByText(/paketi seç|üye ol|satın al|sepete/i)).toBeNull();
   });
 });
+
+describe("MembershipPricing avantaj oranı", () => {
+  const cardOf = (label: string) =>
+    within(screen.getByRole("heading", { name: label }).closest("li")!);
+
+  it("uzun planlarda aylığa göre avantaj yüzdesini veriden hesaplayıp gösterir", () => {
+    render(<MembershipPricing />);
+    expect(cardOf("12 Aylık").getByText("Aylığa göre %40 avantaj")).toBeInTheDocument();
+    expect(cardOf("3 Aylık").getByText("Aylığa göre %13 avantaj")).toBeInTheDocument();
+  });
+
+  it("taban (aylık) planda avantaj satırı göstermez", () => {
+    render(<MembershipPricing />);
+    expect(cardOf("Aylık").queryByText(/avantaj/i)).toBeNull();
+  });
+});

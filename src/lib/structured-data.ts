@@ -1,6 +1,6 @@
 import { faqItems, type FaqItem } from "@/data/faq";
 import { openingHoursSpecification, salonSchedules } from "@/data/hours";
-import { mapsHref } from "@/lib/links";
+import { mapsHref, streetAddress } from "@/lib/links";
 import { shareImage } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site";
 
@@ -42,7 +42,7 @@ export function gymJsonLd(images: string[] = []) {
     email: siteConfig.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: address.street,
+      streetAddress: streetAddress(address),
       postalCode: address.postalCode,
       addressLocality: address.district,
       addressRegion: address.city,

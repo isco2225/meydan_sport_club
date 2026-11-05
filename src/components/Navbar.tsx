@@ -23,7 +23,7 @@ export default function Navbar() {
 
   return (
     <header
-      className="sticky top-0 z-50 h-[var(--nav-h)] border-b border-white/10 bg-black text-white"
+      className="sticky top-0 z-50 h-[var(--nav-h)] border-b border-white/10 bg-black/85 text-white backdrop-blur-md"
       onKeyDown={(event) => {
         if (event.key === "Escape") setMenuOpen(false);
       }}
@@ -48,7 +48,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden gap-6 md:flex">
+        <nav aria-label="Ana menü" className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => {
             const active = isHome && activeSection === item.sectionId;
             return (
@@ -56,8 +56,10 @@ export default function Navbar() {
                 key={item.sectionId}
                 href={item.href}
                 aria-current={active ? "true" : undefined}
-                className={`text-sm font-medium transition-colors ${
-                  active ? "text-brand" : "text-white/70 hover:text-white"
+                className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
+                  active
+                    ? "bg-brand/15 text-brand"
+                    : "text-white/70 hover:bg-white/5 hover:text-white"
                 }`}
               >
                 {item.label}
@@ -72,7 +74,7 @@ export default function Navbar() {
           aria-expanded={menuOpen}
           aria-controls="mobil-menu"
           onClick={() => setMenuOpen((open) => !open)}
-          className="-mr-2 flex h-10 w-10 items-center justify-center rounded-lg text-white/80 transition-colors hover:text-brand md:hidden"
+          className="-mr-2 flex h-10 w-10 items-center justify-center rounded-lg text-white/80 transition-colors hover:text-brand lg:hidden"
         >
           <svg
             aria-hidden="true"
@@ -95,7 +97,8 @@ export default function Navbar() {
       {menuOpen && (
         <nav
           id="mobil-menu"
-          className="absolute inset-x-0 top-full border-b border-white/10 bg-black py-2 md:hidden"
+          aria-label="Mobil menü"
+          className="absolute inset-x-0 top-full border-b border-white/10 bg-black/95 py-2 backdrop-blur-md lg:hidden"
         >
           {navItems.map((item) => {
             const active = isHome && activeSection === item.sectionId;
@@ -105,8 +108,10 @@ export default function Navbar() {
                 href={item.href}
                 aria-current={active ? "true" : undefined}
                 onClick={() => setMenuOpen(false)}
-                className={`block px-6 py-3 text-sm font-medium transition-colors ${
-                  active ? "text-brand" : "text-white/70 hover:text-white"
+                className={`block border-l-2 px-6 py-3 text-sm font-medium transition-colors ${
+                  active
+                    ? "border-brand text-brand"
+                    : "border-transparent text-white/70 hover:text-white"
                 }`}
               >
                 {item.label}

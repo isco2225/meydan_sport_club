@@ -47,7 +47,7 @@ export default function SocialLinks({ className = "" }: SocialLinksProps) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${siteConfig.name} ${platform.label}`}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-black/10 text-foreground/70 transition-colors hover:border-foreground hover:text-foreground dark:border-white/15"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-foreground/70 transition-colors hover:border-brand hover:text-brand"
           >
             <svg
               viewBox="0 0 24 24"

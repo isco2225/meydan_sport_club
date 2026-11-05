@@ -1,6 +1,7 @@
 import Section from "./Section";
 import FaqList from "@/components/FaqList";
 import JsonLd from "@/components/JsonLd";
+import SectionHeader from "@/components/SectionHeader";
 import { faqPageJsonLd } from "@/lib/structured-data";
 
 /**
@@ -14,15 +15,13 @@ export default function FaqSection() {
     <Section id="sss" muted>
       <JsonLd data={faqPageJsonLd()} />
 
-      <h2 className="font-display text-3xl uppercase sm:text-4xl">
-        Sıkça Sorulan Sorular
-      </h2>
-      <p className="mt-3 max-w-2xl text-lg text-foreground/70">
-        Aklınıza takılanların cevabı burada yoksa bize iletişim bölümünden
-        ulaşabilirsiniz.
-      </p>
-
-      <div className="mt-8">
+      <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+        <SectionHeader
+          eyebrow="Merak edilenler"
+          title="Sıkça Sorulan Sorular"
+          description="Aklınıza takılanların cevabı burada yoksa bize iletişim bölümünden ulaşabilirsiniz."
+          className="lg:sticky lg:top-[calc(var(--nav-h)+2rem)] lg:self-start"
+        />
         <FaqList />
       </div>
     </Section>

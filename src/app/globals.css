@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
+/* Tema: site her zaman koyu. Salonun kendi kimliği (siyah ekipman, sarı
+   kolonlar, sarı-siyah logo) koyu zemin + sarı vurgu ile birebir örtüşür.
+   Açık/koyu ayrımı yoktur; bileşenlerde `dark:` varyantı ve `black/white`
+   sabit tonlar yerine aşağıdaki token'lar kullanılır. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+  --background: #0b0b0b;
+  --foreground: #f2f2ef;
   /* Marka sarısı: logodaki sarıyla uyumlu, koyu zeminde parlayan vurgu rengi.
      Üzerine her zaman koyu (siyah) metin konur. */
   --brand: #f5d90a;
@@ -30,18 +35,26 @@
   --font-display: var(--font-anton);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 /* Gövde fontu Tailwind'in `--font-sans` (Geist) değişkeninden gelir; burada
    ayrıca font-family verilmez — verilirse Geist'i ezer. */
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+::selection {
+  background: var(--brand);
+  color: #000;
+}
+
+/* Marka sarısından hafif bir ışık hüzmesi: hero ve sayfa başlıklarında zemine
+   derinlik verir. Konum `--glow-x/--glow-y` ile ayarlanabilir. */
+@utility glow-brand {
+  background-image: radial-gradient(
+    60% 55% at var(--glow-x, 85%) var(--glow-y, 15%),
+    color-mix(in oklab, var(--brand) 13%, transparent),
+    transparent 70%
+  );
 }
 
 /* Tek sayfa (one-page) kaydırma deneyimi: menü çapaları için yumuşak kaydırma

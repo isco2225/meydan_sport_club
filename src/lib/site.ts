@@ -1,5 +1,7 @@
 export type PostalAddress = {
-  /** Mahalle, cadde ve kapı numarası. */
+  /** Mahalle (semt); hero'daki konum etiketinde de kullanılır. */
+  neighborhood: string;
+  /** Cadde ve kapı numarası. */
   street: string;
   postalCode: string;
   /** İlçe. */
@@ -29,7 +31,8 @@ export const siteConfig = {
   whatsapp: "+90 532 228 26 22",
   email: "info@meydansportclub.com",
   address: {
-    street: "Ortaçeşme, Çayır Cd. No:224/2",
+    neighborhood: "Ortaçeşme",
+    street: "Çayır Cd. No:224/2",
     postalCode: "34825",
     district: "Beykoz",
     city: "İstanbul",

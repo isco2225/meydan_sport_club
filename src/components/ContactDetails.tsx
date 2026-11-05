@@ -19,7 +19,7 @@ type ContactDetailsProps = {
   className?: string;
 };
 
-type Detail = {
+export type ContactItem = {
   label: string;
   value: string;
   href: string;
@@ -29,17 +29,11 @@ type Detail = {
 };
 
 /**
- * İletişim bilgileri (adres, telefon, e-posta), çalışma saatleri ve sosyal
- * hesaplar. Ana sayfadaki `ContactSection` ile `/iletisim` sayfasının ortak
- * gövdesidir; her bilgi tıklanabilir (harita, `tel:`, WhatsApp, `mailto:`).
+ * İletişim kanalları (adres, telefon, WhatsApp, e-posta) — tek liste. Hem bu
+ * bileşen hem Footer kullanır; sıra ve bağlantılar tek yerde durur.
  */
-export default function ContactDetails({
-  headingLevel,
-  className = "",
-}: ContactDetailsProps) {
-  const Heading = `h${headingLevel}` as "h2" | "h3";
-
-  const details: Detail[] = [
+export function getContactItems(): ContactItem[] {
+  return [
     {
       label: "Adres",
       value: formatAddress(),
@@ -57,6 +51,25 @@ export default function ContactDetails({
     },
     { label: "E-posta", value: siteConfig.email, href: mailtoHref(), icon: "mail" },
   ];
+}
+
+/** Dış bağlantılar için yeni sekme öznitelikleri. */
+export function externalProps(item: ContactItem) {
+  return item.external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+}
+
+/**
+ * İletişim bilgileri (adres, telefon, e-posta), çalışma saatleri ve sosyal
+ * hesaplar. Ana sayfadaki `ContactSection` ile `/iletisim` sayfasının ortak
+ * gövdesidir; her bilgi tıklanabilir (harita, `tel:`, WhatsApp, `mailto:`).
+ */
+export default function ContactDetails({
+  headingLevel,
+  className = "",
+}: ContactDetailsProps) {
+  const Heading = `h${headingLevel}` as "h2" | "h3";
+
+  const details = getContactItems();
 
   return (
     <div className={className}>
@@ -76,9 +89,7 @@ export default function ContactDetails({
               <dd className="mt-1">
                 <a
                   href={detail.href}
-                  {...(detail.external
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
+                  {...externalProps(detail)}
                   className="break-words text-foreground/90 underline decoration-foreground/20 underline-offset-4 transition-colors hover:text-brand hover:decoration-brand"
                 >
                   {detail.value}

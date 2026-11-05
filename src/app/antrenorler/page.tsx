@@ -14,12 +14,14 @@ export default function TrainersPage() {
         description="Alanında uzman, sertifikalı antrenör kadromuzla tanışın."
       />
 
-      <section className="py-16">
-        <Container className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {trainers.map((trainer) => (
-            // Sayfanın tek h1'i PageHeader'da; kart başlıkları h2.
-            <TrainerCard key={trainer.id} trainer={trainer} headingLevel={2} />
-          ))}
+      <section className="py-16 sm:py-20">
+        <Container>
+          <div className="grid max-w-4xl gap-6 sm:grid-cols-2">
+            {trainers.map((trainer) => (
+              // Sayfanın tek h1'i PageHeader'da; kart başlıkları h2.
+              <TrainerCard key={trainer.id} trainer={trainer} headingLevel={2} />
+            ))}
+          </div>
         </Container>
       </section>
     </>

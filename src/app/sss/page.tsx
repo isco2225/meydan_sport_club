@@ -18,8 +18,12 @@ export default function FaqPage() {
       />
 
       <section className="py-16">
-        <Container className="max-w-3xl">
-          <FaqList />
+        {/* Dar sütun, başlıkla aynı hizada (sola yaslı). Container'a `max-w-*`
+            verilmez; kendi max-w-6xl'ı ile çakışır. */}
+        <Container>
+          <div className="max-w-3xl">
+            <FaqList />
+          </div>
         </Container>
       </section>
     </>

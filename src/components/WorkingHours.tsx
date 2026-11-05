@@ -33,7 +33,7 @@ export default function WorkingHours({
                   <dd
                     className={
                       closed
-                        ? "font-medium text-foreground/45"
+                        ? "font-medium text-foreground/55"
                         : "tabular-nums text-foreground/90"
                     }
                   >

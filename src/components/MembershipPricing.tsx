@@ -1,10 +1,15 @@
-import { membershipPlans, extraFees, formatTRY } from "@/data/membership";
+import {
+  membershipPlans,
+  extraFees,
+  formatPercent,
+  formatTRY,
+  monthlyCost,
+  savingsPercent,
+} from "@/data/membership";
 
 /** Aylık maliyeti en düşük olan plan "En Avantajlı" olarak işaretlenir. */
 const bestPlanId = membershipPlans.reduce((best, plan) =>
-  plan.standardPrice / plan.months < best.standardPrice / best.months
-    ? plan
-    : best,
+  monthlyCost(plan) < monthlyCost(best) ? plan : best,
 ).id;
 
 /**
@@ -15,40 +20,50 @@ const bestPlanId = membershipPlans.reduce((best, plan) =>
 export default function MembershipPricing() {
   return (
     <div>
-      <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {membershipPlans.map((plan) => {
           const featured = plan.id === bestPlanId;
-          const perMonth = Math.round(plan.standardPrice / plan.months);
+          const perMonth = Math.round(monthlyCost(plan));
+          const savings = savingsPercent(plan);
 
           return (
             <li
               key={plan.id}
               className={`group relative flex flex-col rounded-3xl border p-6 transition-transform duration-200 hover:-translate-y-1 ${
                 featured
-                  ? "border-foreground bg-foreground/[0.03] shadow-lg shadow-foreground/5"
-                  : "border-black/10 dark:border-white/10"
+                  ? "border-brand bg-brand/[0.07] shadow-[0_0_60px_-20px_var(--color-brand)]"
+                  : "border-line bg-surface"
               }`}
             >
               {featured && (
-                <span className="absolute -top-3 left-6 rounded-full bg-foreground px-3 py-1 text-xs font-semibold text-background">
+                <span className="absolute -top-3 left-6 rounded-full bg-brand px-3 py-1 text-xs font-bold uppercase tracking-wide text-black">
                   En Avantajlı
                 </span>
               )}
 
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground/60">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-foreground/60">
                 {plan.label}
               </h3>
 
-              <p className="mt-4 flex items-baseline gap-1">
-                <span className="text-3xl font-bold tracking-tight tabular-nums">
+              <p className="mt-5 flex items-baseline gap-1">
+                <span className="font-display text-5xl tracking-tight tabular-nums">
                   {formatTRY(plan.standardPrice)}
                 </span>
               </p>
-              <p className="mt-1 text-xs text-foreground/50 tabular-nums">
+              <p className="mt-2 text-xs text-foreground/55 tabular-nums">
                 ≈ {formatTRY(perMonth)} / ay
               </p>
 
-              <div className="mt-6 flex items-center justify-between gap-2 rounded-2xl bg-foreground/[0.04] px-4 py-3 dark:bg-white/[0.04]">
+              {/* Taban planda (aylık) kıyas anlamsız; satır yer tutsun diye boş kalır. */}
+              <p
+                className={`mt-3 min-h-5 text-xs font-semibold ${
+                  featured ? "text-brand" : "text-brand/80"
+                }`}
+              >
+                {savings > 0 && <>Aylığa göre {formatPercent(savings)} avantaj</>}
+              </p>
+
+              <div className="mt-6 flex items-center justify-between gap-2 rounded-2xl border border-line bg-background/60 px-4 py-3">
                 <span className="text-sm font-medium text-foreground/70">
                   Öğrenci
                 </span>
@@ -61,19 +76,19 @@ export default function MembershipPricing() {
         })}
       </ul>
 
-      <p className="mt-6 text-sm text-foreground/50">
+      <p className="mt-6 text-sm text-foreground/55">
         Öğrenci ücreti geçerli öğrenci belgesi ile uygulanır.
       </p>
 
-      <div className="mt-10 rounded-3xl border border-black/10 bg-background p-6 dark:border-white/10">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground/60">
+      <div className="mt-10 rounded-3xl border border-line bg-surface p-6">
+        <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-foreground/60">
           Ek Ücretler
         </h3>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
           {extraFees.map((fee) => (
             <li
               key={fee.id}
-              className="flex items-center justify-between gap-4 rounded-2xl border border-black/5 px-4 py-3 dark:border-white/5"
+              className="flex items-center justify-between gap-4 rounded-2xl border border-line bg-background/60 px-4 py-3"
             >
               <span className="text-sm text-foreground/80">
                 {fee.label}

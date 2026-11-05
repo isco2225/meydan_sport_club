@@ -45,3 +45,31 @@ export const extraFees: ExtraFee[] = [
   { id: "kart-barkod", label: "Kart veya barkod ücreti", price: 50, note: "tek seferlik" },
   { id: "gunluk-giris", label: "Günlük giriş", price: 300 },
 ];
+
+/** Bir planın standart fiyatla aylık maliyeti. */
+export function monthlyCost(plan: MembershipPlan): number {
+  return plan.standardPrice / plan.months;
+}
+
+/** Kıyas tabanı: en kısa süreli plan (aylık üyelik). */
+export const basePlan: MembershipPlan = membershipPlans.reduce((shortest, plan) =>
+  plan.months < shortest.months ? plan : shortest,
+);
+
+/**
+ * Planın aylık maliyetinin, en kısa süreli plana göre yüzde kaç düşük olduğu
+ * (tam sayıya yuvarlanır). Taban planın kendisi için 0 döner.
+ */
+export function savingsPercent(plan: MembershipPlan, base: MembershipPlan = basePlan): number {
+  return Math.round((1 - monthlyCost(plan) / monthlyCost(base)) * 100);
+}
+
+const percentFormatter = new Intl.NumberFormat("tr-TR", {
+  style: "percent",
+  maximumFractionDigits: 0,
+});
+
+/** Yüzdeyi Türkçe biçimde verir: 40 → "%40". */
+export function formatPercent(percent: number): string {
+  return percentFormatter.format(percent / 100);
+}
