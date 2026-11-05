@@ -6,9 +6,31 @@ import { siteConfig, type PostalAddress } from "@/lib/site";
  * üretilir ki iki yerde farklı numara görünmesin.
  */
 
-/** Telefon numarasını `tel:` bağlantısına çevirir (boşluk ve ayraçlar atılır). */
+/** Türkiye ülke kodu; yerel biçimdeki numaralar buna göre çevrilir. */
+const COUNTRY_CODE = "90";
+
+/**
+ * Numarayı E.164 biçimine çevirir: "0532 228 26 22" → "+905322282622".
+ * Zaten "+" ile başlayan numaralar yalnızca ayraçlarından arındırılır.
+ */
+export function toE164(phone: string): string {
+  const digits = phone.replace(/\D/g, "");
+  if (phone.trim().startsWith("+")) return `+${digits}`;
+  return `+${COUNTRY_CODE}${digits.replace(/^0/, "")}`;
+}
+
+/**
+ * Okunur uluslararası biçim: "0532 228 26 22" → "+90 532 228 26 22".
+ * JSON-LD'de kullanılır (Google ülke kodunu ister).
+ */
+export function internationalPhone(phone: string = siteConfig.phone): string {
+  if (phone.trim().startsWith("+")) return phone.trim();
+  return `+${COUNTRY_CODE} ${phone.trim().replace(/^0/, "")}`;
+}
+
+/** Telefon numarasını uluslararası `tel:` bağlantısına çevirir. */
 export function telHref(phone: string = siteConfig.phone): string {
-  return `tel:${phone.replace(/[^\d+]/g, "")}`;
+  return `tel:${toE164(phone)}`;
 }
 
 export function mailtoHref(email: string = siteConfig.email): string {
@@ -22,12 +44,12 @@ export const WHATSAPP_DEFAULT_MESSAGE =
 export const WHATSAPP_TRIAL_MESSAGE =
   "Merhaba, ücretsiz deneme antrenmanı için randevu almak istiyorum.";
 
-/** wa.me sohbet bağlantısı; numara uluslararası biçimde, yalnızca rakam olmalı. */
+/** wa.me sohbet bağlantısı; wa.me numarayı ülke koduyla, "+" olmadan ister. */
 export function whatsappHref(
   message: string = WHATSAPP_DEFAULT_MESSAGE,
   number: string = siteConfig.whatsapp,
 ): string {
-  const digits = number.replace(/\D/g, "");
+  const digits = toE164(number).slice(1);
   return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
 }
 

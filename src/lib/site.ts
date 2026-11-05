@@ -23,13 +23,19 @@ export const siteConfig = {
   url: "https://www.meydansportclub.com",
   description:
     "Beykoz Ortaçeşme'de karma ve kadınlara özel salon, pilates, zumba ve core board grup dersleri ve uygun üyelik ücretleri. Ücretsiz deneme antrenmanı için bize ulaşın.",
-  phone: "+90 532 228 26 22",
+  /**
+   * Görünen telefon — Google İşletme Profili'ndeki biçimle birebir aynı
+   * (ad/adres/telefon tutarlılığı yerel aramada önemlidir). `tel:`, WhatsApp
+   * ve JSON-LD için uluslararası biçim `lib/links.ts`'te bundan türetilir.
+   */
+  phone: "0532 228 26 22",
   /**
    * WhatsApp hattı. Varsayım: telefonla aynı numara (cep hattı). Farklıysa
    * yalnızca burayı değiştir; tüm WhatsApp bağlantıları buradan üretilir.
    */
-  whatsapp: "+90 532 228 26 22",
+  whatsapp: "0532 228 26 22",
   email: "info@meydansportclub.com",
+  /** Adres Google İşletme Profili ile aynıdır (bkz. `formatAddress`). */
   address: {
     neighborhood: "Ortaçeşme",
     street: "Çayır Cd. No:224/2",

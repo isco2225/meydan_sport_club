@@ -19,7 +19,8 @@ describe("gymJsonLd (ExerciseGym)", () => {
   });
 
   it("adres, telefon ve e-postayı siteConfig'ten türetir", () => {
-    expect(data.telephone).toBe(siteConfig.phone);
+    // Görünen numara yerel biçimdedir; JSON-LD'de Google ülke kodunu ister.
+    expect(data.telephone).toBe("+90 532 228 26 22");
     expect(data.email).toBe(siteConfig.email);
     expect(data.address).toEqual({
       "@type": "PostalAddress",

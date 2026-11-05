@@ -1,6 +1,6 @@
 import { faqItems, type FaqItem } from "@/data/faq";
 import { openingHoursSpecification, salonSchedules } from "@/data/hours";
-import { mapsHref, streetAddress } from "@/lib/links";
+import { internationalPhone, mapsHref, streetAddress } from "@/lib/links";
 import { shareImage } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site";
 
@@ -38,7 +38,7 @@ export function gymJsonLd(images: string[] = []) {
     url: absolute("/"),
     logo: absolute("/images/logo/meydansport_logo.png"),
     image: [shareImage.url, ...images].map(absolute),
-    telephone: siteConfig.phone,
+    telephone: internationalPhone(siteConfig.phone),
     email: siteConfig.email,
     address: {
       "@type": "PostalAddress",
