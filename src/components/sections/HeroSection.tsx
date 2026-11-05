@@ -2,7 +2,6 @@ import Link from "next/link";
 import Container from "@/components/Container";
 import Icon from "@/components/Icon";
 import HeroSlideshow from "./HeroSlideshow";
-import { heroFacts } from "@/data/facts";
 import { heroImages } from "@/data/gallery";
 import { whatsappHref, WHATSAPP_TRIAL_MESSAGE } from "@/lib/links";
 import { siteConfig } from "@/lib/site";
@@ -73,23 +72,10 @@ export default function HeroSection() {
             </Link>
           </div>
 
-          {/* `items-start`: açıklaması iki satıra inen kutu diğerlerini uzatmasın;
-              değerler (6 gün, 2 salon…) hep aynı hizada üstte başlasın. */}
-          <dl className="mx-auto mt-8 grid max-w-xl grid-cols-3 items-start gap-4 border-t border-white/15 pt-5 text-left lg:mx-0">
-            {heroFacts.map((fact) => (
-              <div key={fact.value} className="flex flex-col-reverse gap-1">
-                <dt className="text-xs leading-snug text-white/60">{fact.label}</dt>
-                <dd className="font-display text-xl uppercase text-white sm:text-3xl">
-                  {fact.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
-
           {/* Bir sonraki bölüme yumuşak kaydıran keşif butonu. */}
           <Link
             href="/#hakkimizda"
-            className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-sm font-medium text-white/75 transition-colors hover:bg-white/10 hover:text-white"
+            className="mt-10 inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2.5 text-sm font-medium text-white/75 transition-colors hover:bg-white/10 hover:text-white"
           >
             Keşfet{" "}
             <span aria-hidden="true" className="animate-bounce motion-reduce:animate-none">

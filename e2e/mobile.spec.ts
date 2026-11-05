@@ -23,17 +23,6 @@ test.describe("mobil görünüm", () => {
     );
   });
 
-  test("hero bilgi şeridindeki değerler aynı hizada durur", async ({ page }) => {
-    await page.goto("/");
-    const values = page.locator("#ust dl dd");
-    await expect(values).toHaveCount(3);
-    const tops = await values.evaluateAll((els) =>
-      els.map((el) => Math.round(el.getBoundingClientRect().top)),
-    );
-    // Açıklaması iki satıra inen kutu, kısa olanın değerini aşağı itmemeli.
-    expect(new Set(tops).size).toBe(1);
-  });
-
   test("menü açılır ve seçilen bölüme götürür", async ({ page }) => {
     await page.goto("/");
     await page.getByRole("button", { name: "Menüyü aç" }).click();
