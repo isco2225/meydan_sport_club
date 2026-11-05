@@ -73,7 +73,9 @@ export default function HeroSection() {
             </Link>
           </div>
 
-          <dl className="mx-auto mt-8 grid max-w-xl grid-cols-3 gap-4 border-t border-white/15 pt-5 text-left lg:mx-0">
+          {/* `items-start`: açıklaması iki satıra inen kutu diğerlerini uzatmasın;
+              değerler (6 gün, 2 salon…) hep aynı hizada üstte başlasın. */}
+          <dl className="mx-auto mt-8 grid max-w-xl grid-cols-3 items-start gap-4 border-t border-white/15 pt-5 text-left lg:mx-0">
             {heroFacts.map((fact) => (
               <div key={fact.value} className="flex flex-col-reverse gap-1">
                 <dt className="text-xs leading-snug text-white/60">{fact.label}</dt>
