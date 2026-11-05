@@ -32,18 +32,36 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - İçerik veri odaklı: `src/data/*` (trainers, membership, schedule, faq, hours) tipli
   dizilerdir; bölüm bileşenleri bu diziyi map'ler. Metni burada değiştir, JSX'te değil.
   Sabitler de veri katmanında yaşar (ör. `hours.ts` → `CLOSED`, `summarizeHours()`).
-- `src/lib/site.ts` tek kaynak: `siteConfig` (adres/telefon/sosyal) + `navItems`.
+- `src/lib/site.ts` tek kaynak: `siteConfig` (url, adres parçaları, telefon,
+  WhatsApp, sosyal) + `navItems`. Bağlantılar (`tel:`, wa.me, harita, mailto)
+  daima `src/lib/links.ts`'ten üretilir; numara/adres JSX'e yazılmaz.
+- `src/lib/metadata.ts` → `pages` tek kaynak sayfa listesi: her sayfa
+  `export const metadata = pageMetadata(pages.x)` kullanır; `sitemap.ts` da
+  buradan üretilir. Yeni rota = buraya da ekle (`metadata.test.ts` yakalar).
+  Open Graph sığ birleşir; paylaşım görseli (`public/images/og/`) bu yüzden
+  `sharedOpenGraph` içinde açıkça verilir.
+- JSON-LD: `src/lib/structured-data.ts` üretir (`gymJsonLd`, `faqPageJsonLd`),
+  `components/JsonLd.tsx` basar (`<` kaçışı orada). Saatler `hours.ts`'te
+  gün gün (`salonSchedules`); görünen satırlar ve `openingHoursSpecification`
+  ondan türetilir.
 - Ana sayfa tek sayfa (one-page): `app/page.tsx`, `components/sections/*` bölümlerini
   sırayla dizer. Her `Section` ekran yüksekliğinde ve `navItems.sectionId` ile eşleşen
   bir `id` taşır; menü `/#id` çapasına yumuşak kaydırır. İstisna: `HeroSection`
-  `Section`'ı sarmaz, `id="ust"` ile kendi `<section>`'ını kurar (tam ekran arka plan).
-- Ayrı rotalar (`hakkimizda`, `antrenorler`, `uyelik`, `ders-programi`, `iletisim`)
+  `Section`'ı sarmaz, `id="ust"` ile kendi `<section>`'ını kurar (fotoğraflar dikey:
+  mobilde tam ekran arka plan, masaüstünde sağda dikey çerçeve — tek slideshow örneği).
+- Ayrı rotalar (`hakkimizda`, `antrenorler`, `uyelik`, `ders-programi`, `sss`, `iletisim`)
   aynı içeriği kendi sayfası + kendi `Metadata`'sıyla sunar. Alt sayfalar
   `PageHeader` (tek `h1`) + `Container` ile kurulur.
 - İki sunumun (one-page bölümü ve ayrı rota) ortak gövdesi paylaşılan bileşenlerdir:
   `WorkingHours`, `MembershipPricing`, `SocialLinks`. Aynı bilgi iki yerde
   görünüyorsa JSX'i kopyalama — bu bileşenlerden birini kullan ya da yenisini çıkar.
+  Mevcut ortak gövdeler: `AboutContent`, `WeeklySchedule`, `ScheduleNotice`,
+  `FaqList`, `ContactDetails` (+ `getContactItems`, Footer da kullanır),
+  `TrialCallout`, `SectionHeader`. Başlık düzeyi `headingLevel` prop'uyla
+  çağırandan gelir (bölümde 3, alt sayfada 2).
 - `app/layout.tsx`: Navbar + `main` + Footer, `lang="tr"`, Geist fontları, title şablonu.
+  Mobilde her sayfanın altında `MobileActionBar` (Ara · WhatsApp · Yol Tarifi)
+  durur; `body` mobilde `--action-bar-h` kadar alt boşluk bırakır.
   `"use client"` bileşenleri yalnızca `Navbar.tsx`, `ContactForm.tsx` ve
   `sections/HeroSlideshow.tsx`'tir; yenisini eklemeden önce etkileşimin gerçekten
   JS gerektirdiğini doğrula (ör. `FaqSection` yerleşik `<details>` ile server
@@ -56,23 +74,32 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   honeypot) ile Resend'e tam bağlı; env eksikse kibar hata döner, gönderici
   geçici olarak `onboarding@resend.dev`. Form arayüzü kapalı modda —
   `ContactSection` `emailEnabled` vermiyor, açılışı yol haritasında. Sanity
-  henüz kurulmadı; içerik şu an `src/data`'da statik. JSON-LD'den yalnızca
-  `FaqSection`'daki FAQPage var; ExerciseGym eklenmedi.
+  henüz kurulmadı; içerik şu an `src/data`'da statik. JSON-LD: ana sayfada
+  ExerciseGym (kadınlar salonu ayrı `department`) + FAQPage. FAQPage yalnızca
+  ana sayfada; `/sss` aynı listeyi JSON-LD'siz gösterir (Google tek kopya ister).
+- WhatsApp numarası VARSAYIM: telefonla aynı (`siteConfig.whatsapp`). Salon
+  sahibinden teyit alınmadı.
 
-## Yayın yol haritası (bekleyen işler — Tem 2026)
-- ⚠️ ACİL: `meydansportclub.com` süresi 8 Ağustos 2026'da doluyor — salon
-  sahibi İsimtescil'den YENİLEMELİ, yoksa alan adı düşer.
-- Alan adı: İsimtescil'de kayıtlı (isimtescil.net), DNS şu an Keyubu
-  (keyubu.net) isim sunucularında. Salon sahibinden İsimtescil ve/veya Keyubu
-  panel erişimi alınacak (alternatif: DNS kayıtlarını sahibi kendisi ekler).
-- Vercel: site test için `*.vercel.app` adresinde; `main`'e push otomatik
-  deploy tetikler. Alan adı erişimi gelince Settings → Domains'e
-  `meydansportclub.com` bağlanacak (isim sunucularını Vercel'e taşımak
-  DNS'i tek panelde toplar — önerilen yol).
+## Yayın yol haritası (bekleyen işler — Kas 2026)
+- Alan adı (whois, 6 Kas 2026): `meydansportclub.com` 5 Kasım 2026'da
+  GoDaddy'de YENİDEN kaydedilmiş (eski İsimtescil kaydı düşmüş); bitiş
+  5 Kasım 2027. İsim sunucuları GoDaddy (`ns71/72.domaincontrol.com`).
+  Vercel'e bağlı ve canlı: kök adres `www.meydansportclub.com`'a 308 ile
+  yönleniyor → kanonik adres `www` (`siteConfig.url`). Yenileme hatırlatması
+  ve otomatik yenileme GoDaddy'de açılmalı.
+- `main`'e push otomatik olarak CANLI alan adına deploy eder. İnceleme için
+  branch push'u (Vercel preview) kullan.
+- ⚠️ E-posta: alan adında MX kaydı YOK → `info@meydansportclub.com`'a gelen
+  posta şu an kimseye ulaşmıyor (sitede ve JSON-LD'de gösteriliyor). GoDaddy
+  e-posta / Google Workspace / Zoho vb. kurulana dek ya kurulmalı ya da
+  `siteConfig.email` kaldırılmalı — salon sahibiyle karar verilecek.
 - Resend: hesap kişisel Gmail ile açık; alan adı doğrulanmadan yalnızca hesap
-  adresine gönderebiliyor. Domain doğrulaması (resend.com/domains, 2 TXT +
-  1 MX kaydı) sonrası: `contact-action.ts`'de `from` adresini
-  `info@meydansportclub.com` yap, `CONTACT_TO_EMAIL` salonun adresi olabilir.
+  adresine gönderebiliyor. DNS artık GoDaddy'de: domain doğrulaması
+  (resend.com/domains, 2 TXT + 1 MX kaydı) GoDaddy DNS'ine eklenir. Sonra
+  `contact-action.ts`'de `from` adresini `info@meydansportclub.com` yap,
+  `CONTACT_TO_EMAIL` salonun adresi olabilir.
+- Site dışı en büyük SEO kaldıracı: Google İşletme Profili (Maps); ad/adres/
+  telefon sitedekiyle birebir aynı olmalı.
 - Vercel ortam değişkenleri: `RESEND_API_KEY` + `CONTACT_TO_EMAIL`
   (Settings → Environment Variables; değerler yerelde `.env.local`'de).
 - Formu açma: `ContactSection`'da `<ContactForm emailEnabled />` yap ve
@@ -84,11 +111,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Görselde her zaman `next/image`, fontta `next/font`. `<img>` kullanma.
 - Her sayfada Metadata API ile özgün title/description.
 - Ana sayfada JSON-LD (ExerciseGym) yapılandırılmış verisi. JSON-LD daima görünen
-  veriden türetilir (elle ikinci kopya yazma) ve `<` kaçışlanır — örnek: `FaqSection`.
+  veriden türetilir (elle ikinci kopya yazma) ve `<` kaçışlanır — `components/JsonLd.tsx`.
 - Semantik HTML: sayfa başına tek `h1`, hiyerarşik başlıklar, alt metni zorunlu.
 - Tailwind v4: ayrı `tailwind.config.js` YOK. Tema `src/app/globals.css` içinde
   `@import "tailwindcss"` + `@theme inline` ile CSS değişkenlerinden tanımlanır.
   Renkleri oradan al; keyfî hex yazma.
+- Tema daima koyu (açık mod yok). `dark:` varyantı ve `border-black/10` gibi
+  sabit tonlar KULLANMA; `border-line`, `bg-surface`, `text-foreground/NN`,
+  `brand` token'larını kullan. Küçük metinde `text-foreground/55` altına inme
+  (AA kontrast). Marka sarısı üstüne metin daima siyah.
+- `Container`'a `className` ile `max-w-*` verme: kendi `max-w-6xl`'ı ile
+  çakışır ve CSS sırası yüzünden uygulanmaz. Dar içerik için içine
+  `<div className="max-w-3xl">` koy.
 - Zod v4 API'si: e-posta gibi doğrulamalar üst düzey (`z.email()`), eski
   `z.string().email()` değil. Bkz. `src/lib/contact.ts`.
 

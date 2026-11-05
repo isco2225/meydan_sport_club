@@ -16,9 +16,14 @@ yeterince büyük** bir görsel koyman yeterli.
 | `hero/`         | Ana sayfa kapak/arka plan       | 1920 × 1080        | 16:9  |
 | `hakkimizda/`   | Salon içi, ekipman, mekân       | 1600 × 1067        | 3:2   |
 | `antrenorler/`  | Antrenör portreleri             | 800 × 800          | 1:1   |
-| `galeri/`       | Genel galeri / atmosfer         | 1200 × 800         | 3:2   |
+| `galeri/`       | Salon içi (Hakkımızda mozaiği)  | 1170 × 1558        | 3:4   |
 | `logo/`         | Marka logosu (tercihen `.svg`)  | —                  | —     |
 | `og/`           | Sosyal paylaşım (Open Graph)    | 1200 × 630         | 1.91:1|
+
+Galeri ve hero listeleri `src/data/gallery.ts`'tedir (alt metinleriyle);
+yeni fotoğrafı oraya ekle. Paylaşım görseli `src/lib/metadata.ts` →
+`shareImage`. Hero fotoğrafları dikeydir (≈ 9:16); yatay geniş fotoğraf
+gelirse masaüstü düzeni ona göre değiştirilebilir.
 
 ## İsimlendirme kuralları
 

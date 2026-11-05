@@ -17,7 +17,7 @@ Arayüz metinleri ve commit mesajları Türkçe yazılır.
 | Doğrulama  | Zod 4                                    |
 | Birim test | Vitest 4 + Testing Library (jsdom)       |
 | E2E test   | Playwright                               |
-| Font       | `next/font` ile Geist / Geist Mono       |
+| Font       | `next/font` ile Geist + Anton (başlık)   |
 | Deploy     | Vercel                                   |
 
 Gereksinim: Node.js 20.9+ (geliştirme `v22` ile yapılıyor).
@@ -62,7 +62,9 @@ src/
   components/     # Paylaşılan bileşenler
     sections/     # Ana sayfanın (one-page) bölümleri
   data/           # Site içeriği: tipli diziler
-  lib/            # site.ts (siteConfig, navItems), contact.ts (Zod şeması)
+  lib/            # site.ts (siteConfig, navItems), links.ts (tel/WhatsApp/harita),
+                  # metadata.ts (sayfa listesi + SEO), structured-data.ts (JSON-LD),
+                  # contact.ts (Zod şeması), contact-action.ts (Resend)
 e2e/              # Playwright testleri
 public/images/    # Görseller (kurallar: public/images/README.md)
 ```
@@ -73,12 +75,18 @@ bölümlerini sırayla dizer; her bölüm ekran yüksekliğinde olur ve menüdek
 içindeki `navItems`'tan gelir.
 
 Aynı içerik ayrıca kendi rotasında, kendi `Metadata`'sıyla erişilebilir:
-`/hakkimizda`, `/antrenorler`, `/uyelik`, `/ders-programi`, `/iletisim`.
-İki sunumun ortak gövdesi paylaşılan bileşenlerdir (`WorkingHours`,
-`MembershipPricing`, `SocialLinks`) — böylece bilgi tek yerde durur.
+`/hakkimizda`, `/antrenorler`, `/uyelik`, `/ders-programi`, `/sss`, `/iletisim`.
+İki sunumun ortak gövdesi paylaşılan bileşenlerdir (`AboutContent`,
+`WeeklySchedule`, `MembershipPricing`, `FaqList`, `ContactDetails`,
+`WorkingHours`, `SocialLinks`…) — böylece bilgi tek yerde durur.
 
 Bileşenler varsayılan olarak server component'tir; `"use client"` yalnızca
-`Navbar` ve `HeroSlideshow`'da kullanılır.
+`Navbar`, `ContactForm` ve `HeroSlideshow`'da kullanılır.
+
+**SEO:** her sayfanın başlık/açıklaması `src/lib/metadata.ts`'teki `pages`
+listesinden gelir; `sitemap.xml` ve `robots.txt` de buradan üretilir. Ana
+sayfada ExerciseGym ve FAQPage JSON-LD'si vardır (`src/lib/structured-data.ts`).
+Tema daima koyudur; renkler `globals.css`'teki token'lardan alınır.
 
 ## İçeriği düzenleme
 
@@ -86,11 +94,13 @@ Metinler JSX içinde değil, veri katmanında durur. Değişiklikleri buradan ya
 
 | Dosya                    | İçerik                                              |
 | ------------------------ | --------------------------------------------------- |
-| `src/lib/site.ts`        | Ad, açıklama, adres, telefon, e-posta, sosyal, menü |
+| `src/lib/site.ts`        | Ad, URL, açıklama, adres, telefon, WhatsApp, e-posta, sosyal, menü |
+| `src/lib/metadata.ts`    | Sayfa başlıkları ve arama açıklamaları              |
 | `src/data/trainers.ts`   | Antrenör kadrosu                                    |
 | `src/data/membership.ts` | Üyelik ücretleri, ek ücretler, `formatTRY()`        |
 | `src/data/schedule.ts`   | Haftalık ders programı                              |
-| `src/data/hours.ts`      | Çalışma saatleri (karma + kadınlar salonu)          |
+| `src/data/hours.ts`      | Çalışma saatleri (gün gün; karma + kadınlar salonu) |
+| `src/data/gallery.ts`    | Hero ve salon fotoğrafları (alt metinleriyle)       |
 | `src/data/faq.ts`        | SSS — ana sayfadaki FAQPage JSON-LD'sini de besler   |
 
 Görsel eklerken klasör, ölçü ve isimlendirme kuralları için
