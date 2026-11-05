@@ -3,6 +3,7 @@ import { Anton, Geist } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import MobileActionBar from "@/components/MobileActionBar";
 import { pages, shareImage, sharedOpenGraph } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site";
 
@@ -41,10 +42,12 @@ export default function RootLayout({
       lang="tr"
       className={`${geistSans.variable} ${anton.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      {/* Mobilde sabit eylem çubuğu içeriğin altını örtmesin diye alt boşluk. */}
+      <body className="flex min-h-full flex-col pb-[calc(var(--action-bar-h)+env(safe-area-inset-bottom))] md:pb-0">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <MobileActionBar />
       </body>
     </html>
   );

@@ -1,7 +1,13 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import ContactDetails from "./ContactDetails";
-import { formatAddress, mailtoHref, mapsHref, telHref } from "@/lib/links";
+import {
+  formatAddress,
+  mailtoHref,
+  mapsHref,
+  telHref,
+  whatsappHref,
+} from "@/lib/links";
 import { siteConfig } from "@/lib/site";
 
 describe("ContactDetails", () => {
@@ -48,5 +54,14 @@ describe("ContactDetails", () => {
     expect(
       screen.getByRole("heading", { level: 3, name: "Çalışma Saatleri" }),
     ).toBeInTheDocument();
+  });
+});
+
+describe("ContactDetails WhatsApp", () => {
+  it("WhatsApp hattını yeni sekmede açılan sohbet bağlantısı olarak verir", () => {
+    render(<ContactDetails headingLevel={3} />);
+    const link = screen.getByRole("link", { name: "WhatsApp'tan yazın" });
+    expect(link).toHaveAttribute("href", whatsappHref());
+    expect(link).toHaveAttribute("target", "_blank");
   });
 });

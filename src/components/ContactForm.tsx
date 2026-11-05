@@ -9,7 +9,7 @@ import {
   type ContactFormValues,
 } from "@/lib/contact";
 import { sendContactMessage } from "@/lib/contact-action";
-import { telHref } from "@/lib/links";
+import { telHref, whatsappHref } from "@/lib/links";
 import { siteConfig } from "@/lib/site";
 
 const fieldClass =
@@ -144,7 +144,16 @@ export default function ContactForm({ emailEnabled = false }: ContactFormProps) 
           >
             {siteConfig.phone}
           </a>{" "}
-          üzerinden iletişime geçebilirsiniz.
+          numarasından arayarak ya da{" "}
+          <a
+            href={whatsappHref()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold underline underline-offset-2"
+          >
+            WhatsApp&apos;tan
+          </a>{" "}
+          yazarak bize ulaşabilirsiniz.
         </p>
       )}
       {result?.status === "success" && (

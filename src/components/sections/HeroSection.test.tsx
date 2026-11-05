@@ -58,3 +58,15 @@ describe("HeroSection", () => {
     expect(section.className).not.toMatch(/\bscroll-mt-/);
   });
 });
+
+describe("HeroSection birincil eylem", () => {
+  it("ücretsiz deneme antrenmanı için hazır mesajlı WhatsApp bağlantısı verir", () => {
+    render(<HeroSection />);
+    const cta = screen.getByRole("link", { name: "Ücretsiz Deneme Antrenmanı" });
+    const url = new URL(cta.getAttribute("href")!);
+    expect(url.hostname).toBe("wa.me");
+    expect(url.searchParams.get("text")).toMatch(/deneme antrenmanı/i);
+    expect(cta).toHaveAttribute("target", "_blank");
+    expect(cta).toHaveAttribute("rel", "noopener noreferrer");
+  });
+});

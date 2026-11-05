@@ -1,7 +1,13 @@
 import Icon, { type IconName } from "@/components/Icon";
 import SocialLinks from "@/components/SocialLinks";
 import WorkingHours from "@/components/WorkingHours";
-import { formatAddress, mailtoHref, mapsHref, telHref } from "@/lib/links";
+import {
+  formatAddress,
+  mailtoHref,
+  mapsHref,
+  telHref,
+  whatsappHref,
+} from "@/lib/links";
 import { siteConfig } from "@/lib/site";
 
 type ContactDetailsProps = {
@@ -18,14 +24,14 @@ type Detail = {
   value: string;
   href: string;
   icon: IconName;
-  /** Dış site (harita) — yeni sekmede açılır. */
+  /** Dış site (harita, WhatsApp) — yeni sekmede açılır. */
   external?: boolean;
 };
 
 /**
  * İletişim bilgileri (adres, telefon, e-posta), çalışma saatleri ve sosyal
  * hesaplar. Ana sayfadaki `ContactSection` ile `/iletisim` sayfasının ortak
- * gövdesidir; her bilgi tıklanabilir (harita, `tel:`, `mailto:`).
+ * gövdesidir; her bilgi tıklanabilir (harita, `tel:`, WhatsApp, `mailto:`).
  */
 export default function ContactDetails({
   headingLevel,
@@ -42,6 +48,13 @@ export default function ContactDetails({
       external: true,
     },
     { label: "Telefon", value: siteConfig.phone, href: telHref(), icon: "phone" },
+    {
+      label: "WhatsApp",
+      value: "WhatsApp'tan yazın",
+      href: whatsappHref(),
+      icon: "message",
+      external: true,
+    },
     { label: "E-posta", value: siteConfig.email, href: mailtoHref(), icon: "mail" },
   ];
 

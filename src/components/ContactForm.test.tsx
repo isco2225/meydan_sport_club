@@ -1,9 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ContactForm from "./ContactForm";
 import { sendContactMessage } from "@/lib/contact-action";
 import { siteConfig } from "@/lib/site";
+import { telHref, whatsappHref } from "@/lib/links";
 
 vi.mock("@/lib/contact-action", () => ({
   sendContactMessage: vi.fn(),
@@ -98,5 +99,22 @@ describe("ContactForm (emailEnabled)", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "Bir şeyler ters gitti.",
     );
+  });
+});
+
+describe("ContactForm kapalı mod alternatifleri", () => {
+  it("'aktif değil' notunda telefon ve WhatsApp bağlantıları sunar", async () => {
+    const user = userEvent.setup();
+    render(<ContactForm />);
+
+    await user.click(screen.getByRole("button", { name: "Gönder" }));
+
+    const notice = await screen.findByRole("status");
+    expect(
+      within(notice).getByRole("link", { name: siteConfig.phone }),
+    ).toHaveAttribute("href", telHref());
+    expect(
+      within(notice).getByRole("link", { name: /whatsapp/i }),
+    ).toHaveAttribute("href", whatsappHref());
   });
 });

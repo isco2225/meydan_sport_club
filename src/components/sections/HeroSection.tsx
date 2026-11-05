@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Container from "@/components/Container";
 import HeroSlideshow from "./HeroSlideshow";
+import Icon from "@/components/Icon";
+import { whatsappHref, WHATSAPP_TRIAL_MESSAGE } from "@/lib/links";
 import { siteConfig } from "@/lib/site";
 
 /**
@@ -46,9 +48,20 @@ export default function HeroSection() {
         </p>
 
         <div className="mt-8 flex flex-wrap justify-center gap-4">
+          {/* Birincil eylem: SSS'de vaat edilen ücretsiz deneme antrenmanı,
+              hazır mesajlı WhatsApp sohbetiyle tek dokunuşta. */}
+          <a
+            href={whatsappHref(WHATSAPP_TRIAL_MESSAGE)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-brand px-7 py-3 text-sm font-semibold text-black transition-opacity hover:opacity-90"
+          >
+            <Icon name="message" className="size-4" />
+            Ücretsiz Deneme Antrenmanı
+          </a>
           <Link
             href="/#uyelik"
-            className="rounded-full bg-brand px-7 py-3 text-sm font-semibold text-black transition-opacity hover:opacity-90"
+            className="rounded-full border border-white/40 px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
           >
             Üyelik Ücretleri
           </Link>

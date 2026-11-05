@@ -10,6 +10,8 @@
      kendi yüksekliğini, bölümler kalan ekran alanını ve çapa kaydırması üst
      boşluğunu buradan alır. */
   --nav-h: 4rem;
+  /* Mobildeki sabit hızlı iletişim çubuğunun yüksekliği (MobileActionBar). */
+  --action-bar-h: 4rem;
   /* Türetilmiş yüzey tonları: ön plan renginden karıştırılır, böylece zemin
      değişse de kenarlık/kart tonu kendiliğinden uyum sağlar. */
   --line: color-mix(in oklab, var(--foreground) 12%, transparent);
