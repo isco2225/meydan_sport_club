@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   CLOSED,
+  dayRangeLabel,
   groupWeek,
   openingHoursSpecification,
   salonSchedules,
@@ -43,7 +44,7 @@ describe("summarizeHours", () => {
   it("salon adını ve tüm satırlarını tek metinde birleştirir", () => {
     const summary = summarizeHours(workingHours[0]);
     expect(summary).toBe(
-      "Karma Salon: Pazartesi – Cuma 09:00 – 23:50, Cumartesi 09:00 – 22:50, Pazar Kapalı",
+      "Karma Salon: Hafta içi 09:00 – 23:50, Cumartesi 09:00 – 22:50, Pazar Kapalı",
     );
   });
 });
@@ -116,5 +117,25 @@ describe("openingHoursSpecification", () => {
         openRows.map((r) => r.hours),
       );
     }
+  });
+});
+
+describe("dayRangeLabel", () => {
+  it("Pazartesi–Cuma aralığını 'Hafta içi' olarak adlandırır", () => {
+    expect(dayRangeLabel(0, 4)).toBe("Hafta içi");
+  });
+
+  it("adı olmayan aralıkları uç günlerle yazar", () => {
+    expect(dayRangeLabel(0, 5)).toBe("Pazartesi – Cumartesi");
+    expect(dayRangeLabel(1, 3)).toBe("Salı – Perşembe");
+  });
+
+  it("tek günü kendi adıyla yazar", () => {
+    expect(dayRangeLabel(6, 6)).toBe("Pazar");
+  });
+
+  it("karma salonun hafta içi satırı 'Hafta içi' etiketiyle görünür", () => {
+    const karma = workingHours.find((s) => s.name === "Karma Salon")!;
+    expect(karma.rows[0]).toEqual({ days: "Hafta içi", hours: "09:00 – 23:50" });
   });
 });

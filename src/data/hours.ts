@@ -2,7 +2,7 @@
  * Çalışma saatleri. Salon karma ve kadınlara özel olarak iki farklı program
  * uygular. Kaynak veri gün gün, makinece okunur biçimdedir (`salonSchedules`);
  * hem görünen satırlar (`workingHours`, aynı saatli günler gruplanır, ör.
- * "Pazartesi – Cuma") hem de JSON-LD `openingHoursSpecification` buradan
+ * "Hafta içi") hem de JSON-LD `openingHoursSpecification` buradan
  * türetilir — saati yalnızca burada değiştir.
  */
 
@@ -116,7 +116,7 @@ export function groupWeek(week: Week): DayGroup[] {
 // ---- Görünen satırlar --------------------------------------------------------
 
 export type HoursRow = {
-  /** Gün ya da gün aralığı, ör. "Pazartesi – Cuma". */
+  /** Gün ya da gün aralığı, ör. "Hafta içi", "Pazartesi – Cumartesi", "Pazar". */
   days: string;
   /** Saat aralığı (ör. "09:00 – 23:50") ya da {@link CLOSED}. */
   hours: string;
@@ -131,11 +131,22 @@ export type SalonHours = {
 /** Kapalı günleri işaretlemek için tek kaynak (arayüzde vurgulamak için de kullanılır). */
 export const CLOSED = "Kapalı";
 
+/**
+ * Yerleşik adı olan gün aralıkları. Pazartesi–Cuma (0–4) "Hafta içi" diye
+ * yazılır; diğer aralıklar "Pazartesi – Cumartesi" gibi uç günlerle gösterilir.
+ */
+const RANGE_LABELS: Record<string, string> = {
+  "0-4": "Hafta içi",
+};
+
+/** Bir gün bloğunun görünen adı: tek gün, adlı aralık ya da "X – Y". */
+export function dayRangeLabel(from: number, to: number): string {
+  if (from === to) return DAY_NAMES[from];
+  return RANGE_LABELS[`${from}-${to}`] ?? `${DAY_NAMES[from]} – ${DAY_NAMES[to]}`;
+}
+
 function toRow(group: DayGroup): HoursRow {
-  const days =
-    group.from === group.to
-      ? DAY_NAMES[group.from]
-      : `${DAY_NAMES[group.from]} – ${DAY_NAMES[group.to]}`;
+  const days = dayRangeLabel(group.from, group.to);
   const hours = group.hours
     ? `${group.hours.opens} – ${group.hours.closes}`
     : CLOSED;
@@ -150,7 +161,7 @@ export const workingHours: SalonHours[] = salonSchedules.map((salon) => ({
 
 /**
  * Bir salonun saatlerini tek satırlık düz metne indirger; SSS gibi cümle içi
- * bağlamlarda kullanılır. Örn: "Karma Salon: Pazartesi – Cuma 09:00 – 23:50,
+ * bağlamlarda kullanılır. Örn: "Karma Salon: Hafta içi 09:00 – 23:50,
  * Cumartesi 09:00 – 22:50, Pazar Kapalı".
  */
 export function summarizeHours(salon: SalonHours): string {

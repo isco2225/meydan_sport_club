@@ -11,7 +11,7 @@ describe("WorkingHours", () => {
 
   it("gruplanmış gün ve saat satırlarını gösterir", () => {
     render(<WorkingHours />);
-    expect(screen.getByText("Pazartesi – Cuma")).toBeInTheDocument();
+    expect(screen.getByText("Hafta içi")).toBeInTheDocument();
     expect(screen.getByText("09:00 – 23:50")).toBeInTheDocument();
     expect(screen.getByText("Pazartesi – Cumartesi")).toBeInTheDocument();
   });
