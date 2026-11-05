@@ -1,37 +1,18 @@
 import Section from "./Section";
 import FaqList from "@/components/FaqList";
-import { faqItems } from "@/data/faq";
+import JsonLd from "@/components/JsonLd";
+import { faqPageJsonLd } from "@/lib/structured-data";
 
 /**
- * FAQPage yapılandırılmış verisi (JSON-LD) SSS verisinden türetilir; böylece
- * görünen içerik ile arama motoruna bildirilen içerik hiç ayrışmaz.
- *
+ * FAQPage JSON-LD'si SSS verisinden türetilir (bkz. `lib/structured-data.ts`).
  * Yalnızca ana sayfada basılır: Google, aynı SSS birden çok sayfada
  * tekrarlanıyorsa işaretlemenin sitede tek bir kopyada olmasını ister —
  * `/sss` sayfası listeyi gösterir ama JSON-LD basmaz.
  */
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqItems.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer,
-    },
-  })),
-};
-
 export default function FaqSection() {
   return (
     <Section id="sss" muted>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c"),
-        }}
-      />
+      <JsonLd data={faqPageJsonLd()} />
 
       <h2 className="font-display text-3xl uppercase sm:text-4xl">
         Sıkça Sorulan Sorular

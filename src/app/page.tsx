@@ -5,7 +5,9 @@ import MembershipSection from "@/components/sections/MembershipSection";
 import ScheduleSection from "@/components/sections/ScheduleSection";
 import FaqSection from "@/components/sections/FaqSection";
 import ContactSection from "@/components/sections/ContactSection";
+import JsonLd from "@/components/JsonLd";
 import { pageMetadata, pages } from "@/lib/metadata";
+import { gymJsonLd } from "@/lib/structured-data";
 
 export const metadata = pageMetadata(pages.home);
 
@@ -17,6 +19,8 @@ export const metadata = pageMetadata(pages.home);
 export default function HomePage() {
   return (
     <>
+      {/* Yerel işletme yapılandırılmış verisi: adres, telefon, saatler. */}
+      <JsonLd data={gymJsonLd()} />
       <HeroSection />
       <AboutSection />
       <TrainersSection />

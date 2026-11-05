@@ -1,5 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { CLOSED, summarizeHours, workingHours } from "./hours";
+import {
+  CLOSED,
+  groupWeek,
+  openingHoursSpecification,
+  salonSchedules,
+  summarizeHours,
+  workingHours,
+} from "./hours";
 
 describe("workingHours", () => {
   it("karma ve kadınlar salonunu tanımlar", () => {
@@ -38,5 +45,76 @@ describe("summarizeHours", () => {
     expect(summary).toBe(
       "Karma Salon: Pazartesi – Cuma 09:00 – 23:50, Cumartesi 09:00 – 22:50, Pazar Kapalı",
     );
+  });
+});
+
+describe("salonSchedules (kaynak veri)", () => {
+  it("her salon tam 7 gün tanımlar ve saatler HH:MM biçimindedir", () => {
+    for (const salon of salonSchedules) {
+      expect(salon.week).toHaveLength(7);
+      for (const day of salon.week) {
+        if (day === null) continue;
+        expect(day.opens).toMatch(/^\d{2}:\d{2}$/);
+        expect(day.closes).toMatch(/^\d{2}:\d{2}$/);
+        expect(day.opens < day.closes).toBe(true);
+      }
+    }
+  });
+
+  it("görünen satırlar kaynak veriden türetilir (aynı salon adları)", () => {
+    expect(workingHours.map((s) => s.name)).toEqual(
+      salonSchedules.map((s) => s.name),
+    );
+  });
+});
+
+describe("groupWeek", () => {
+  const nine = { opens: "09:00", closes: "18:00" };
+
+  it("ardışık aynı saatli günleri tek blokta toplar", () => {
+    expect(groupWeek([nine, nine, nine, nine, nine, null, null])).toEqual([
+      { from: 0, to: 4, hours: nine },
+      { from: 5, to: 6, hours: null },
+    ]);
+  });
+
+  it("aynı saat ardışık değilse ayrı bloklar üretir", () => {
+    const groups = groupWeek([nine, null, nine, nine, nine, nine, nine]);
+    expect(groups.map((g) => [g.from, g.to])).toEqual([
+      [0, 0],
+      [1, 1],
+      [2, 6],
+    ]);
+  });
+});
+
+describe("openingHoursSpecification", () => {
+  it("karma salon için schema.org gün adlarıyla blokları verir, kapalı günü atlar", () => {
+    const karma = salonSchedules.find((s) => s.id === "karma")!;
+    expect(openingHoursSpecification(karma.week)).toEqual([
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "23:50",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Saturday"],
+        opens: "09:00",
+        closes: "22:50",
+      },
+    ]);
+  });
+
+  it("görünen satırlarla aynı saatleri bildirir (iki kopya ayrışmaz)", () => {
+    for (const salon of salonSchedules) {
+      const visible = workingHours.find((s) => s.name === salon.name)!;
+      const openRows = visible.rows.filter((r) => r.hours !== CLOSED);
+      const spec = openingHoursSpecification(salon.week);
+      expect(spec.map((s) => `${s.opens} – ${s.closes}`)).toEqual(
+        openRows.map((r) => r.hours),
+      );
+    }
   });
 });
