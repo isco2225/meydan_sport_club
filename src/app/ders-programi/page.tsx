@@ -1,11 +1,9 @@
-import type { Metadata } from "next";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
+import { pageMetadata, pages } from "@/lib/metadata";
 import { weeklySchedule } from "@/data/schedule";
 
-export const metadata: Metadata = {
-  title: "Ders Programı",
-};
+export const metadata = pageMetadata(pages.schedule);
 
 export default function SchedulePage() {
   return (
@@ -38,7 +36,7 @@ export default function SchedulePage() {
                       key={`${session.time}-${session.title}`}
                       className="flex items-start gap-3 text-sm"
                     >
-                      <span className="w-12 shrink-0 font-mono font-medium text-foreground/60">
+                      <span className="w-12 shrink-0 font-semibold tabular-nums text-foreground/60">
                         {session.time}
                       </span>
                       <span className="font-medium">{session.title}</span>

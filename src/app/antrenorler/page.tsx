@@ -1,12 +1,10 @@
-import type { Metadata } from "next";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
+import { pageMetadata, pages } from "@/lib/metadata";
 import TrainerCard from "@/components/TrainerCard";
 import { trainers } from "@/data/trainers";
 
-export const metadata: Metadata = {
-  title: "Antrenörlerimiz",
-};
+export const metadata = pageMetadata(pages.trainers);
 
 export default function TrainersPage() {
   return (

@@ -32,7 +32,7 @@ export default function ScheduleSection() {
                   key={`${session.time}-${session.title}`}
                   className="flex items-start gap-3 text-sm"
                 >
-                  <span className="w-12 shrink-0 font-mono font-medium text-foreground/60">
+                  <span className="w-12 shrink-0 font-semibold tabular-nums text-foreground/60">
                     {session.time}
                   </span>
                   <span className="font-medium">{session.title}</span>

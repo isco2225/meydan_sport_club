@@ -7,7 +7,7 @@ const priceFormatter = new Intl.NumberFormat("tr-TR", {
   maximumFractionDigits: 0,
 });
 
-/** Sayısal fiyatı "2.500 ₺" biçiminde Türkçe para birimine çevirir. */
+/** Sayısal fiyatı "₺2.500" biçiminde Türkçe para birimine çevirir. */
 export function formatTRY(amount: number): string {
   return priceFormatter.format(amount);
 }

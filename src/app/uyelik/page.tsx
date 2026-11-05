@@ -1,13 +1,9 @@
-import type { Metadata } from "next";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
+import { pageMetadata, pages } from "@/lib/metadata";
 import MembershipPricing from "@/components/MembershipPricing";
 
-export const metadata: Metadata = {
-  title: "Üyelik Ücretleri",
-  description:
-    "Meydan Sport Club üyelik ücretleri: standart ve öğrenci fiyatları, aylık ve dönemsel seçenekler ile ek ücretler.",
-};
+export const metadata = pageMetadata(pages.membership);
 
 export default function MembershipPage() {
   return (

@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 /**
- * İletişim formu doğrulama şeması. Hem istemci tarafı doğrulama hem de ileride
- * eklenecek sunucu action'ı için tek doğruluk kaynağı olarak kullanılabilir.
+ * İletişim formu doğrulama şeması. İstemci doğrulaması (`ContactForm`) ve
+ * sunucu action'ı (`contact-action.ts`) için tek doğruluk kaynağıdır.
  */
 export const contactSchema = z.object({
   name: z

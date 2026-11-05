@@ -1,22 +1,19 @@
 import type { Metadata } from "next";
-import { Anton, Geist, Geist_Mono } from "next/font/google";
+import { Anton, Geist } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { pages, shareImage, sharedOpenGraph } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site";
 
+/* Gövde metni. `latin-ext` Türkçe'ye özgü harfleri (ş, ğ, ı, İ) kapsar; yalnızca
+   `latin` önyüklenirse bu harfler ayrı bir dosyadan geç gelir. */
 const geistSans = Geist({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-/* Hero ve bölüm başlıklarındaki dev, bloklu yazılar için display fontu.
-   `latin-ext` Türkçe karakterleri (İ, ş, ğ...) kapsar. */
+/* Hero ve bölüm başlıklarındaki dev, bloklu yazılar için display fontu. */
 const anton = Anton({
   variable: "--font-anton",
   weight: "400",
@@ -24,11 +21,14 @@ const anton = Anton({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: siteConfig.name,
+    default: pages.home.title,
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  openGraph: { ...sharedOpenGraph, title: pages.home.title },
+  twitter: { card: "summary_large_image", images: [shareImage] },
 };
 
 export default function RootLayout({
@@ -39,7 +39,7 @@ export default function RootLayout({
   return (
     <html
       lang="tr"
-      className={`${geistSans.variable} ${geistMono.variable} ${anton.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${anton.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <Navbar />

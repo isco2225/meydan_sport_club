@@ -9,6 +9,7 @@ import {
   type ContactFormValues,
 } from "@/lib/contact";
 import { sendContactMessage } from "@/lib/contact-action";
+import { telHref } from "@/lib/links";
 import { siteConfig } from "@/lib/site";
 
 const fieldClass =
@@ -138,7 +139,7 @@ export default function ContactForm({ emailEnabled = false }: ContactFormProps) 
         >
           Bu özellik henüz aktif değil. Bizimle{" "}
           <a
-            href={`tel:${siteConfig.phone.replaceAll(" ", "")}`}
+            href={telHref()}
             className="font-semibold underline underline-offset-2"
           >
             {siteConfig.phone}

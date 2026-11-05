@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import Navbar from "./Navbar";
 import { navItems, siteConfig } from "@/lib/site";
 
@@ -84,5 +84,60 @@ describe("Navbar mobil menü", () => {
     });
 
     expect(document.getElementById("mobil-menu")).toBeNull();
+  });
+});
+
+describe("Navbar scroll-spy", () => {
+  type ObserverCallback = (entries: Array<Partial<IntersectionObserverEntry>>) => void;
+
+  it("ekranın ortasındaki çizgiyi kesen bölümü aktif işaretler", async () => {
+    mockPathname.mockReturnValue("/");
+    const original = globalThis.IntersectionObserver;
+    let callback: ObserverCallback = () => {};
+    let options: IntersectionObserverInit | undefined;
+
+    class CapturingObserver {
+      constructor(cb: ObserverCallback, opts?: IntersectionObserverInit) {
+        callback = cb;
+        options = opts;
+      }
+      observe = vi.fn();
+      unobserve = vi.fn();
+      disconnect = vi.fn();
+      takeRecords = vi.fn(() => []);
+    }
+    globalThis.IntersectionObserver =
+      CapturingObserver as unknown as typeof IntersectionObserver;
+
+    // Gözlemcinin bulacağı bölümler DOM'da olmalı.
+    const sections = navItems.map((item) => {
+      const el = document.createElement("section");
+      el.id = item.sectionId;
+      document.body.appendChild(el);
+      return el;
+    });
+
+    try {
+      render(<Navbar />);
+
+      // Oran eşiği değil, ekran ortasına daraltılmış kök alan kullanılır;
+      // böylece ekrandan uzun bölümler de aktif olabilir.
+      expect(options?.rootMargin).toBe("-50% 0px -50% 0px");
+
+      const target = document.getElementById("ders-programi")!;
+      await act(async () => {
+        callback([{ isIntersecting: true, target }]);
+      });
+
+      expect(
+        screen.getByRole("link", { name: "Ders Programı" }),
+      ).toHaveAttribute("aria-current", "true");
+      expect(
+        screen.getByRole("link", { name: "Hakkımızda" }),
+      ).not.toHaveAttribute("aria-current");
+    } finally {
+      globalThis.IntersectionObserver = original;
+      sections.forEach((el) => el.remove());
+    }
   });
 });

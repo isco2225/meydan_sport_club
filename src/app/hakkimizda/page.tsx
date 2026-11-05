@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
 import Container from "@/components/Container";
 import PageHeader from "@/components/PageHeader";
+import { pageMetadata, pages } from "@/lib/metadata";
 import {
   aboutHighlights,
   aboutIntro,
@@ -8,9 +8,7 @@ import {
   aboutValues,
 } from "@/data/about";
 
-export const metadata: Metadata = {
-  title: "Hakkımızda",
-};
+export const metadata = pageMetadata(pages.about);
 
 export default function AboutPage() {
   return (

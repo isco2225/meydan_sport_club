@@ -137,18 +137,17 @@ function useActiveSection(enabled: boolean): string | null {
 
     if (sections.length === 0) return;
 
+    // Kök alan, ekranın tam ortasındaki yatay bir çizgiye daraltılır: o çizgiyi
+    // kesen bölüm aktiftir. Oran eşiği (ör. threshold 0.5) kullanılmaz; çünkü
+    // ekrandan iki kat uzun bir bölüm hiçbir zaman %50 görünür olamaz ve
+    // (mobilde ders programı gibi) hiç aktif sayılmazdı.
     const observer = new IntersectionObserver(
       (entries) => {
-        // Ekranın ortasına en yakın (en çok görünen) bölümü aktif say.
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visible[0]) {
-          setActiveSection(visible[0].target.id);
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
         }
       },
-      { threshold: 0.5 },
+      { rootMargin: "-50% 0px -50% 0px" },
     );
 
     sections.forEach((section) => observer.observe(section));

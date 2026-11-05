@@ -12,7 +12,8 @@ type HeroSlideshowProps = {
 
 /**
  * Hero arka planında görselleri yumuşak crossfade ile sırayla döndürür.
- * İlk görsel `priority` ile yüklenir (LCP); diğerleri sonradan iner. Görseller
+ * İlk görsel `fetchPriority="high"` ile hemen yüklenir (LCP); diğerleri düşük
+ * öncelikle iner ve ilk görselle bant genişliği için yarışmaz. Görseller
  * yalnızca dekoratif arka plan olduğu için kapsayıcı `aria-hidden`'dır ve alt
  * metinleri boştur — sayfanın anlamını `h1` taşır. Hareket azaltma tercihinde
  * döngü kurulmaz; yalnızca ilk görsel sabit kalır.
@@ -45,7 +46,8 @@ export default function HeroSlideshow({
           alt=""
           fill
           sizes="100vw"
-          priority={i === 0}
+          loading={i === 0 ? "eager" : "lazy"}
+          fetchPriority={i === 0 ? "high" : "low"}
           className={`object-cover transition-opacity duration-1000 ease-in-out ${
             i === index ? "opacity-100" : "opacity-0"
           }`}

@@ -10,14 +10,19 @@
      kendi yüksekliğini, bölümler kalan ekran alanını ve çapa kaydırması üst
      boşluğunu buradan alır. */
   --nav-h: 4rem;
+  /* Türetilmiş yüzey tonları: ön plan renginden karıştırılır, böylece zemin
+     değişse de kenarlık/kart tonu kendiliğinden uyum sağlar. */
+  --line: color-mix(in oklab, var(--foreground) 12%, transparent);
+  --surface: color-mix(in oklab, var(--foreground) 4%, var(--background));
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-brand: var(--brand);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
   /* Dev, bloklu başlıklar için display fontu (Anton). Hero ve bölüm
      başlıklarında uppercase ile kullanılır. */
   --font-display: var(--font-anton);
@@ -30,10 +35,11 @@
   }
 }
 
+/* Gövde fontu Tailwind'in `--font-sans` (Geist) değişkeninden gelir; burada
+   ayrıca font-family verilmez — verilirse Geist'i ezer. */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Tek sayfa (one-page) kaydırma deneyimi: menü çapaları için yumuşak kaydırma

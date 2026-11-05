@@ -5,6 +5,9 @@ import MembershipSection from "@/components/sections/MembershipSection";
 import ScheduleSection from "@/components/sections/ScheduleSection";
 import FaqSection from "@/components/sections/FaqSection";
 import ContactSection from "@/components/sections/ContactSection";
+import { pageMetadata, pages } from "@/lib/metadata";
+
+export const metadata = pageMetadata(pages.home);
 
 /**
  * Tek sayfa (one-page) ana sayfa: bölümler alt alta dizilir ve kullanıcı aşağı
