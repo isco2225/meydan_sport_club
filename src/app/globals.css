@@ -11,6 +11,9 @@
   /* Marka sarısı: logodaki sarıyla uyumlu, koyu zeminde parlayan vurgu rengi.
      Üzerine her zaman koyu (siyah) metin konur. */
   --brand: #f5d90a;
+  /* WhatsApp'ın marka yeşili: WhatsApp'a giden butonlar tanıdık görünsün diye.
+     Üzerine siyah metin konur (beyazla kontrast ~2:1, siyahla ~10:1). */
+  --whatsapp: #25d366;
   /* Sticky navbar'ın toplam yüksekliği (kenarlık dahil). Tek kaynak: navbar
      kendi yüksekliğini, bölümler kalan ekran alanını ve çapa kaydırması üst
      boşluğunu buradan alır. */
@@ -27,6 +30,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-brand: var(--brand);
+  --color-whatsapp: var(--whatsapp);
   --color-line: var(--line);
   --color-surface: var(--surface);
   --font-sans: var(--font-geist-sans);

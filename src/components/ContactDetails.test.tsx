@@ -65,3 +65,14 @@ describe("ContactDetails WhatsApp", () => {
     expect(link).toHaveAttribute("target", "_blank");
   });
 });
+
+describe("ContactDetails WhatsApp rengi", () => {
+  it("yalnızca WhatsApp satırının ikonu WhatsApp yeşilindedir", () => {
+    render(<ContactDetails headingLevel={3} />);
+    const iconTile = (name: string) =>
+      screen.getByRole("link", { name }).closest("div.flex")!.firstElementChild!;
+    expect(iconTile("WhatsApp'tan yazın").className).toContain("text-whatsapp");
+    expect(iconTile(siteConfig.phone).className).toContain("text-brand");
+    expect(iconTile(siteConfig.phone).className).not.toContain("text-whatsapp");
+  });
+});

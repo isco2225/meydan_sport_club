@@ -35,3 +35,15 @@ describe("MobileActionBar", () => {
     expect(screen.getByRole("navigation").className).toContain("md:hidden");
   });
 });
+
+describe("MobileActionBar renkleri", () => {
+  it("WhatsApp butonu WhatsApp yeşilinde ve siyah yazılıdır; diğerleri nötr", () => {
+    render(<MobileActionBar />);
+    const whatsapp = screen.getByRole("link", { name: "WhatsApp" });
+    expect(whatsapp.className).toContain("bg-whatsapp");
+    expect(whatsapp.className).toContain("text-black");
+    for (const name of ["Ara", "Yol Tarifi"]) {
+      expect(screen.getByRole("link", { name }).className).not.toContain("bg-whatsapp");
+    }
+  });
+});

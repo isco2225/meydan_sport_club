@@ -69,7 +69,9 @@ export default function Footer() {
                 >
                   <Icon
                     name={item.icon}
-                    className="mt-0.5 size-4 shrink-0 text-brand/80"
+                    className={`mt-0.5 size-4 shrink-0 ${
+                      item.whatsapp ? "text-whatsapp" : "text-brand/80"
+                    }`}
                   />
                   <span className="break-words">{item.value}</span>
                 </a>

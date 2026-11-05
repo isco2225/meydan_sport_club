@@ -26,6 +26,8 @@ export type ContactItem = {
   icon: IconName;
   /** Dış site (harita, WhatsApp) — yeni sekmede açılır. */
   external?: boolean;
+  /** WhatsApp satırı ikonunu WhatsApp yeşiliyle gösterir. */
+  whatsapp?: boolean;
 };
 
 /**
@@ -48,6 +50,7 @@ export function getContactItems(): ContactItem[] {
       href: whatsappHref(),
       icon: "message",
       external: true,
+      whatsapp: true,
     },
     { label: "E-posta", value: siteConfig.email, href: mailtoHref(), icon: "mail" },
   ];
@@ -78,7 +81,11 @@ export default function ContactDetails({
           <div key={detail.label} className="flex gap-4">
             <span
               aria-hidden="true"
-              className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand/15 text-brand"
+              className={`mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-xl ${
+                detail.whatsapp
+                  ? "bg-whatsapp/15 text-whatsapp"
+                  : "bg-brand/15 text-brand"
+              }`}
             >
               <Icon name={detail.icon} />
             </span>

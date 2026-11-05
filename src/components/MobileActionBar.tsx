@@ -6,7 +6,8 @@ type Action = {
   href: string;
   icon: IconName;
   external?: boolean;
-  primary?: boolean;
+  /** Butonun zemin/metin rengi; verilmezse nötr koyu buton. */
+  tone?: string;
 };
 
 /**
@@ -24,7 +25,8 @@ export default function MobileActionBar() {
       href: whatsappHref(),
       icon: "message",
       external: true,
-      primary: true,
+      // WhatsApp'ın kendi yeşili: ziyaretçi butonu ilk bakışta tanısın.
+      tone: "bg-whatsapp text-black hover:brightness-110",
     },
     { label: "Yol Tarifi", href: mapsHref(), icon: "map-pin", external: true },
   ];
@@ -42,10 +44,8 @@ export default function MobileActionBar() {
               {...(action.external
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
-              className={`flex h-full items-center justify-center gap-2 rounded-xl text-sm font-semibold transition-colors ${
-                action.primary
-                  ? "bg-brand text-black"
-                  : "bg-white/[0.06] text-white/85 hover:bg-white/10"
+              className={`flex h-full items-center justify-center gap-2 rounded-xl text-sm font-semibold transition ${
+                action.tone ?? "bg-white/[0.06] text-white/85 hover:bg-white/10"
               }`}
             >
               <Icon name={action.icon} className="size-[18px]" />
