@@ -133,3 +133,15 @@ describe("Footer geliştirici imzası", () => {
     ).toBeInTheDocument();
   });
 });
+
+describe("Footer marka yazısı", () => {
+  it("logonun yanındaki ad beyazdır (sarı logo ile karışmaz)", () => {
+    render(<Footer />);
+    const wordmark = screen
+      .getByRole("heading", { name: siteConfig.name })
+      .querySelector("span")!;
+    expect(wordmark).toHaveTextContent(siteConfig.name);
+    expect(wordmark.className).toContain("text-foreground");
+    expect(wordmark.className).not.toContain("text-brand");
+  });
+});

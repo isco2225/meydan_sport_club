@@ -36,7 +36,8 @@ export default function Footer() {
               height={48}
               className="h-12 w-12 rounded-full"
             />
-            <span aria-hidden="true" className="text-brand">
+            {/* Logo sarı; yazı beyaz kalır ki marka sarısı vurgulara ayrılsın. */}
+            <span aria-hidden="true" className="text-foreground">
               {siteConfig.name}
             </span>
           </h2>

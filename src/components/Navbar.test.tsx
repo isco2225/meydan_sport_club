@@ -141,3 +141,15 @@ describe("Navbar scroll-spy", () => {
     }
   });
 });
+
+describe("Navbar marka yazısı", () => {
+  it("logonun yanındaki ad beyazdır (sarı logo ile karışmaz)", () => {
+    render(<Navbar />);
+    const wordmark = screen
+      .getByRole("link", { name: siteConfig.name })
+      .querySelector("span")!;
+    expect(wordmark).toHaveTextContent(siteConfig.name);
+    expect(wordmark.className).toContain("text-foreground");
+    expect(wordmark.className).not.toContain("text-brand");
+  });
+});

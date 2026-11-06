@@ -42,7 +42,7 @@ export default function Navbar() {
               erişilebilir adı yalnızca logonun alt metninden gelir. */}
           <span
             aria-hidden="true"
-            className="text-lg font-bold tracking-tight text-brand"
+            className="text-lg font-bold tracking-tight text-foreground"
           >
             {siteConfig.name}
           </span>
