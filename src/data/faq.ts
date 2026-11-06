@@ -1,11 +1,16 @@
 import { summarizeHours, workingHours } from "@/data/hours";
+import { formatAddress, mapsHref } from "@/lib/links";
+import { siteConfig } from "@/lib/site";
 
 export type FaqItem = {
   id: string;
   question: string;
   /** Düz metin tutulur: hem <details> içeriği hem FAQPage JSON-LD'si buradan türetilir. */
   answer: string;
-  /** Cevabın altında gösterilen isteğe bağlı yönlendirme bağlantısı (JSON-LD'ye girmez). */
+  /**
+   * Cevabın altında gösterilen isteğe bağlı yönlendirme bağlantısı (JSON-LD'ye
+   * girmez). Dış bağlantılar (`http…`, ör. harita) yeni sekmede açılır.
+   */
   link?: { label: string; href: string };
 };
 
@@ -17,6 +22,12 @@ export const faqItems: FaqItem[] = [
       .map(summarizeHours)
       .join(". ")}. Resmî tatillerdeki özel saatler sosyal medya hesaplarımızdan duyurulur.`,
     link: { label: "Detaylı görün", href: "/#iletisim" },
+  },
+  {
+    id: "konum",
+    question: "Salonunuz nerede?",
+    answer: `${siteConfig.address.district} ${siteConfig.address.neighborhood}'deyiz: ${formatAddress()}. Google Haritalar'da "${siteConfig.name}" diye aratarak yol tarifi alabilirsiniz.`,
+    link: { label: "Yol tarifi al", href: mapsHref() },
   },
   {
     id: "deneme-antrenmani",
@@ -32,9 +43,20 @@ export const faqItems: FaqItem[] = [
   },
   {
     id: "kadinlar-salonu",
-    question: "Kadınlara özel bölümünüz var mı?",
+    question: "Kadınlara özel spor salonunuz var mı?",
     answer:
-      "Sadece kadınların girebildiği, ayrı bir alanda hizmet veren kadınlar salonumuz var. Grup ders programımız (pilates, zumba, core board) yalnızca bu salonda düzenlenir.",
+      "Evet. Karma salonumuzdan ayrı, tamamen kadınlara özel bir kadınlar salonumuz var; salonu yalnızca kadın üyeler kullanır. Grup ders programımız (pilates, zumba, core board) yalnızca bu salonda düzenlenir.",
+  },
+  {
+    id: "kadin-antrenor",
+    question: "Kadınlar salonunda kadın antrenör var mı?",
+    answer:
+      "Evet. Kadınlar salonumuzda kadın antrenörlerimiz hizmet verir; antrenman programınızı ve grup derslerini onlarla birlikte planlarsınız.",
+  },
+  {
+    id: "otopark",
+    question: "Otoparkınız var mı?",
+    answer: "Hayır, salonumuza ait bir otopark bulunmuyor.",
   },
   {
     id: "ozel-ders",

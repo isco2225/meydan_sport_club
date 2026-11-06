@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { faqItems } from "@/data/faq";
 
+const linkClass =
+  "mt-3 inline-block text-sm font-semibold underline decoration-brand decoration-2 underline-offset-4 transition-opacity hover:opacity-70";
+
+/** Harita gibi site dışı bağlantılar yeni sekmede açılır. */
+const isExternal = (href: string) => /^https?:\/\//.test(href);
+
 /**
  * SSS listesi. Açılır/kapanır davranış yerleşik <details>/<summary> ile
  * sağlanır: JavaScript gerektirmez, server component kalır. Ana sayfadaki
@@ -32,14 +38,21 @@ export default function FaqList() {
           <p className="mt-4 text-sm leading-relaxed text-foreground/70">
             {item.answer}
           </p>
-          {item.link && (
-            <Link
-              href={item.link.href}
-              className="mt-3 inline-block text-sm font-semibold underline decoration-brand decoration-2 underline-offset-4 transition-opacity hover:opacity-70"
-            >
-              {item.link.label}
-            </Link>
-          )}
+          {item.link &&
+            (isExternal(item.link.href) ? (
+              <a
+                href={item.link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={linkClass}
+              >
+                {item.link.label}
+              </a>
+            ) : (
+              <Link href={item.link.href} className={linkClass}>
+                {item.link.label}
+              </Link>
+            ))}
         </details>
       ))}
     </div>

@@ -38,6 +38,12 @@ describe("pages (sayfa listesi)", () => {
     }
   });
 
+  it("her sayfa açıklaması konumu (Beykoz veya Ortaçeşme) anar", () => {
+    for (const page of sitePages) {
+      expect(page.description, page.path).toMatch(/Beykoz|Ortaçeşme/);
+    }
+  });
+
   it("ana sayfa başlığı konumu (Beykoz) içerir", () => {
     expect(pages.home.title).toContain("Beykoz");
   });
