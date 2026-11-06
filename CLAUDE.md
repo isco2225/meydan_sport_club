@@ -9,7 +9,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Proje
 - Spor salonu tanıtım/vitrin sitesi. Öncelik: yüksek hız, güçlü SEO, şık tasarım.
 - Site içeriği ve commit mesajları Türkçe yazılır.
-- Sayfalar: ana sayfa, hakkımızda, antrenörler, üyelik ücretleri, ders programı, SSS, iletişim.
+- Sayfalar: ana sayfa, hakkımızda, kadınlara özel salon, antrenörler, üyelik ücretleri,
+  ders programı, SSS, iletişim.
+- SEO hedefi yerel arama: "beykoz spor salonu", "ortaçeşme spor salonu",
+  "beykoz kadınlar spor salonu". Metinlerde bu ifadeler doğal cümlelerle geçer;
+  anahtar kelime doldurma yapılmaz.
 - Çevrimiçi üye olma YOK; site yalnızca fiyat/ücret GÖSTERİR. "Paket" kavramı yok.
 
 ## Teknoloji (kesin kararlar — tartışma açma)
@@ -33,8 +37,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   dizilerdir; bölüm bileşenleri bu diziyi map'ler. Metni burada değiştir, JSX'te değil.
   Sabitler de veri katmanında yaşar (ör. `hours.ts` → `CLOSED`, `summarizeHours()`).
 - `src/lib/site.ts` tek kaynak: `siteConfig` (url, adres parçaları, telefon,
-  WhatsApp, sosyal) + `navItems`. Bağlantılar (`tel:`, wa.me, harita, mailto)
-  daima `src/lib/links.ts`'ten üretilir; numara/adres JSX'e yazılmaz.
+  WhatsApp, isteğe bağlı e-posta, `googlePlaceId`, `geo`, sosyal) + `navItems`.
+  Bağlantılar (`tel:`, wa.me, harita, mailto, Google yorum) daima
+  `src/lib/links.ts`'ten üretilir; numara/adres JSX'e yazılmaz. Harita
+  bağlantısı `query_place_id` ile doğrudan İşletme Profili'ni açar.
 - `src/lib/metadata.ts` → `pages` tek kaynak sayfa listesi: her sayfa
   `export const metadata = pageMetadata(pages.x)` kullanır; `sitemap.ts` da
   buradan üretilir. Yeni rota = buraya da ekle (`metadata.test.ts` yakalar).
@@ -43,21 +49,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - JSON-LD: `src/lib/structured-data.ts` üretir (`gymJsonLd`, `faqPageJsonLd`),
   `components/JsonLd.tsx` basar (`<` kaçışı orada). Saatler `hours.ts`'te
   gün gün (`salonSchedules`); görünen satırlar ve `openingHoursSpecification`
-  ondan türetilir.
+  ondan türetilir. `priceRange` ve `hasOfferCatalog` `membership.ts`'ten,
+  `geo` ve `hasMap` `siteConfig`'ten gelir.
 - Ana sayfa tek sayfa (one-page): `app/page.tsx`, `components/sections/*` bölümlerini
   sırayla dizer. Her `Section` ekran yüksekliğinde ve `navItems.sectionId` ile eşleşen
   bir `id` taşır; menü `/#id` çapasına yumuşak kaydırır. İstisna: `HeroSection`
   `Section`'ı sarmaz, `id="ust"` ile kendi `<section>`'ını kurar (fotoğraflar dikey:
   mobilde tam ekran arka plan, masaüstünde sağda dikey çerçeve — tek slideshow örneği).
 - Ayrı rotalar (`hakkimizda`, `antrenorler`, `uyelik`, `ders-programi`, `sss`, `iletisim`)
-  aynı içeriği kendi sayfası + kendi `Metadata`'sıyla sunar. Alt sayfalar
+  aynı içeriği kendi sayfası + kendi `Metadata`'sıyla sunar. `kadinlar-salonu`
+  yalnızca ayrı rota olarak vardır (menüde değil; footer, Hakkımızda kartı,
+  ders programı uyarısı ve SSS'den bağlanır); içeriği `data/womens-salon.ts`. Alt sayfalar
   `PageHeader` (tek `h1`) + `Container` ile kurulur.
 - İki sunumun (one-page bölümü ve ayrı rota) ortak gövdesi paylaşılan bileşenlerdir:
   `WorkingHours`, `MembershipPricing`, `SocialLinks`. Aynı bilgi iki yerde
   görünüyorsa JSX'i kopyalama — bu bileşenlerden birini kullan ya da yenisini çıkar.
   Mevcut ortak gövdeler: `AboutContent`, `WeeklySchedule`, `ScheduleNotice`,
-  `FaqList`, `ContactDetails` (+ `getContactItems`, Footer da kullanır),
-  `TrialCallout`, `SectionHeader`. Başlık düzeyi `headingLevel` prop'uyla
+  `FaqList` (`items` ile alt küme), `ContactDetails` (+ `getContactItems`,
+  Footer da kullanır), `TrialCallout`, `SectionHeader`, `HighlightGrid`
+  (numaralı kartlar). `WorkingHours` `salon` prop'uyla tek salonu gösterir. Başlık düzeyi `headingLevel` prop'uyla
   çağırandan gelir (bölümde 3, alt sayfada 2).
 - `app/layout.tsx`: Navbar + `main` + Footer, `lang="tr"`, Geist fontları, title şablonu.
   Mobilde her sayfanın altında `MobileActionBar` (Ara · WhatsApp · Yol Tarifi)
@@ -100,7 +110,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   `contact-action.ts`'de `from` adresini `info@meydansportclub.com` yap,
   `CONTACT_TO_EMAIL` salonun adresi olabilir.
 - Site dışı en büyük SEO kaldıracı: Google İşletme Profili (Maps); ad/adres/
-  telefon sitedekiyle birebir aynı olmalı.
+  telefon sitedekiyle birebir aynı olmalı. Durum (6 Kas 2026): profil
+  sahiplenilmemiş, web sitesi ekli değil; 4,6★ / 256 yorum. Yapılacaklar:
+  sahiplen + doğrula, web sitesini ekle, kategoriler (Spor salonu birincil),
+  hizmetler, fotoğraf, yorum iste/yanıtla. İşletme adına anahtar kelime
+  EKLENMEZ (askıya alma riski). Ardından Search Console'da sitemap gönder
+  (alan adında doğrulama TXT kaydı var), Apple Business Connect / Bing Places
+  / Yandex'e aynı NAP ile kayıt.
+- Alt sayfa `<title>`'ları ("Üyelik Ücretleri" vb.) bilinçli olarak yerel
+  ifadesiz bırakıldı: `metadata.test.ts` ve `e2e/mobile.spec.ts` başlıkları
+  birebir sabitliyor; değiştirmek salon sahibinin onayını bekliyor.
 - Vercel ortam değişkenleri: `RESEND_API_KEY` + `CONTACT_TO_EMAIL`
   (Settings → Environment Variables; değerler yerelde `.env.local`'de).
 - Formu açma: `ContactSection`'da `<ContactForm emailEnabled />` yap ve
