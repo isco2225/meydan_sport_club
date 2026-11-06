@@ -56,7 +56,7 @@ export const pages = {
     path: "/sss",
     title: "Sıkça Sorulan Sorular",
     description:
-      "Beykoz Ortaçeşme'deki Meydan Sport Club hakkında merak edilenler: konum, çalışma saatleri, ücretsiz deneme, kadınlar salonu, otopark ve özel ders.",
+      "Beykoz Ortaçeşme'deki Meydan Sport Club hakkında merak edilenler: konum, çalışma saatleri, ücretsiz deneme, kadınlar salonu, kadın antrenör ve özel ders.",
   },
   contact: {
     path: "/iletisim",

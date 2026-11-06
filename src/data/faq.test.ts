@@ -50,8 +50,4 @@ describe("faqItems yerel sorular", () => {
   it("kadınlar salonunda kadın antrenör olduğunu söyler", () => {
     expect(byId("kadin-antrenor").answer).toMatch(/^Evet\..*kadın antrenör/);
   });
-
-  it("otopark olmadığını açıkça söyler", () => {
-    expect(byId("otopark").answer).toMatch(/^Hayır/);
-  });
 });

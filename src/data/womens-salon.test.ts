@@ -10,7 +10,8 @@ import { pages } from "@/lib/metadata";
 
 describe("kadınlar salonu içeriği", () => {
   it("salonun tamamen kadınlara özel olduğunu ve kadın antrenörleri anlatır", () => {
-    expect(womensSalonIntro).toMatch(/tamamen kadınlara özel/);
+    // Cümle başında da geçebilir; harf büyüklüğü önemsenmez.
+    expect(womensSalonIntro).toMatch(/tamamen kadınlara özel/i);
     const text = womensSalonHighlights.map((h) => `${h.title} ${h.description}`).join(" ");
     expect(text).toMatch(/Kadın Antrenörler/);
     expect(text).toMatch(/yalnızca kadın üyeler/);

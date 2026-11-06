@@ -14,7 +14,7 @@ export type WomensSalonHighlight = {
 
 /** Sayfa girişi (PageHeader açıklaması). */
 export const womensSalonIntro =
-  "Karma salondan ayrı, tamamen kadınlara özel salonumuzda kadın antrenörler eşliğinde rahatça antrenman yapın; pilates, zumba ve core board derslerine katılın.";
+  "Tamamen kadınlara özel salonumuzda kadın antrenörler eşliğinde rahatça antrenman yapın; pilates, zumba ve core board derslerine katılın.";
 
 export const womensSalonHighlights: WomensSalonHighlight[] = [
   {
@@ -45,7 +45,6 @@ export const womensSalonFaqIds = [
   "kadin-antrenor",
   "deneme-antrenmani",
   "konum",
-  "otopark",
 ] as const;
 
 /**

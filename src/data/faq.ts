@@ -56,11 +56,6 @@ export const faqItems: FaqItem[] = [
       "Evet. Kadınlar salonumuzda kadın antrenörlerimiz hizmet verir; antrenman programınızı ve grup derslerini onlarla birlikte planlarsınız.",
   },
   {
-    id: "otopark",
-    question: "Otoparkınız var mı?",
-    answer: "Hayır, salonumuza ait bir otopark bulunmuyor.",
-  },
-  {
     id: "ozel-ders",
     question: "Kişisel antrenman (özel ders) hizmeti veriyor musunuz?",
     answer:
