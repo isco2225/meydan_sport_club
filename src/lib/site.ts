@@ -34,7 +34,13 @@ export const siteConfig = {
    * yalnızca burayı değiştir; tüm WhatsApp bağlantıları buradan üretilir.
    */
   whatsapp: "0532 228 26 22",
-  email: "info@meydansportclub.com",
+  /**
+   * Görünen e-posta. Şimdilik `null` (karar, 6 Kas 2026): alan adında MX
+   * kaydı olmadığı için info@meydansportclub.com'a gelen posta kimseye
+   * ulaşmıyor. E-posta hizmeti kurulunca buraya adresi yaz; İletişim, Footer
+   * ve JSON-LD kendiliğinden gösterir.
+   */
+  email: null as string | null,
   /** Adres Google İşletme Profili ile aynıdır (bkz. `formatAddress`). */
   address: {
     neighborhood: "Ortaçeşme",

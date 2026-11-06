@@ -31,11 +31,13 @@ export type ContactItem = {
 };
 
 /**
- * İletişim kanalları (adres, telefon, WhatsApp, e-posta) — tek liste. Hem bu
- * bileşen hem Footer kullanır; sıra ve bağlantılar tek yerde durur.
+ * İletişim kanalları (adres, telefon, WhatsApp, varsa e-posta) — tek liste.
+ * Hem bu bileşen hem Footer kullanır; sıra ve bağlantılar tek yerde durur.
+ * E-posta satırı yalnızca `siteConfig.email` tanımlıysa eklenir.
  */
 export function getContactItems(): ContactItem[] {
-  return [
+  const { email } = siteConfig;
+  const items: ContactItem[] = [
     {
       label: "Adres",
       value: formatAddress(),
@@ -52,8 +54,11 @@ export function getContactItems(): ContactItem[] {
       external: true,
       whatsapp: true,
     },
-    { label: "E-posta", value: siteConfig.email, href: mailtoHref(), icon: "mail" },
   ];
+  if (email) {
+    items.push({ label: "E-posta", value: email, href: mailtoHref(email), icon: "mail" });
+  }
+  return items;
 }
 
 /** Dış bağlantılar için yeni sekme öznitelikleri. */
@@ -62,7 +67,7 @@ export function externalProps(item: ContactItem) {
 }
 
 /**
- * İletişim bilgileri (adres, telefon, e-posta), çalışma saatleri ve sosyal
+ * İletişim bilgileri (adres, telefon, WhatsApp, varsa e-posta), çalışma saatleri ve sosyal
  * hesaplar. Ana sayfadaki `ContactSection` ile `/iletisim` sayfasının ortak
  * gövdesidir; her bilgi tıklanabilir (harita, `tel:`, WhatsApp, `mailto:`).
  */

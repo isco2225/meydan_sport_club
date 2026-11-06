@@ -1,9 +1,8 @@
-import { describe, it, expect } from "vitest";
+import { afterEach, describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import ContactDetails from "./ContactDetails";
 import {
   formatAddress,
-  mailtoHref,
   mapsHref,
   telHref,
   whatsappHref,
@@ -16,14 +15,6 @@ describe("ContactDetails", () => {
     expect(screen.getByRole("link", { name: siteConfig.phone })).toHaveAttribute(
       "href",
       telHref(),
-    );
-  });
-
-  it("e-postayı mailto: bağlantısı olarak gösterir", () => {
-    render(<ContactDetails headingLevel={3} />);
-    expect(screen.getByRole("link", { name: siteConfig.email })).toHaveAttribute(
-      "href",
-      mailtoHref(),
     );
   });
 
@@ -54,6 +45,30 @@ describe("ContactDetails", () => {
     expect(
       screen.getByRole("heading", { level: 3, name: "Çalışma Saatleri" }),
     ).toBeInTheDocument();
+  });
+});
+
+describe("ContactDetails e-posta", () => {
+  const original = siteConfig.email;
+  afterEach(() => {
+    siteConfig.email = original;
+  });
+
+  it("e-posta tanımlı değilken (MX kurulana dek) e-posta satırı göstermez", () => {
+    siteConfig.email = null;
+    const { container } = render(<ContactDetails headingLevel={3} />);
+    expect(screen.queryByText("E-posta")).not.toBeInTheDocument();
+    expect(container.querySelector('a[href^="mailto:"]')).toBeNull();
+  });
+
+  it("e-posta tanımlıysa mailto: bağlantısı olarak gösterir", () => {
+    siteConfig.email = "info@ornek.com";
+    render(<ContactDetails headingLevel={3} />);
+    expect(screen.getByText("E-posta")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "info@ornek.com" })).toHaveAttribute(
+      "href",
+      "mailto:info@ornek.com",
+    );
   });
 });
 

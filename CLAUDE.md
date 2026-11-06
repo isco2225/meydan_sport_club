@@ -89,10 +89,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   ve otomatik yenileme GoDaddy'de açılmalı.
 - `main`'e push otomatik olarak CANLI alan adına deploy eder. İnceleme için
   branch push'u (Vercel preview) kullan.
-- ⚠️ E-posta: alan adında MX kaydı YOK → `info@meydansportclub.com`'a gelen
-  posta şu an kimseye ulaşmıyor (sitede ve JSON-LD'de gösteriliyor). GoDaddy
-  e-posta / Google Workspace / Zoho vb. kurulana dek ya kurulmalı ya da
-  `siteConfig.email` kaldırılmalı — salon sahibiyle karar verilecek.
+- E-posta: alan adında MX kaydı YOK → `info@meydansportclub.com`'a posta
+  ulaşmıyor. Karar (6 Kas 2026): `siteConfig.email = null`, e-posta siteden
+  ve JSON-LD'den kaldırıldı. GoDaddy e-posta / Google Workspace / Zoho vb.
+  kurulunca `siteConfig.email`'e adresi yazmak yeterli; İletişim, Footer ve
+  JSON-LD kendiliğinden gösterir.
 - Resend: hesap kişisel Gmail ile açık; alan adı doğrulanmadan yalnızca hesap
   adresine gönderebiliyor. DNS artık GoDaddy'de: domain doğrulaması
   (resend.com/domains, 2 TXT + 1 MX kaydı) GoDaddy DNS'ine eklenir. Sonra

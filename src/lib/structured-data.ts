@@ -39,7 +39,8 @@ export function gymJsonLd(images: string[] = []) {
     logo: absolute("/images/logo/meydansport_logo.png"),
     image: [shareImage.url, ...images].map(absolute),
     telephone: internationalPhone(siteConfig.phone),
-    email: siteConfig.email,
+    // Sitede e-posta görünmüyorsa Google'a da bildirilmez.
+    ...(siteConfig.email ? { email: siteConfig.email } : {}),
     address: {
       "@type": "PostalAddress",
       streetAddress: streetAddress(address),

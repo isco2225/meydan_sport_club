@@ -50,8 +50,8 @@ describe("toE164 / internationalPhone", () => {
 });
 
 describe("mailtoHref", () => {
-  it("siteConfig e-postasına mailto bağlantısı üretir", () => {
-    expect(mailtoHref()).toBe(`mailto:${siteConfig.email}`);
+  it("verilen adrese mailto bağlantısı üretir", () => {
+    expect(mailtoHref("info@ornek.com")).toBe("mailto:info@ornek.com");
   });
 });
 

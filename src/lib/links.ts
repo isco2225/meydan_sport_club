@@ -33,7 +33,8 @@ export function telHref(phone: string = siteConfig.phone): string {
   return `tel:${toE164(phone)}`;
 }
 
-export function mailtoHref(email: string = siteConfig.email): string {
+/** `siteConfig.email` isteğe bağlı olduğundan adres açıkça verilir. */
+export function mailtoHref(email: string): string {
   return `mailto:${email}`;
 }
 

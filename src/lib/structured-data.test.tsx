@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { afterEach, describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
 import JsonLd from "@/components/JsonLd";
 import HomePage from "@/app/page";
@@ -7,6 +7,23 @@ import { openingHoursSpecification, salonSchedules } from "@/data/hours";
 import { mapsHref } from "./links";
 import { faqPageJsonLd, gymJsonLd } from "./structured-data";
 import { siteConfig } from "./site";
+
+describe("gymJsonLd e-posta", () => {
+  const original = siteConfig.email;
+  afterEach(() => {
+    siteConfig.email = original;
+  });
+
+  it("e-posta tanımlı değilken (sitede görünmüyorken) bildirilmez", () => {
+    siteConfig.email = null;
+    expect(gymJsonLd()).not.toHaveProperty("email");
+  });
+
+  it("e-posta tanımlıysa siteConfig'teki adresi bildirir", () => {
+    siteConfig.email = "info@ornek.com";
+    expect(gymJsonLd().email).toBe("info@ornek.com");
+  });
+});
 
 describe("gymJsonLd (ExerciseGym)", () => {
   const data = gymJsonLd();
@@ -18,10 +35,9 @@ describe("gymJsonLd (ExerciseGym)", () => {
     expect(data.url).toBe("https://www.meydansportclub.com/");
   });
 
-  it("adres, telefon ve e-postayı siteConfig'ten türetir", () => {
+  it("adres ve telefonu siteConfig'ten türetir", () => {
     // Görünen numara yerel biçimdedir; JSON-LD'de Google ülke kodunu ister.
     expect(data.telephone).toBe("+90 532 228 26 22");
-    expect(data.email).toBe(siteConfig.email);
     expect(data.address).toEqual({
       "@type": "PostalAddress",
       streetAddress: "Ortaçeşme, Çayır Cd. No:224/2",
