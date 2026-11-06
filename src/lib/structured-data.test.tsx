@@ -60,10 +60,26 @@ describe("gymJsonLd (ExerciseGym)", () => {
     expect(data.department).toEqual([
       {
         "@type": "ExerciseGym",
+        "@id": "https://www.meydansportclub.com/kadinlar-salonu#salon",
         name: `${siteConfig.name} Kadınlar Salonu`,
+        url: "https://www.meydansportclub.com/kadinlar-salonu",
+        image: ["https://www.meydansportclub.com/images/og/meydan-sport-club.jpg"],
+        telephone: data.telephone,
+        address: data.address,
+        priceRange: data.priceRange,
         openingHoursSpecification: openingHoursSpecification(kadinlar.week),
       },
     ]);
+  });
+
+  it("kadınlar salonu bölümü Google'ın istediği alanların hepsini taşır", () => {
+    // Zengin Sonuçlar Testi (6 Kas 2026) bölüm için bu alanları istedi.
+    const [kadinlarDept] = data.department;
+    for (const field of ["priceRange", "address", "telephone", "image"] as const) {
+      expect(kadinlarDept[field], field).toBeTruthy();
+    }
+    expect(kadinlarDept.telephone).toBe("+90 532 228 26 22");
+    expect(kadinlarDept.address.streetAddress).toBe("Ortaçeşme, Çayır Cd. No:224/2");
   });
 
   it("görselleri ve sosyal hesapları mutlak URL olarak verir", () => {

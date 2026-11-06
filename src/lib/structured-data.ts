@@ -59,12 +59,30 @@ function membershipOfferCatalog() {
  * Ana sayfa için `ExerciseGym` (LocalBusiness alt türü). Ana işletmenin
  * saatleri karma salondur; kadınlar salonu farklı saatlerle çalıştığı için
  * ayrı bir `department` olarak bildirilir.
+ *
+ * Google bölümü de ayrı bir yerel işletme gibi denetler (Zengin Sonuçlar
+ * Testi adres/telefon/fiyat/görsel ister); bu yüzden bölüm aynı binadaki
+ * ortak alanları ana işletmeyle aynı değerlerden alır ve kendi sayfasına
+ * (`/kadinlar-salonu`) bağlanır.
  */
 export function gymJsonLd(images: string[] = []) {
   const karma = findSalon("karma");
   const kadinlar = findSalon("kadinlar");
   const { address, geo } = siteConfig;
   const prices = membershipPriceBounds();
+
+  const shared = {
+    telephone: internationalPhone(siteConfig.phone),
+    address: {
+      "@type": "PostalAddress" as const,
+      streetAddress: streetAddress(address),
+      postalCode: address.postalCode,
+      addressLocality: address.district,
+      addressRegion: address.city,
+      addressCountry: address.country,
+    },
+    priceRange: `${formatTRY(prices.min)} – ${formatTRY(prices.max)}`,
+  };
 
   return {
     "@context": "https://schema.org",
@@ -75,17 +93,10 @@ export function gymJsonLd(images: string[] = []) {
     url: absolute("/"),
     logo: absolute("/images/logo/meydansport_logo.png"),
     image: [shareImage.url, ...images].map(absolute),
-    telephone: internationalPhone(siteConfig.phone),
+    telephone: shared.telephone,
     // Sitede e-posta görünmüyorsa Google'a da bildirilmez.
     ...(siteConfig.email ? { email: siteConfig.email } : {}),
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: streetAddress(address),
-      postalCode: address.postalCode,
-      addressLocality: address.district,
-      addressRegion: address.city,
-      addressCountry: address.country,
-    },
+    address: shared.address,
     geo: {
       "@type": "GeoCoordinates",
       latitude: geo.latitude,
@@ -96,13 +107,18 @@ export function gymJsonLd(images: string[] = []) {
       "@type": "AdministrativeArea",
       name: `${address.district}, ${address.city}`,
     },
-    priceRange: `${formatTRY(prices.min)} – ${formatTRY(prices.max)}`,
+    priceRange: shared.priceRange,
     hasOfferCatalog: membershipOfferCatalog(),
     openingHoursSpecification: openingHoursSpecification(karma.week),
     department: [
       {
         "@type": "ExerciseGym",
+        "@id": absolute(`${pages.womens.path}#salon`),
         name: `${siteConfig.name} ${kadinlar.name}`,
+        url: absolute(pages.womens.path),
+        // Kadınlar salonuna ait fotoğraf henüz yok; paylaşım görseli kullanılır.
+        image: [absolute(shareImage.url)],
+        ...shared,
         openingHoursSpecification: openingHoursSpecification(kadinlar.week),
       },
     ],
