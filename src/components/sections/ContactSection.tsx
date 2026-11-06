@@ -1,6 +1,6 @@
 import Section from "./Section";
 import ContactDetails from "@/components/ContactDetails";
-import ContactForm from "@/components/ContactForm";
+import ContactCta from "@/components/ContactCta";
 import SectionHeader from "@/components/SectionHeader";
 
 export default function ContactSection() {
@@ -14,7 +14,7 @@ export default function ContactSection() {
 
       <div className="mt-12 grid gap-12 lg:grid-cols-2">
         <ContactDetails headingLevel={3} />
-        <ContactForm />
+        <ContactCta headingLevel={3} />
       </div>
     </Section>
   );

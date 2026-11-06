@@ -14,7 +14,7 @@ export default function FaqPage() {
     <>
       <PageHeader
         title="Sıkça Sorulan Sorular"
-        description="Aklınıza takılanların cevabı burada yoksa bize telefonla, WhatsApp'tan veya iletişim formundan ulaşabilirsiniz."
+        description="Aklınıza takılanların cevabı burada yoksa bize telefonla veya WhatsApp'tan ulaşabilirsiniz."
       />
 
       <section className="py-16">

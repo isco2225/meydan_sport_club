@@ -1,6 +1,6 @@
 import Container from "@/components/Container";
 import ContactDetails from "@/components/ContactDetails";
-import ContactForm from "@/components/ContactForm";
+import ContactCta from "@/components/ContactCta";
 import PageHeader from "@/components/PageHeader";
 import { pageMetadata, pages } from "@/lib/metadata";
 
@@ -17,7 +17,7 @@ export default function ContactPage() {
       <section className="py-16">
         <Container className="grid gap-12 lg:grid-cols-2">
           <ContactDetails headingLevel={2} />
-          <ContactForm />
+          <ContactCta headingLevel={2} />
         </Container>
       </section>
     </>

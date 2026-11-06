@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import FaqPage from "./sss/page";
 import ContactPage from "./iletisim/page";
 import WomensSalonPage from "./kadinlar-salonu/page";
@@ -29,21 +29,21 @@ describe("/sss sayfası", () => {
 });
 
 describe("/iletisim sayfası", () => {
-  it("tek h1 ile iletişim bilgilerini ve çalışan formu gösterir", () => {
+  it("tek h1 ile iletişim bilgilerini ve hızlı ulaşım kartını gösterir", () => {
     render(<ContactPage />);
     expect(screen.getAllByRole("heading", { level: 1 })).toHaveLength(1);
-    expect(screen.getByLabelText("Ad Soyad")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Gönder" })).toBeInTheDocument();
+    const card = screen
+      .getByRole("heading", { level: 2, name: "Hemen ulaşın" })
+      .closest("div.relative") as HTMLElement;
+    expect(within(card).getByRole("link", { name: /WhatsApp'tan yazın/ })).toBeInTheDocument();
   });
 
-  it("form, alanları URL'ye yazan iskelet (GET) form değildir", () => {
+  it("e-posta gönderimi kurulana dek mesaj iletmeyen form göstermez", () => {
+    // Karar (6 Kas 2026): form kapalı modda yalnızca "henüz aktif değil"
+    // diyordu. ContactForm kodda duruyor; açılınca bu test tersine döner.
     const { container } = render(<ContactPage />);
-    const form = container.querySelector("form")!;
-    // Eski iskelet formun ne handler'ı ne honeypot'u vardı; alanlar GET'le
-    // adres çubuğuna düşüyordu. Gerçek ContactForm tarayıcı doğrulamasını
-    // kapatır (Zod mesajları gösterilir) ve honeypot alanı taşır.
-    expect(form).toHaveAttribute("novalidate");
-    expect(form.querySelector('input[name="website"]')).not.toBeNull();
+    expect(container.querySelector("form")).toBeNull();
+    expect(screen.queryByLabelText("E-posta")).not.toBeInTheDocument();
   });
 });
 

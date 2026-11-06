@@ -59,7 +59,7 @@ export const faqItems: FaqItem[] = [
     id: "ozel-ders",
     question: "Kişisel antrenman (özel ders) hizmeti veriyor musunuz?",
     answer:
-      "Evet. Uzman antrenörlerimizden birebir ders alabilirsiniz. Seans planlaması ve ücretlendirme için resepsiyondan bilgi alabilir veya iletişim formundan bize yazabilirsiniz.",
+      "Evet. Uzman antrenörlerimizden birebir ders alabilirsiniz. Seans planlaması ve ücretlendirme için resepsiyondan bilgi alabilir veya WhatsApp'tan bize yazabilirsiniz.",
   },
   {
     id: "yas-siniri",

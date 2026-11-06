@@ -27,8 +27,11 @@ test("ana sayfa açılır ve menüden bölümler arasında gezinilir", async ({
     page.getByRole("heading", { level: 2, name: "İletişim" }),
   ).toBeVisible();
 
-  // İletişim formu alanları görünür.
-  await expect(page.getByLabel("Ad Soyad")).toBeVisible();
-  await expect(page.getByLabel("E-posta")).toBeVisible();
-  await expect(page.getByLabel("Mesajınız")).toBeVisible();
+  // Hızlı ulaşım kartı (form e-posta gönderimi kurulana dek kaldırıldı).
+  const contact = page.locator("#iletisim");
+  await expect(
+    contact.getByRole("heading", { level: 3, name: "Hemen ulaşın" }),
+  ).toBeVisible();
+  await expect(contact.getByRole("link", { name: /WhatsApp'tan yazın/ }).last()).toBeVisible();
+  await expect(contact.locator("form")).toHaveCount(0);
 });

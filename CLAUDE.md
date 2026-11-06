@@ -72,6 +72,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `app/layout.tsx`: Navbar + `main` + Footer, `lang="tr"`, Geist fontları, title şablonu.
   Mobilde her sayfanın altında `MobileActionBar` (Ara · WhatsApp · Yol Tarifi)
   durur; `body` mobilde `--action-bar-h` kadar alt boşluk bırakır.
+  Footer'ın en altında İscotera imzası ("Tasarım ve geliştirme" + logo,
+  `siteConfig.developer`); İscotera'nın müşteri sitelerinde ortaktır, kaldırma.
   `"use client"` bileşenleri yalnızca `Navbar.tsx`, `ContactForm.tsx` ve
   `sections/HeroSlideshow.tsx`'tir; yenisini eklemeden önce etkileşimin gerçekten
   JS gerektirdiğini doğrula (ör. `FaqSection` yerleşik `<details>` ile server
@@ -82,8 +84,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Testler `src/` içinde eş konumlu `*.test.ts(x)` (Vitest, jsdom); E2E `e2e/` altında.
 - DURUM: form `ContactForm` + `src/lib/contact-action.ts` (server action, Zod +
   honeypot) ile Resend'e tam bağlı; env eksikse kibar hata döner, gönderici
-  geçici olarak `onboarding@resend.dev`. Form arayüzü kapalı modda —
-  `ContactSection` `emailEnabled` vermiyor, açılışı yol haritasında. Sanity
+  geçici olarak `onboarding@resend.dev`. Form arayüzü siteden kaldırıldı
+  (karar, 6 Kas 2026): `ContactSection` ve `/iletisim` `ContactForm` yerine
+  `ContactCta` (WhatsApp + telefon kartı) gösterir; `ContactForm`, action ve
+  testleri kodda duruyor, açılışı yol haritasında. Sanity
   henüz kurulmadı; içerik şu an `src/data`'da statik. JSON-LD: ana sayfada
   ExerciseGym (kadınlar salonu ayrı `department`) + FAQPage. FAQPage yalnızca
   ana sayfada; `/sss` aynı listeyi JSON-LD'siz gösterir (Google tek kopya ister).
@@ -122,8 +126,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   birebir sabitliyor; değiştirmek salon sahibinin onayını bekliyor.
 - Vercel ortam değişkenleri: `RESEND_API_KEY` + `CONTACT_TO_EMAIL`
   (Settings → Environment Variables; değerler yerelde `.env.local`'de).
-- Formu açma: `ContactSection`'da `<ContactForm emailEnabled />` yap ve
-  `ContactForm.test.tsx`'teki kapalı-mod testini yeni davranışa göre düzelt.
+- Formu açma: `ContactSection` ve `/iletisim`'de `ContactCta` yerine
+  `<ContactForm emailEnabled />` koy; `pages.test.tsx` ("form göstermez"),
+  `e2e/home.spec.ts` ve `ContactForm.test.tsx`'teki kapalı-mod testini yeni
+  davranışa göre düzelt (salon sahibinin onayıyla).
 
 ## Kod standartları
 - `any` YASAK.
