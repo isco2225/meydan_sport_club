@@ -4,7 +4,11 @@ import { siteConfig } from "@/lib/site";
 export type PageInfo = {
   /** Rota yolu; canonical ve sitemap bundan üretilir. */
   path: `/${string}`;
-  /** Sayfa başlığı. Alt sayfalarda layout şablonu "· Meydan Sport Club" ekler. */
+  /**
+   * Sayfa başlığı (sekme + Google sonucu). Alt sayfalarda layout şablonu
+   * "· Meydan Sport Club" ekler; toplam ≈60 karakteri geçmemeli (kesilir).
+   * Sayfadaki görünen h1'den farklı olabilir.
+   */
   title: string;
   /** Arama sonucunda görünen, sayfaya özgü açıklama (≈ 120–160 karakter). */
   description: string;
@@ -42,13 +46,14 @@ export const pages = {
   },
   membership: {
     path: "/uyelik",
-    title: "Üyelik Ücretleri",
+    // Başlık (sekme + Google) yerel ifadeyi taşır; sayfadaki h1 kısa kalır.
+    title: "Beykoz Spor Salonu Üyelik Ücretleri",
     description:
       "Beykoz spor salonu üyelik ücretleri: Meydan Sport Club'ın standart ve öğrenci fiyatları, aylık, 3, 6 ve 12 aylık seçenekler ile ek ücretler.",
   },
   schedule: {
     path: "/ders-programi",
-    title: "Ders Programı",
+    title: "Beykoz Pilates ve Zumba Ders Programı",
     description:
       "Beykoz'da kadınlara özel grup dersleri: Meydan Sport Club kadınlar salonunun haftalık pilates, zumba ve core board programı, gün ve saatleriyle.",
   },
@@ -60,7 +65,8 @@ export const pages = {
   },
   contact: {
     path: "/iletisim",
-    title: "İletişim",
+    // "spor salonu kaçta açılıyor" aramaları için saatler başlıkta.
+    title: "İletişim ve Çalışma Saatleri · Beykoz",
     description:
       "Meydan Sport Club'a ulaşın: Beykoz Ortaçeşme'deki adresimiz ve yol tarifi, telefon ve WhatsApp hattımız, karma ve kadınlar salonu çalışma saatleri.",
   },

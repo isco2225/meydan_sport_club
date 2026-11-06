@@ -121,9 +121,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
   EKLENMEZ (askıya alma riski). Ardından Search Console'da sitemap gönder
   (alan adında doğrulama TXT kaydı var), Apple Business Connect / Bing Places
   / Yandex'e aynı NAP ile kayıt.
-- Alt sayfa `<title>`'ları ("Üyelik Ücretleri" vb.) bilinçli olarak yerel
-  ifadesiz bırakıldı: `metadata.test.ts` ve `e2e/mobile.spec.ts` başlıkları
-  birebir sabitliyor; değiştirmek salon sahibinin onayını bekliyor.
+- Alt sayfa `<title>`'ları (6 Kas 2026, onaylı): üyelik, ders programı ve
+  iletişim başlıkları yerel ifade (+ iletişimde "Çalışma Saatleri") taşır;
+  görünen h1'ler kısa kalır. Tam başlık ≤ 60 karakter (`metadata.test.ts`).
 - Vercel ortam değişkenleri: `RESEND_API_KEY` + `CONTACT_TO_EMAIL`
   (Settings → Environment Variables; değerler yerelde `.env.local`'de).
 - Formu açma: `ContactSection` ve `/iletisim`'de `ContactCta` yerine

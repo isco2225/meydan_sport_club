@@ -44,6 +44,20 @@ describe("pages (sayfa listesi)", () => {
     }
   });
 
+  it("Google'da görünen tam başlık 60 karakteri geçmez (kesilmez)", () => {
+    for (const page of sitePages) {
+      const full = page.path === "/" ? page.title : `${page.title} · ${siteConfig.name}`;
+      expect(full.length, full).toBeLessThanOrEqual(60);
+    }
+  });
+
+  it("yerel aramada öne çıkan alt sayfaların başlıkları konumu anar", () => {
+    for (const page of [pages.membership, pages.schedule, pages.contact, pages.womens]) {
+      expect(page.title, page.path).toContain("Beykoz");
+    }
+    expect(pages.contact.title).toContain("Çalışma Saatleri");
+  });
+
   it("ana sayfa başlığı konumu (Beykoz) içerir", () => {
     expect(pages.home.title).toContain("Beykoz");
   });
@@ -59,14 +73,14 @@ describe("pageMetadata", () => {
   it("alt sayfada şablonlu başlık, canonical ve Open Graph üretir", () => {
     const meta = pageMetadata(pages.membership);
 
-    expect(meta.title).toBe("Üyelik Ücretleri");
+    expect(meta.title).toBe("Beykoz Spor Salonu Üyelik Ücretleri");
     expect(meta.description).toBe(pages.membership.description);
     expect(meta.alternates?.canonical).toBe("/uyelik");
     expect(meta.openGraph).toMatchObject({
       type: "website",
       locale: "tr_TR",
       siteName: siteConfig.name,
-      title: `Üyelik Ücretleri · ${siteConfig.name}`,
+      title: `Beykoz Spor Salonu Üyelik Ücretleri · ${siteConfig.name}`,
       url: "/uyelik",
     });
   });

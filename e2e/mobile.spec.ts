@@ -45,15 +45,21 @@ test("masaüstünde hızlı iletişim çubuğu gizlidir", async ({ page }) => {
 });
 
 test("alt sayfalar kendi başlığı ve paylaşım görseliyle açılır", async ({ page }) => {
-  for (const [path, title] of [
-    ["/uyelik", "Üyelik Ücretleri"],
-    ["/kadinlar-salonu", "Beykoz Kadınlara Özel Spor Salonu"],
-    ["/ders-programi", "Ders Programı"],
-    ["/sss", "Sıkça Sorulan Sorular"],
-    ["/iletisim", "İletişim"],
+  // [yol, sayfadaki h1, sekme/Google başlığı] — başlık yerel ifadeyi
+  // taşıyabilir, h1 kısa kalır.
+  for (const [path, heading, title] of [
+    ["/uyelik", "Üyelik Ücretleri", "Beykoz Spor Salonu Üyelik Ücretleri"],
+    [
+      "/kadinlar-salonu",
+      "Beykoz Kadınlara Özel Spor Salonu",
+      "Beykoz Kadınlara Özel Spor Salonu",
+    ],
+    ["/ders-programi", "Ders Programı", "Beykoz Pilates ve Zumba Ders Programı"],
+    ["/sss", "Sıkça Sorulan Sorular", "Sıkça Sorulan Sorular"],
+    ["/iletisim", "İletişim", "İletişim ve Çalışma Saatleri · Beykoz"],
   ] as const) {
     await page.goto(path);
-    await expect(page.getByRole("heading", { level: 1, name: title })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: heading })).toBeVisible();
     await expect(page).toHaveTitle(`${title} · Meydan Sport Club`);
     await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
       "content",
