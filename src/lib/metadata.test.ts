@@ -41,6 +41,12 @@ describe("pages (sayfa listesi)", () => {
   it("ana sayfa başlığı konumu (Beykoz) içerir", () => {
     expect(pages.home.title).toContain("Beykoz");
   });
+
+  it("ana sayfa başlığı yerel arama ifadesiyle başlar ve kesilmeyecek uzunluktadır", () => {
+    expect(pages.home.title).toMatch(/^Beykoz Ortaçeşme Spor ve Fitness Salonu/);
+    expect(pages.home.title).toContain(siteConfig.name);
+    expect(pages.home.title.length).toBeLessThanOrEqual(60);
+  });
 });
 
 describe("pageMetadata", () => {

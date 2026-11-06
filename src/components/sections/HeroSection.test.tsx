@@ -10,6 +10,21 @@ describe("HeroSection", () => {
     ).toBeInTheDocument();
   });
 
+  it("tek h1, yerel arama ifadesini (konum + spor salonu) sloganla birlikte taşır", () => {
+    render(<HeroSection />);
+    const headings = screen.getAllByRole("heading", { level: 1 });
+    expect(headings).toHaveLength(1);
+    expect(headings[0]).toHaveAccessibleName(
+      "Beykoz Ortaçeşme Spor Salonu — Kendine Meydan Oku",
+    );
+  });
+
+  it("alt metin konumu ve kadınlara özel salonu anar", () => {
+    render(<HeroSection />);
+    expect(screen.getByText(/kadınlara özel ayrı salon/)).toBeInTheDocument();
+    expect(screen.getByText(/Beykoz'da hedefin ne olursa olsun/)).toBeInTheDocument();
+  });
+
   it("iddialı alt metni gösterir", () => {
     render(<HeroSection />);
     expect(

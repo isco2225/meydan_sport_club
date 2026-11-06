@@ -32,7 +32,7 @@ export const aboutValues: AboutValue[] = [
 
 /** Kısa ve samimi tutulur; kurumsal dil kullanılmaz. */
 export const aboutStory: string[] = [
-  "Meydan Sport Club, 3. kademe kıdemli antrenör Yunus Hoca'nın öncülüğünde kuruldu. Bizim için burası sadece ağırlık kaldırılan bir yer değil; birbirini tanıyan, birbirine destek olan bir topluluk.",
+  "Meydan Sport Club, Beykoz Ortaçeşme'de 3. kademe kıdemli antrenör Yunus Hoca'nın öncülüğünde kuruldu. Bizim için burası sadece ağırlık kaldırılan bir yer değil; birbirini tanıyan, birbirine destek olan bir topluluk.",
   "Karma salonumuzun yanında sadece kadınların girebildiği ayrı bir kadınlar salonumuz var; pilates, zumba ve core board gibi grup derslerimiz de burada yapılıyor. İster spora yeni başlıyor olun, ister yıllardır antrenman yapın — size uygun bir program mutlaka var.",
 ];
 

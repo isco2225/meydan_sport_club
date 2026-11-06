@@ -18,7 +18,8 @@ export type PageInfo = {
 export const pages = {
   home: {
     path: "/",
-    title: `${siteConfig.name} · Beykoz Spor Salonu`,
+    // Yerel arama ifadesi önde, marka sonda (≈60 karakter, kesilmez).
+    title: `Beykoz Ortaçeşme Spor ve Fitness Salonu · ${siteConfig.name}`,
     description: siteConfig.description,
   },
   about: {
@@ -31,19 +32,19 @@ export const pages = {
     path: "/antrenorler",
     title: "Antrenörlerimiz",
     description:
-      "Meydan Sport Club antrenör kadrosuyla tanışın: salon sahibi Yunus Hoca liderliğinde, her seviyeye birebir destek veren deneyimli antrenörler.",
+      "Beykoz Ortaçeşme'deki Meydan Sport Club antrenör kadrosuyla tanışın: Yunus Hoca liderliğinde, her seviyeye birebir destek ve kişisel antrenman.",
   },
   membership: {
     path: "/uyelik",
     title: "Üyelik Ücretleri",
     description:
-      "Meydan Sport Club üyelik ücretleri: standart ve öğrenci fiyatları, aylık ve dönemsel seçenekler ile ek ücretler.",
+      "Beykoz spor salonu üyelik ücretleri: Meydan Sport Club'ın standart ve öğrenci fiyatları, aylık, 3, 6 ve 12 aylık seçenekler ile ek ücretler.",
   },
   schedule: {
     path: "/ders-programi",
     title: "Ders Programı",
     description:
-      "Kadınlar salonuna özel haftalık grup ders programı: pilates, zumba ve core board derslerinin gün ve saatleri.",
+      "Beykoz'da kadınlara özel grup dersleri: Meydan Sport Club kadınlar salonunun haftalık pilates, zumba ve core board programı, gün ve saatleriyle.",
   },
   faq: {
     path: "/sss",
@@ -55,7 +56,7 @@ export const pages = {
     path: "/iletisim",
     title: "İletişim",
     description:
-      "Meydan Sport Club'a ulaşın: Ortaçeşme, Beykoz adresimiz, telefon ve WhatsApp hattımız, çalışma saatlerimiz ve iletişim formu.",
+      "Meydan Sport Club'a ulaşın: Beykoz Ortaçeşme'deki adresimiz ve yol tarifi, telefon ve WhatsApp hattımız, karma ve kadınlar salonu çalışma saatleri.",
   },
 } satisfies Record<string, PageInfo>;
 

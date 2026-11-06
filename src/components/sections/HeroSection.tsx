@@ -27,23 +27,29 @@ export default function HeroSection() {
     >
       <Container className="grid items-center lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
         <div className="relative z-10 text-center lg:text-left">
-          <p className="inline-flex items-center gap-2 rounded-full border border-brand/40 bg-black/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-brand backdrop-blur-sm">
-            <Icon name="map-pin" className="size-3.5" />
-            {district} · {neighborhood}
-          </p>
-
-          {/* Salon adıyla kelime oyunu: "meydan okumak". CSS uppercase,
-              lang="tr" sayesinde i → İ dönüşümünü doğru yapar. */}
-          <h1 className="mt-5 font-display text-[clamp(3.25rem,11vw,6.5rem)] uppercase leading-[0.92] tracking-tight text-white">
-            <span className="block">Kendine</span>{" "}
-            <span className="block text-brand">Meydan</span>{" "}
-            <span className="block">Oku</span>
+          {/* Tek h1 iki parçalıdır: yerel arama ifadesi ("Beykoz Ortaçeşme
+              Spor Salonu") konum rozetinde, slogan ("Kendine Meydan Oku" —
+              salon adıyla kelime oyunu) dev yazıda. Görsel düzen aynı kalır,
+              başlığın metni ise Google'a hem konumu hem türü söyler.
+              CSS uppercase, lang="tr" sayesinde i → İ dönüşümünü doğru yapar;
+              bu yüzden rozete "fitness" gibi yabancı kelime konmaz. */}
+          <h1>
+            <span className="inline-flex items-center gap-2 rounded-full border border-brand/40 bg-black/40 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-brand backdrop-blur-sm">
+              <Icon name="map-pin" className="size-3.5" />
+              {district} {neighborhood} Spor Salonu
+            </span>{" "}
+            <span className="sr-only">—</span>{" "}
+            <span className="mt-5 block font-display text-[clamp(3.25rem,11vw,6.5rem)] uppercase leading-[0.92] tracking-tight text-white">
+              <span className="block">Kendine</span>{" "}
+              <span className="block text-brand">Meydan</span>{" "}
+              <span className="block">Oku</span>
+            </span>
           </h1>
 
           <p className="mx-auto mt-5 max-w-xl text-base text-white/80 sm:text-lg lg:mx-0">
-            Modern ekipman, uzman antrenörler ve seni her antrenmanda ileri
-            taşıyan bir atmosfer. Hedefin ne olursa olsun, doğru adres{" "}
-            {siteConfig.name}.
+            Modern ekipman, uzman antrenörler, kadınlara özel ayrı salon ve seni
+            her antrenmanda ileri taşıyan bir atmosfer. {district}&apos;da
+            hedefin ne olursa olsun, doğru adres {siteConfig.name}.
           </p>
 
           <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">

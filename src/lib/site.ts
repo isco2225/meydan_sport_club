@@ -21,8 +21,13 @@ export const siteConfig = {
    * Vercel'de `www`'ya yönlendirildiği için kanonik olan `www`'dur.
    */
   url: "https://www.meydansportclub.com",
+  /**
+   * Ana sayfa açıklaması (arama sonucu snippet'i), Footer metni ve JSON-LD
+   * `description`. Yerel arama ifadelerini (Beykoz, Ortaçeşme, spor/fitness
+   * salonu, kadınlara özel) doğal bir cümlede taşır.
+   */
   description:
-    "Beykoz Ortaçeşme'de karma ve kadınlara özel salon, pilates, zumba ve core board grup dersleri ve uygun üyelik ücretleri. Ücretsiz deneme antrenmanı için bize ulaşın.",
+    "Beykoz Ortaçeşme'de spor ve fitness salonu: karma salon, kadın antrenörlü kadınlara özel salon, pilates, zumba ve core board dersleri. İlk antrenman ücretsiz.",
   /**
    * Görünen telefon — Google İşletme Profili'ndeki biçimle birebir aynı
    * (ad/adres/telefon tutarlılığı yerel aramada önemlidir). `tel:`, WhatsApp
