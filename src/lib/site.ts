@@ -55,6 +55,15 @@ export const siteConfig = {
     city: "İstanbul",
     country: "TR",
   } satisfies PostalAddress,
+  /**
+   * Google İşletme Profili (Haritalar). Salonun paylaştığı maps.app.goo.gl
+   * bağlantısından çözüldü (6 Kas 2026); Place ID'nin Google'da bu salonun
+   * harita kaydına (0x14cacad48f9a6e2d:0x2ab5f77b44e028e4) açıldığı
+   * doğrulandı. Harita, yol tarifi ve "yorum yaz" bağlantıları bundan üretilir.
+   */
+  googlePlaceId: "ChIJLW6aj9TKyhQR5CjgRHv3tSo",
+  /** Haritadaki işaretçinin konumu (aynı bağlantıdan). JSON-LD `geo`. */
+  geo: { latitude: 41.14766, longitude: 29.087506 },
   social: {
     instagram: "https://www.instagram.com/meydansportclub/",
     youtube: "https://www.youtube.com/channel/UCN2zmBXM_rdVnDJCZFOVXiw",

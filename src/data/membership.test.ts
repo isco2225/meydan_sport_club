@@ -7,6 +7,7 @@ import {
   basePlan,
   savingsPercent,
   formatPercent,
+  membershipPriceBounds,
 } from "./membership";
 
 describe("membershipPlans", () => {
@@ -92,5 +93,24 @@ describe("savingsPercent", () => {
 describe("formatPercent", () => {
   it("Türkçe yüzde biçimini (%40) kullanır", () => {
     expect(formatPercent(40)).toBe("%40");
+  });
+});
+
+describe("membershipPriceBounds", () => {
+  it("standart ve öğrenci fiyatlarının en düşüğünü ve en yükseğini verir", () => {
+    const all = membershipPlans.flatMap((p) => [p.standardPrice, p.studentPrice]);
+    expect(membershipPriceBounds()).toEqual({
+      min: Math.min(...all),
+      max: Math.max(...all),
+    });
+  });
+
+  it("verilen plan listesiyle çalışır", () => {
+    expect(
+      membershipPriceBounds([
+        { id: "x", label: "X", months: 1, standardPrice: 100, studentPrice: 80 },
+        { id: "y", label: "Y", months: 2, standardPrice: 300, studentPrice: 250 },
+      ]),
+    ).toEqual({ min: 80, max: 300 });
   });
 });

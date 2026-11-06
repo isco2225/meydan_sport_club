@@ -1,7 +1,13 @@
 import { faqItems, type FaqItem } from "@/data/faq";
 import { openingHoursSpecification, salonSchedules } from "@/data/hours";
+import {
+  CURRENCY,
+  formatTRY,
+  membershipPlans,
+  membershipPriceBounds,
+} from "@/data/membership";
 import { internationalPhone, mapsHref, streetAddress } from "@/lib/links";
-import { shareImage } from "@/lib/metadata";
+import { pages, shareImage } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site";
 
 /**
@@ -19,6 +25,36 @@ function findSalon(id: (typeof salonSchedules)[number]["id"]) {
   return salon;
 }
 
+function offer(name: string, price: number, description?: string) {
+  return {
+    "@type": "Offer" as const,
+    name,
+    price,
+    priceCurrency: CURRENCY,
+    ...(description ? { description } : {}),
+  };
+}
+
+/**
+ * Üyelik ücretleri teklif kataloğu — `/uyelik`'teki tabloyla aynı veriden
+ * (`membershipPlans`): her süre için standart ve öğrenci fiyatı.
+ */
+function membershipOfferCatalog() {
+  return {
+    "@type": "OfferCatalog" as const,
+    name: "Üyelik Ücretleri",
+    url: absolute(pages.membership.path),
+    itemListElement: membershipPlans.flatMap((plan) => [
+      offer(`${plan.label} Üyelik`, plan.standardPrice),
+      offer(
+        `${plan.label} Öğrenci Üyeliği`,
+        plan.studentPrice,
+        "Geçerli öğrenci belgesi ile uygulanır.",
+      ),
+    ]),
+  };
+}
+
 /**
  * Ana sayfa için `ExerciseGym` (LocalBusiness alt türü). Ana işletmenin
  * saatleri karma salondur; kadınlar salonu farklı saatlerle çalıştığı için
@@ -27,7 +63,8 @@ function findSalon(id: (typeof salonSchedules)[number]["id"]) {
 export function gymJsonLd(images: string[] = []) {
   const karma = findSalon("karma");
   const kadinlar = findSalon("kadinlar");
-  const { address } = siteConfig;
+  const { address, geo } = siteConfig;
+  const prices = membershipPriceBounds();
 
   return {
     "@context": "https://schema.org",
@@ -49,7 +86,18 @@ export function gymJsonLd(images: string[] = []) {
       addressRegion: address.city,
       addressCountry: address.country,
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: geo.latitude,
+      longitude: geo.longitude,
+    },
     hasMap: mapsHref(),
+    areaServed: {
+      "@type": "AdministrativeArea",
+      name: `${address.district}, ${address.city}`,
+    },
+    priceRange: `${formatTRY(prices.min)} – ${formatTRY(prices.max)}`,
+    hasOfferCatalog: membershipOfferCatalog(),
     openingHoursSpecification: openingHoursSpecification(karma.week),
     department: [
       {

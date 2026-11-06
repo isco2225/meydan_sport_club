@@ -46,6 +46,17 @@ export const extraFees: ExtraFee[] = [
   { id: "gunluk-giris", label: "Günlük giriş", price: 300 },
 ];
 
+/**
+ * Tüm üyelik fiyatlarının (standart + öğrenci) en düşüğü ve en yükseği;
+ * JSON-LD `priceRange` buradan türetilir.
+ */
+export function membershipPriceBounds(
+  plans: MembershipPlan[] = membershipPlans,
+): { min: number; max: number } {
+  const prices = plans.flatMap((plan) => [plan.standardPrice, plan.studentPrice]);
+  return { min: Math.min(...prices), max: Math.max(...prices) };
+}
+
 /** Bir planın standart fiyatla aylık maliyeti. */
 export function monthlyCost(plan: MembershipPlan): number {
   return plan.standardPrice / plan.months;

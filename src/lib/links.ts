@@ -68,10 +68,20 @@ export function formatAddress(address: PostalAddress = siteConfig.address): stri
 }
 
 /**
- * Google Maps arama bağlantısı (resmî "Maps URLs" biçimi). Koordinat
- * gerektirmez; salon adı + adresle aranır, mobilde Haritalar uygulamasını açar.
+ * Google Maps bağlantısı (resmî "Maps URLs" biçimi). `query_place_id` doğrudan
+ * salonun İşletme Profili'ni açar (yorumlar, fotoğraflar, yol tarifi); Place
+ * ID'yi tanımayan istemciler salon adı + adresle aramaya düşer. Mobilde
+ * Haritalar uygulamasını açar.
  */
 export function mapsHref(): string {
   const query = `${siteConfig.name}, ${formatAddress()}`;
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}&query_place_id=${siteConfig.googlePlaceId}`;
+}
+
+/**
+ * Google'da "yorum yaz" penceresini doğrudan açan bağlantı. Yorum sayısı ve
+ * puanı yerel aramada (Haritalar) sıralamayı en çok etkileyen sinyallerdendir.
+ */
+export function googleReviewHref(placeId: string = siteConfig.googlePlaceId): string {
+  return `https://search.google.com/local/writereview?placeid=${placeId}`;
 }

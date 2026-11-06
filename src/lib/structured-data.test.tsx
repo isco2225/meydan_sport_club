@@ -4,6 +4,7 @@ import JsonLd from "@/components/JsonLd";
 import HomePage from "@/app/page";
 import { faqItems } from "@/data/faq";
 import { openingHoursSpecification, salonSchedules } from "@/data/hours";
+import { formatTRY, membershipPlans, membershipPriceBounds } from "@/data/membership";
 import { mapsHref } from "./links";
 import { faqPageJsonLd, gymJsonLd } from "./structured-data";
 import { siteConfig } from "./site";
@@ -74,6 +75,63 @@ describe("gymJsonLd (ExerciseGym)", () => {
       "https://www.meydansportclub.com/images/galeri/ornek.jpg",
     );
     expect(data.sameAs).toEqual(Object.values(siteConfig.social));
+  });
+});
+
+describe("gymJsonLd yerel sinyaller", () => {
+  const data = gymJsonLd();
+
+  it("haritadaki konumu GeoCoordinates olarak verir", () => {
+    expect(data.geo).toEqual({
+      "@type": "GeoCoordinates",
+      latitude: siteConfig.geo.latitude,
+      longitude: siteConfig.geo.longitude,
+    });
+    // Beykoz Ortaçeşme civarı (yanlış/ters yazılmış koordinatı yakalar).
+    expect(data.geo.latitude).toBeGreaterThan(41.1);
+    expect(data.geo.latitude).toBeLessThan(41.2);
+    expect(data.geo.longitude).toBeGreaterThan(29.0);
+    expect(data.geo.longitude).toBeLessThan(29.2);
+  });
+
+  it("harita bağlantısı İşletme Profili'nin Place ID'sini taşır", () => {
+    expect(new URL(data.hasMap).searchParams.get("query_place_id")).toBe(
+      siteConfig.googlePlaceId,
+    );
+  });
+
+  it("hizmet bölgesi ilçedir (Beykoz)", () => {
+    expect(data.areaServed).toEqual({
+      "@type": "AdministrativeArea",
+      name: "Beykoz, İstanbul",
+    });
+  });
+
+  it("fiyat aralığı görünen üyelik ücretlerinden türetilir", () => {
+    const { min, max } = membershipPriceBounds();
+    expect(data.priceRange).toBe(`${formatTRY(min)} – ${formatTRY(max)}`);
+  });
+
+  it("teklif kataloğu her plan için standart ve öğrenci fiyatını içerir", () => {
+    const catalog = data.hasOfferCatalog;
+    expect(catalog["@type"]).toBe("OfferCatalog");
+    expect(catalog.url).toBe("https://www.meydansportclub.com/uyelik");
+    expect(catalog.itemListElement).toHaveLength(membershipPlans.length * 2);
+    for (const plan of membershipPlans) {
+      expect(catalog.itemListElement).toContainEqual({
+        "@type": "Offer",
+        name: `${plan.label} Üyelik`,
+        price: plan.standardPrice,
+        priceCurrency: "TRY",
+      });
+      expect(catalog.itemListElement).toContainEqual(
+        expect.objectContaining({
+          name: `${plan.label} Öğrenci Üyeliği`,
+          price: plan.studentPrice,
+          priceCurrency: "TRY",
+        }),
+      );
+    }
   });
 });
 

@@ -3,6 +3,7 @@ import SocialLinks from "@/components/SocialLinks";
 import WorkingHours from "@/components/WorkingHours";
 import {
   formatAddress,
+  googleReviewHref,
   mailtoHref,
   mapsHref,
   telHref,
@@ -124,6 +125,25 @@ export default function ContactDetails({
           Bizi Takip Edin
         </Heading>
         <SocialLinks className="mt-3" />
+      </div>
+
+      <div className="mt-10">
+        <Heading className="text-sm font-semibold uppercase tracking-wide text-foreground/60">
+          Bizi Değerlendirin
+        </Heading>
+        <p className="mt-2 max-w-sm text-sm text-foreground/70">
+          Memnun kaldıysanız Google&apos;da birkaç cümle yazın; yorumlarınız
+          yeni üyelerin bizi bulmasına yardım ediyor.
+        </p>
+        <a
+          href={googleReviewHref()}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm font-semibold transition-colors hover:border-brand hover:text-brand"
+        >
+          Google&apos;da yorum yazın
+          <Icon name="arrow-up-right" className="size-4" />
+        </a>
       </div>
     </div>
   );

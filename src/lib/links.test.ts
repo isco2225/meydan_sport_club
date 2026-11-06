@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   formatAddress,
+  googleReviewHref,
   internationalPhone,
   toE164,
   mailtoHref,
@@ -88,6 +89,23 @@ describe("mapsHref", () => {
     expect(url.searchParams.get("api")).toBe("1");
     expect(url.searchParams.get("query")).toBe(
       `${siteConfig.name}, ${formatAddress()}`,
+    );
+  });
+});
+
+describe("Google İşletme Profili bağlantıları", () => {
+  it("harita bağlantısı Place ID ile doğrudan işletme profilini açar", () => {
+    const url = new URL(mapsHref());
+    expect(url.searchParams.get("query_place_id")).toBe(siteConfig.googlePlaceId);
+    expect(siteConfig.googlePlaceId).toMatch(/^ChIJ/);
+  });
+
+  it("yorum bağlantısı Google'ın 'yorum yaz' penceresini açar", () => {
+    expect(googleReviewHref("ChIJabc")).toBe(
+      "https://search.google.com/local/writereview?placeid=ChIJabc",
+    );
+    expect(new URL(googleReviewHref()).searchParams.get("placeid")).toBe(
+      siteConfig.googlePlaceId,
     );
   });
 });

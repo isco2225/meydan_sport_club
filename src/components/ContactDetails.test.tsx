@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import ContactDetails from "./ContactDetails";
 import {
   formatAddress,
+  googleReviewHref,
   mapsHref,
   telHref,
   whatsappHref,
@@ -89,5 +90,18 @@ describe("ContactDetails WhatsApp rengi", () => {
     expect(iconTile("WhatsApp'tan yazın").className).toContain("text-whatsapp");
     expect(iconTile(siteConfig.phone).className).toContain("text-brand");
     expect(iconTile(siteConfig.phone).className).not.toContain("text-whatsapp");
+  });
+});
+
+describe("ContactDetails Google yorumu", () => {
+  it("Google'da yorum yazma bağlantısını yeni sekmede açar", () => {
+    render(<ContactDetails headingLevel={3} />);
+    const link = screen.getByRole("link", { name: /Google'da yorum yazın/ });
+    expect(link).toHaveAttribute("href", googleReviewHref());
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    expect(
+      screen.getByRole("heading", { level: 3, name: "Bizi Değerlendirin" }),
+    ).toBeInTheDocument();
   });
 });
