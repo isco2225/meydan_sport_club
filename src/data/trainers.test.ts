@@ -35,3 +35,20 @@ describe("trainers", () => {
     }
   });
 });
+
+describe("trainers kadrosu", () => {
+  it("Emre Demir ve Umut Çevik antrenör olarak, şimdilik fotoğrafsız listelenir", () => {
+    for (const name of ["Emre Demir", "Umut Çevik"]) {
+      const trainer = trainers.find((t) => t.name === name);
+      expect(trainer, name).toBeDefined();
+      expect(trainer!.title).toBe("Antrenör");
+      expect(trainer!.photo).toBeUndefined();
+    }
+  });
+
+  it("id Türkçe karaktersiz addan türetilir (Çevik → cevik)", () => {
+    expect(trainers.map((t) => t.id)).toEqual(
+      expect.arrayContaining(["emre-demir", "umut-cevik"]),
+    );
+  });
+});

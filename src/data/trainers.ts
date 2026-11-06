@@ -23,4 +23,16 @@ export const trainers: Trainer[] = [
     title: "Antrenör",
     photo: "/images/antrenorler/ali-sirganci.jpg",
   },
+  // Fotoğrafları henüz yok (6 Kas 2026); kart baş harfi gösterir. Fotoğraf
+  // gelince `public/images/antrenorler/<id>.jpg` olarak ekle ve `photo` ver.
+  {
+    id: "emre-demir",
+    name: "Emre Demir",
+    title: "Antrenör",
+  },
+  {
+    id: "umut-cevik",
+    name: "Umut Çevik",
+    title: "Antrenör",
+  },
 ];
