@@ -1,3 +1,5 @@
+import { pages } from "@/lib/metadata";
+
 export type AboutValue = {
   title: string;
   description: string;
@@ -6,6 +8,8 @@ export type AboutValue = {
 export type AboutHighlight = {
   title: string;
   description: string;
+  /** İsteğe bağlı ayrıntı bağlantısı (kartın altında). */
+  link?: { label: string; href: string };
 };
 
 /** Hem ana sayfadaki bölümün hem hakkımızda sayfasının ortak giriş cümlesi. */
@@ -40,7 +44,8 @@ export const aboutHighlights: AboutHighlight[] = [
   {
     title: "Kadınlara Özel Salon",
     description:
-      "Sadece kadınların girebildiği, ayrı bir alanda hizmet veren salonumuz.",
+      "Sadece kadınların girebildiği, kadın antrenörlerin hizmet verdiği ayrı salonumuz.",
+    link: { label: "Salonu tanıyın", href: pages.womens.path },
   },
   {
     title: "Grup Dersleri",

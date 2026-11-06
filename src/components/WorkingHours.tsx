@@ -1,9 +1,11 @@
-import { CLOSED, workingHours } from "@/data/hours";
+import { CLOSED, workingHours, type SalonHours } from "@/data/hours";
 
 type WorkingHoursProps = {
   className?: string;
   /** Footer gibi dar alanlar için salonları yan yana değil alt alta dizer. */
   compact?: boolean;
+  /** Yalnızca bu salonun saatlerini gösterir (ör. `/kadinlar-salonu`). */
+  salon?: SalonHours["id"];
 };
 
 /**
@@ -13,12 +15,16 @@ type WorkingHoursProps = {
 export default function WorkingHours({
   className = "",
   compact = false,
+  salon: only,
 }: WorkingHoursProps) {
+  const salons = only ? workingHours.filter((s) => s.id === only) : workingHours;
+  const stacked = compact || salons.length === 1;
+
   return (
     <div
-      className={`${compact ? "space-y-4" : "grid gap-6 sm:grid-cols-2"} ${className}`}
+      className={`${stacked ? "space-y-4" : "grid gap-6 sm:grid-cols-2"} ${className}`}
     >
-      {workingHours.map((salon) => (
+      {salons.map((salon) => (
         <div key={salon.name}>
           <p className="text-sm font-semibold">{salon.name}</p>
           <dl className="mt-2 space-y-1">

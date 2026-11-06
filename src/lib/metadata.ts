@@ -28,6 +28,12 @@ export const pages = {
     description:
       "3. kademe kıdemli antrenör Yunus Hoca'nın kurduğu Meydan Sport Club'ı tanıyın: karma ve kadınlara özel salonuyla Beykoz'un topluluk odaklı spor kulübü.",
   },
+  womens: {
+    path: "/kadinlar-salonu",
+    title: "Beykoz Kadınlara Özel Spor Salonu",
+    description:
+      "Beykoz Ortaçeşme'de tamamen kadınlara özel spor salonu: kadın antrenörler, pilates, zumba ve core board dersleri, ayrı çalışma saatleri. İlk antrenman ücretsiz.",
+  },
   trainers: {
     path: "/antrenorler",
     title: "Antrenörlerimiz",

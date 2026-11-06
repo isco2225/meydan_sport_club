@@ -47,6 +47,7 @@ test("masaüstünde hızlı iletişim çubuğu gizlidir", async ({ page }) => {
 test("alt sayfalar kendi başlığı ve paylaşım görseliyle açılır", async ({ page }) => {
   for (const [path, title] of [
     ["/uyelik", "Üyelik Ücretleri"],
+    ["/kadinlar-salonu", "Beykoz Kadınlara Özel Spor Salonu"],
     ["/ders-programi", "Ders Programı"],
     ["/sss", "Sıkça Sorulan Sorular"],
     ["/iletisim", "İletişim"],

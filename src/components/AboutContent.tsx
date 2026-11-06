@@ -1,4 +1,5 @@
 import Image from "next/image";
+import HighlightGrid from "@/components/HighlightGrid";
 import { aboutHighlights, aboutStory, aboutValues } from "@/data/about";
 import { galleryImages } from "@/data/gallery";
 
@@ -18,7 +19,6 @@ type AboutContentProps = {
  */
 export default function AboutContent({ headingLevel }: AboutContentProps) {
   const Heading = `h${headingLevel}` as "h2" | "h3";
-  const SubHeading = `h${headingLevel + 1}` as "h3" | "h4";
 
   return (
     <div>
@@ -68,27 +68,11 @@ export default function AboutContent({ headingLevel }: AboutContentProps) {
         <Heading className="font-display text-2xl uppercase sm:text-3xl">
           Neden Meydan?
         </Heading>
-        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {aboutHighlights.map((highlight, i) => (
-            <li
-              key={highlight.title}
-              className="group relative overflow-hidden rounded-2xl border border-line bg-surface p-6 transition-colors hover:border-brand/50"
-            >
-              <span
-                aria-hidden="true"
-                className="font-display text-4xl text-brand/25 transition-colors group-hover:text-brand"
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <SubHeading className="mt-3 text-sm font-semibold uppercase tracking-wide">
-                {highlight.title}
-              </SubHeading>
-              <p className="mt-2 text-sm text-foreground/70">
-                {highlight.description}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <HighlightGrid
+          items={aboutHighlights}
+          headingLevel={(headingLevel + 1) as 3 | 4}
+          className="mt-6"
+        />
       </div>
     </div>
   );

@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { pages } from "@/lib/metadata";
+
 /**
  * Ders programının yalnızca kadınlar salonu için geçerli olduğunu belirten
  * uyarı. Bölüm ve `/ders-programi` sayfası aynı metni gösterir.
@@ -9,7 +12,13 @@ export default function ScheduleNotice({ className = "" }: { className?: string 
     >
       <strong className="font-semibold text-foreground">Kadınlar Salonu</strong>{" "}
       — Aşağıdaki grup ders programı yalnızca kadınlar salonu için geçerlidir.
-      Erkek veya karma salon için ders programı bulunmamaktadır.
+      Erkek veya karma salon için ders programı bulunmamaktadır.{" "}
+      <Link
+        href={pages.womens.path}
+        className="font-semibold text-foreground underline decoration-brand decoration-2 underline-offset-4 transition-opacity hover:opacity-70"
+      >
+        Kadınlar salonunu tanıyın
+      </Link>
     </div>
   );
 }

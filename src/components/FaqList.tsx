@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { faqItems } from "@/data/faq";
+import { faqItems, type FaqItem } from "@/data/faq";
 
 const linkClass =
   "mt-3 inline-block text-sm font-semibold underline decoration-brand decoration-2 underline-offset-4 transition-opacity hover:opacity-70";
@@ -10,12 +10,13 @@ const isExternal = (href: string) => /^https?:\/\//.test(href);
 /**
  * SSS listesi. Açılır/kapanır davranış yerleşik <details>/<summary> ile
  * sağlanır: JavaScript gerektirmez, server component kalır. Ana sayfadaki
- * `FaqSection` ile `/sss` sayfasının ortak gövdesidir.
+ * `FaqSection` ile `/sss` sayfasının ortak gövdesidir; `/kadinlar-salonu`
+ * ilgili soruların alt kümesini `items` ile verir.
  */
-export default function FaqList() {
+export default function FaqList({ items = faqItems }: { items?: FaqItem[] }) {
   return (
     <div className="space-y-4">
-      {faqItems.map((item) => (
+      {items.map((item) => (
         <details
           key={item.id}
           className="group rounded-2xl border border-line bg-surface p-6 transition-colors open:border-brand/50"

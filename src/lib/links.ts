@@ -42,6 +42,9 @@ export function mailtoHref(email: string): string {
 export const WHATSAPP_DEFAULT_MESSAGE =
   "Merhaba, Meydan Sport Club hakkında bilgi almak istiyorum.";
 
+export const WHATSAPP_WOMENS_MESSAGE =
+  "Merhaba, kadınlar salonu hakkında bilgi almak istiyorum.";
+
 export const WHATSAPP_TRIAL_MESSAGE =
   "Merhaba, ücretsiz deneme antrenmanı için randevu almak istiyorum.";
 

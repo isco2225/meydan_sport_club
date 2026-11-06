@@ -42,3 +42,13 @@ describe("AboutContent", () => {
     ).toBeInTheDocument();
   });
 });
+
+describe("AboutContent kadınlar salonu kartı", () => {
+  it("kadınlara özel salon kartı kendi sayfasına bağlanır", () => {
+    render(<AboutContent headingLevel={3} />);
+    expect(screen.getByRole("link", { name: "Salonu tanıyın" })).toHaveAttribute(
+      "href",
+      "/kadinlar-salonu",
+    );
+  });
+});

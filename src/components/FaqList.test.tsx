@@ -4,6 +4,17 @@ import FaqList from "./FaqList";
 import { faqItems } from "@/data/faq";
 import { mapsHref } from "@/lib/links";
 
+describe("FaqList alt küme", () => {
+  it("items verilince yalnızca o soruları sırasıyla gösterir", () => {
+    const items = [faqItems[2], faqItems[0]];
+    const { container } = render(<FaqList items={items} />);
+    const questions = [...container.querySelectorAll("summary")].map(
+      (s) => s.textContent,
+    );
+    expect(questions).toEqual(items.map((item) => item.question));
+  });
+});
+
 describe("FaqList bağlantıları", () => {
   it("harita gibi dış bağlantıyı yeni sekmede açar", () => {
     render(<FaqList />);

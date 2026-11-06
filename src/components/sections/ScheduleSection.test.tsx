@@ -26,3 +26,12 @@ describe("ScheduleSection", () => {
     expect(screen.getAllByText("Core Board").length).toBeGreaterThan(0);
   });
 });
+
+describe("ScheduleSection kadınlar salonu bağlantısı", () => {
+  it("uyarı kadınlar salonu sayfasına bağlanır", () => {
+    render(<ScheduleSection />);
+    expect(
+      screen.getByRole("link", { name: "Kadınlar salonunu tanıyın" }),
+    ).toHaveAttribute("href", "/kadinlar-salonu");
+  });
+});

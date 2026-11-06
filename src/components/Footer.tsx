@@ -5,6 +5,7 @@ import { externalProps, getContactItems } from "./ContactDetails";
 import Icon from "./Icon";
 import SocialLinks from "./SocialLinks";
 import WorkingHours from "./WorkingHours";
+import { pages } from "@/lib/metadata";
 import { navItems, siteConfig } from "@/lib/site";
 
 const columnTitle =
@@ -55,6 +56,14 @@ export default function Footer() {
               {item.label}
             </Link>
           ))}
+          {/* Menü tek sayfa çapalarıdır; ayrı rotası olan kadınlar salonu
+              sayfası buradan da bağlanır (yerel arama için iç bağlantı). */}
+          <Link
+            href={pages.womens.path}
+            className="text-sm text-foreground/70 transition-colors hover:text-brand"
+          >
+            Kadınlara Özel Salon
+          </Link>
         </nav>
 
         <div>

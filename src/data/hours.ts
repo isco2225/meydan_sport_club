@@ -123,6 +123,7 @@ export type HoursRow = {
 };
 
 export type SalonHours = {
+  id: SalonSchedule["id"];
   /** Salonun görünen adı, ör. "Karma Salon". */
   name: string;
   rows: HoursRow[];
@@ -155,6 +156,7 @@ function toRow(group: DayGroup): HoursRow {
 
 /** Arayüzde gösterilen, gruplanmış saat satırları (`salonSchedules`'tan türetilir). */
 export const workingHours: SalonHours[] = salonSchedules.map((salon) => ({
+  id: salon.id,
   name: salon.name,
   rows: groupWeek(salon.week).map(toRow),
 }));

@@ -22,3 +22,14 @@ describe("WorkingHours", () => {
     expect(screen.getAllByText("Kapalı")).toHaveLength(2);
   });
 });
+
+describe("WorkingHours tek salon", () => {
+  it("salon verilince yalnızca o salonun saatlerini gösterir", () => {
+    render(<WorkingHours salon="kadinlar" />);
+    expect(screen.getByText("Kadınlar Salonu")).toBeInTheDocument();
+    expect(screen.queryByText("Karma Salon")).not.toBeInTheDocument();
+    expect(screen.getByText("Pazartesi – Cumartesi")).toBeInTheDocument();
+    expect(screen.getByText("09:00 – 22:00")).toBeInTheDocument();
+    expect(screen.getAllByText("Kapalı")).toHaveLength(1);
+  });
+});

@@ -88,3 +88,13 @@ describe("Footer e-posta", () => {
     );
   });
 });
+
+describe("Footer kadınlar salonu", () => {
+  it("menünün altında kadınlar salonu sayfasına bağlanır", () => {
+    render(<Footer />);
+    expect(screen.getByRole("link", { name: "Kadınlara Özel Salon" })).toHaveAttribute(
+      "href",
+      "/kadinlar-salonu",
+    );
+  });
+});

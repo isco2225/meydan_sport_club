@@ -1,5 +1,6 @@
 import { summarizeHours, workingHours } from "@/data/hours";
 import { formatAddress, mapsHref } from "@/lib/links";
+import { pages } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site";
 
 export type FaqItem = {
@@ -46,6 +47,7 @@ export const faqItems: FaqItem[] = [
     question: "Kadınlara özel spor salonunuz var mı?",
     answer:
       "Evet. Karma salonumuzdan ayrı, tamamen kadınlara özel bir kadınlar salonumuz var; salonu yalnızca kadın üyeler kullanır. Grup ders programımız (pilates, zumba, core board) yalnızca bu salonda düzenlenir.",
+    link: { label: "Kadınlar salonunu tanıyın", href: pages.womens.path },
   },
   {
     id: "kadin-antrenor",
