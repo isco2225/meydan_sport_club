@@ -19,6 +19,7 @@ const columnTitle =
 export default function Footer() {
   const year = new Date().getFullYear();
   const { district, city } = siteConfig.address;
+  const { developer } = siteConfig;
 
   return (
     <footer className="mt-auto border-t border-line bg-black/40">
@@ -96,12 +97,31 @@ export default function Footer() {
       </Container>
 
       <div className="border-t border-line">
-        <Container className="flex flex-col gap-1 py-6 text-xs text-foreground/55 sm:flex-row sm:justify-between">
+        <Container className="flex flex-col gap-2 py-4 text-xs text-foreground/55 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {siteConfig.name}. Tüm hakları saklıdır.
+            © {year} {siteConfig.name} · {district} / {city}. Tüm hakları
+            saklıdır.
           </p>
-          <p>
-            {district} / {city}
+          {/* Geliştirici imzası. Yeni sekmede açılır; `noreferrer` verilmez ki
+              İscotera ziyaretin bu siteden geldiğini görebilsin. */}
+          <p className="flex items-center gap-2.5">
+            <span>Tasarım ve geliştirme</span>
+            <a
+              href={developer.url}
+              target="_blank"
+              rel="noopener"
+              className="inline-flex min-h-11 items-center gap-2 text-sm font-bold uppercase tracking-wide text-foreground/80 transition-colors hover:text-foreground"
+            >
+              {/* Dekoratif: bağlantının adı yanındaki yazıdan gelir. */}
+              <Image
+                src={developer.logo}
+                alt=""
+                width={24}
+                height={24}
+                className="size-6"
+              />
+              {developer.name}
+            </a>
           </p>
         </Container>
       </div>

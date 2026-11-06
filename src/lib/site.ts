@@ -64,6 +64,16 @@ export const siteConfig = {
   googlePlaceId: "ChIJLW6aj9TKyhQR5CjgRHv3tSo",
   /** Haritadaki işaretçinin konumu (aynı bağlantıdan). JSON-LD `geo`. */
   geo: { latitude: 41.14766, longitude: 29.087506 },
+  /**
+   * Siteyi yapan firma: footer'ın en altındaki "Tasarım ve geliştirme"
+   * imzası. İscotera'nın müşteri sitelerindeki ortak imzasıyla aynıdır
+   * (logo: iscotera.com/favicon.svg'nin koyu zemin hali).
+   */
+  developer: {
+    name: "İscotera",
+    url: "https://iscotera.com/",
+    logo: "/images/logo/iscotera-logo.svg",
+  },
   social: {
     instagram: "https://www.instagram.com/meydansportclub/",
     youtube: "https://www.youtube.com/channel/UCN2zmBXM_rdVnDJCZFOVXiw",

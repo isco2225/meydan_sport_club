@@ -1,4 +1,6 @@
 import { afterEach, describe, it, expect } from "vitest";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { render, screen } from "@testing-library/react";
 import Footer from "./Footer";
 import { navItems, siteConfig } from "@/lib/site";
@@ -96,5 +98,38 @@ describe("Footer kadınlar salonu", () => {
       "href",
       "/kadinlar-salonu",
     );
+  });
+});
+
+describe("Footer geliştirici imzası", () => {
+  it("en altta 'Tasarım ve geliştirme' imzasıyla İscotera'ya bağlanır", () => {
+    render(<Footer />);
+    expect(screen.getByText("Tasarım ve geliştirme")).toBeInTheDocument();
+    const link = screen.getByRole("link", { name: siteConfig.developer.name });
+    expect(link).toHaveAttribute("href", "https://iscotera.com/");
+    expect(link).toHaveAttribute("target", "_blank");
+    // Yönlendiren bilgisi korunur (noreferrer yok) ama sekme izole edilir.
+    expect(link).toHaveAttribute("rel", "noopener");
+  });
+
+  it("logoyu dekoratif görsel olarak bağlantının içinde gösterir", () => {
+    render(<Footer />);
+    const link = screen.getByRole("link", { name: siteConfig.developer.name });
+    const logo = link.querySelector("img")!;
+    expect(logo).toHaveAttribute("alt", "");
+    expect(logo.getAttribute("src")).toContain("iscotera-logo.svg");
+  });
+
+  it("logo dosyası public/ altında gerçekten vardır", () => {
+    expect(
+      existsSync(join(process.cwd(), "public", siteConfig.developer.logo)),
+    ).toBe(true);
+  });
+
+  it("telif satırı konumu korur", () => {
+    render(<Footer />);
+    expect(
+      screen.getByText(new RegExp(`© ${new Date().getFullYear()} ${siteConfig.name} · Beykoz / İstanbul`)),
+    ).toBeInTheDocument();
   });
 });
